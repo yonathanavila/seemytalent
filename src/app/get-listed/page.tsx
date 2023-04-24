@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { useAccount } from "wagmi";
 import Image from "next/image";
+import { useAccount } from "wagmi";
+import { toast } from 'react-toastify';
+import { useEffect, useState } from "react";
 import { timeAgo } from "../../../utils/constants";
 
 const baseURI = process.env.NEXT_PUBLIC_BASE_URI || "/api/v1"
@@ -11,7 +12,7 @@ const Comment = ({ item }: any) => {
     return (
         <>
             <div className="media flex pb-4">
-                <a className="mr-4" href="#">
+                <a className="mr-4">
                     <Image className="rounded-full max-w-none w-12 h-12" alt="profile-picture" src={'/img/wolf.webp'} width={50} height={50} />
                 </a>
                 <div className="media-body">
@@ -21,7 +22,7 @@ const Comment = ({ item }: any) => {
                     </div>
                     <p>{item?.C3}</p>
                     <div className="mt-2 flex items-center">
-                        <a className="inline-flex items-center py-2 mr-3" href="#">
+                        <a className="inline-flex items-center py-2 mr-3">
                             <span className="mr-2">
                                 <svg className="fill-rose-600 dark:fill-rose-400" style={{ width: 22, height: 22 }}
                                     viewBox="0 0 24 24">
@@ -77,9 +78,23 @@ const Page = () => {
                 body: JSON.stringify({ C1: address, ...formInfo }),
             });
             const data = await response.json();
+            console.log("data", data);
             if (data.error) {
+
                 setError(data.error);
+                toast.error("Error saving");
+
+            }
+
+            if (data.length > 0) {
+
+                toast.success("Saved successfully");
+                setFormInfo({ C2: "", C3: "" });
+
             } else {
+
+                setError(data.error);
+                toast.error("Error saving");
 
             }
         }

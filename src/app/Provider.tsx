@@ -2,11 +2,13 @@
 import { SWRConfig } from 'swr';
 import dynamic from 'next/dynamic';
 import { WagmiConfig } from 'wagmi';
+import { ToastContainer, toast } from 'react-toastify';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { wagmiClient } from '../../utils/functions/client';
 import { chainSelected } from '../../utils/functions/chain';
 import { chains } from '../../utils/functions/provider';
 import '@rainbow-me/rainbowkit/styles.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const myCustomThem: any = {
     blurs: {
@@ -67,6 +69,7 @@ function Providers({ children }: any) {
                         theme={myCustomThem}
                     >
                         {children}
+                        <ToastContainer />
                     </RainbowKitProvider>
                 </WagmiConfig>
             </SWRConfig>

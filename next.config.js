@@ -2,6 +2,10 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+
+  },
+  compiler: {
+    removeConsole: true,
   },
 }
 
