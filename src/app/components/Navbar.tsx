@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image"
 import { useRouter } from 'next/navigation';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
 const Navbar = () => {
 
     const router = useRouter();
@@ -36,7 +38,7 @@ const Navbar = () => {
                     </span>
                 </div>
             </div>
-            <button className="lg:inline-block py-2 px-6 bg-blue-800 bg-opacity-50 hover:tex-blue-700 text-md text-blue-100 font-bold rounded-xl ">Connect</button>
+            <ConnectButton accountStatus="address" label="Sign in" className="lg:inline-block py-2 px-6 bg-blue-800 bg-opacity-50 hover:tex-blue-700 text-md text-blue-100 font-bold rounded-xl " />
         </nav >
     )
 }
