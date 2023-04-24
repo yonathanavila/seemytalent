@@ -12,7 +12,7 @@ const Comment = ({ item }: any) => {
         <>
             <div className="media flex pb-4">
                 <a className="mr-4" href="#">
-                    <Image className="rounded-full max-w-none w-12 h-12" alt="profile-picture" src="https://randomuser.me/api/portraits/men/82.jpg" width={50} height={50} />
+                    <Image className="rounded-full max-w-none w-12 h-12" alt="profile-picture" src={'/img/wolf.webp'} width={50} height={50} />
                 </a>
                 <div className="media-body">
                     <div>
