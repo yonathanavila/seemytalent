@@ -68,8 +68,10 @@ export default function Page() {
                             </div>
                             <div className="w-full mt-4">
                                 <a href="#"
-                                    className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75">Show
-                                    more comments</a>
+                                    className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75"
+                                >
+                                    Save
+                                </a>
                             </div>
                             <div className="pt-6">
                                 <div className="media flex pb-4">
