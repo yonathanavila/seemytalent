@@ -1,9 +1,117 @@
-export default function Page() {
+"use client";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { useAccount } from "wagmi";
+import { timeAgo } from "../../../utils/constants";
+
+const baseURI = process.env.NEXT_PUBLIC_BASE_URI || "/api/v1"
+
+const Comment = ({ item }: any) => {
+    return (
+        <>
+            <div className="media flex pb-4">
+                <a className="mr-4" href="#">
+                    <img className="rounded-full max-w-none w-12 h-12" src="https://randomuser.me/api/portraits/men/82.jpg" />
+                </a>
+                <div className="media-body">
+                    <div>
+                        <a className="inline-block text-base font-bold mr-2" href="#">{item?.C2}</a>
+                        <span className="text-slate-500 dark:text-slate-300">{timeAgo(item?.created_at)}</span>
+                    </div>
+                    <p>{item?.C3}</p>
+                    <div className="mt-2 flex items-center">
+                        <a className="inline-flex items-center py-2 mr-3" href="#">
+                            <span className="mr-2">
+                                <svg className="fill-rose-600 dark:fill-rose-400" style={{ width: 22, height: 22 }}
+                                    viewBox="0 0 24 24">
+                                    <path
+                                        d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span className="text-base font-bold">{item?.C4 > 0 ? item?.C4 : 1}</span>
+                        </a>
+                        <button className="py-2 px-4 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg">
+                            Repply
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+const Page = () => {
+    const [result, setResult] = useState<any>(undefined);
+    const [error, setError] = useState<any>();
+    const { address, isConnected } = useAccount();
+    const [pageStart, setPageStart] = useState(5);
+
+    const [formInfo, setFormInfo] = useState<any>({
+        C2: "",
+        C3: ""
+    });
+
+    const { data: apiCall, error: errorSWR, isLoading } = useSWR(`${baseURI}/get-list`);
+
+    const handlerSave = async () => {
+        if (!isConnected) {
+            alert("Please connect your wallet");
+            return;
+        }
+
+        if (!formInfo.C2 || !formInfo.C3) {
+            alert("Please fill all fields");
+            return;
+        }
+
+        if (isConnected && address) {
+            console.log("address", address);
+
+            const response = await fetch(`${baseURI}/save-list`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ C1: address, ...formInfo }),
+            });
+            const data = await response.json();
+            if (data.error) {
+                setError(data.error);
+            } else {
+
+            }
+        }
+    }
+
+    const handleCallerInfoChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormInfo({ ...formInfo, [name]: value });
+    };
+
+    useEffect(() => {
+        if (apiCall?.length > 0) {
+            setResult(apiCall?.reverse().slice(0, 5));
+        }
+
+    }, [apiCall]);
+
+    const handlerShowMore = async () => {
+        const currentLength = result?.length;
+        const endPageToShow = pageStart > currentLength ? currentLength : pageStart + 5;
+        if (currentLength < 5) {
+            setResult(apiCall);
+        } else {
+            console.log(pageStart, endPageToShow);
+            setResult(apiCall.slice(pageStart, endPageToShow));
+        }
+        setPageStart(endPageToShow);
+    }
+
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column', minHeight: '100vh' }}>
                 <div className="wrapper pt-10">
-
                     <div className="flex items-center justify-center py-8">
                         <button id="theme-toggle" type="button"
                             className="text-gray-500 dark:text-gray-400 transition bg-white dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-full text-sm p-2.5">
@@ -15,13 +123,12 @@ export default function Page() {
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                                    fill-rule="evenodd" clip-rule="evenodd"></path>
+                                    fillRule="evenodd" clipRule="evenodd"></path>
                             </svg>
                         </button>
                     </div>
                     <div className="box-border max-w-7xl mx-4 ">
                         <article className="mb-4 p-6 rounded-xl bg-white dark:bg-slate-800 flex flex-col bg-clip-border">
-
                             <h2 className="text-3xl font-extrabold dark:text-white">
                                 Get listed
                             </h2>
@@ -34,13 +141,13 @@ export default function Page() {
                                             </path>
                                         </svg>
                                     </span>
-                                    <span className="text-lg font-bold">34</span>
+                                    <span className="text-lg font-bold">{apiCall?.length > 0 ? apiCall.length : 1}</span>
                                 </a>
                             </div>
                             <div className="relative">
                                 <input
                                     className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-slate-600 rounded-lg placeholder:text-slate-600 dark:placeholder:text-slate-300 font-medium pr-20"
-                                    type="text" placeholder="Write your name" />
+                                    type="text" placeholder="Write your name" name="C2" onChange={handleCallerInfoChange} />
 
                                 <span className="flex absolute right-3 top-2/4 -mt-3 items-center ">
                                     <svg className="mr-2" style={{ width: 26, height: 26 }} viewBox="0 0 24 24">
@@ -53,7 +160,7 @@ export default function Page() {
                             <div className="relative mt-4">
                                 <input
                                     className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-slate-600 rounded-lg placeholder:text-slate-600 dark:placeholder:text-slate-300 font-medium pr-20"
-                                    type="text" placeholder="Write your comment" />
+                                    type="text" placeholder="Write your comment" name="C3" onChange={handleCallerInfoChange} />
 
                                 <span className="flex absolute right-3 top-2/4 -mt-3 items-center">
                                     <svg className="mr-2" style={{ width: 26, height: 26 }} viewBox="0 0 24 24">
@@ -61,89 +168,47 @@ export default function Page() {
                                             d="M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8C9.3,8 10,8.7 10,9.5M17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8C16.3,8 17,8.7 17,9.5M12,17.23C10.25,17.23 8.71,16.5 7.81,15.42L9.23,14C9.68,14.72 10.75,15.23 12,15.23C13.25,15.23 14.32,14.72 14.77,14L16.19,15.42C15.29,16.5 13.75,17.23 12,17.23Z">
                                         </path>
                                     </svg>
-                                    <svg className="fill-blue-500 dark:fill-slate-50 hover:cursor-pointer" style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
+                                    <svg className="fill-blue-500 dark:fill-slate-50 hover:cursor-pointer" style={{ width: 24, height: 24 }} viewBox="0 0 24 24" onClick={handlerSave}>
                                         <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
                                     </svg>
                                 </span>
                             </div>
                             <div className="w-full mt-4">
-                                <a href="#"
+                                <button
                                     className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75"
+                                    onClick={handlerSave}
                                 >
                                     Save
-                                </a>
+                                </button>
                             </div>
-                            <div className="pt-6">
-                                <div className="media flex pb-4">
-                                    <a className="mr-4" href="#">
-                                        <img className="rounded-full max-w-none w-12 h-12" src="https://randomuser.me/api/portraits/men/82.jpg" />
-                                    </a>
-                                    <div className="media-body">
-                                        <div>
-                                            <a className="inline-block text-base font-bold mr-2" href="#">Leslie Alexander</a>
-                                            <span className="text-slate-500 dark:text-slate-300">25 minutes ago</span>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur.</p>
-                                        <div className="mt-2 flex items-center">
-                                            <a className="inline-flex items-center py-2 mr-3" href="#">
-                                                <span className="mr-2">
-                                                    <svg className="fill-rose-600 dark:fill-rose-400" style={{ width: 22, height: 22 }}
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                                <span className="text-base font-bold">12</span>
-                                            </a>
-                                            <button className="py-2 px-4 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg">
-                                                Repply
-                                            </button>
-                                        </div>
+                            {apiCall?.length > 0 &&
+                                <div className="pt-6">
+
+                                    {result?.length > 0 && result?.map((item: any, index: any) => <Comment item={item} />)}
+
+                                    <div className="w-full">
+                                        <button
+                                            onClick={handlerShowMore}
+                                            className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75"
+                                        >
+                                            Show more comments
+                                        </button>
                                     </div>
                                 </div>
-                                <div className="media flex pb-4">
-                                    <a className="inline-block mr-4" href="#">
-                                        <img className="rounded-full max-w-none w-12 h-12" src="https://randomuser.me/api/portraits/women/76.jpg" />
-                                    </a>
-                                    <div className="media-body">
-                                        <div>
-                                            <a className="inline-block text-base font-bold mr-2" href="#">Tina Mills</a>
-                                            <span className="text-slate-500 dark:text-slate-300">3 minutes ago</span>
-                                        </div>
-                                        <p>Dolor sit ameteiusmod consectetur adipiscing elit.</p>
-                                        <div className="mt-2 flex items-center">
-                                            <a className="inline-flex items-center py-2 mr-3" href="#">
-                                                <span className="mr-2">
-                                                    <svg className="fill-rose-600 dark:fill-rose-400" style={{ width: 22, height: 22 }}
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12.1 18.55L12 18.65L11.89 18.55C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5C9.04 5 10.54 6 11.07 7.36H12.93C13.46 6 14.96 5 16.5 5C18.5 5 20 6.5 20 8.5C20 11.39 16.86 14.24 12.1 18.55M16.5 3C14.76 3 13.09 3.81 12 5.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5C2 12.27 5.4 15.36 10.55 20.03L12 21.35L13.45 20.03C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z">
-                                                        </path>
-                                                    </svg>
-                                                </span>
-                                                <span className="text-base font-bold">0</span>
-                                            </a>
-                                            <button className="py-2 px-4 font-medium hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg">
-                                                Repply
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-full">
-                                    <a href="#"
-                                        className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75">Show
-                                        more comments</a>
-                                </div>
-                            </div>
+                            }
+
                         </article>
                     </div>
                 </div>
                 <footer className="w-full flex justify-center flex-col py-4 text-center mt-14">
                     <p className="mb-1">
                         Built by&nbsp;
-                        <a className="font-medium underline" href="https://www.linkedin.com/in/yonathan-c-326b141b2/">
-                            Yonathan Cruz</a>
+                        <a
+                            className="font-medium underline"
+                            href="https://www.linkedin.com/in/yonathan-c-326b141b2/"
+                        >
+                            Yonathan Cruz
+                        </a>
                     </p>
                     <p className="dark:text-white mb-3">
                         Contact me on the different platforms and social networks
@@ -169,8 +234,9 @@ export default function Page() {
                         </a>
                     </div>
                 </footer>
-
             </div>
         </>
     )
 }
+
+export default Page;

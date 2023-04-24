@@ -1,4 +1,5 @@
 "use client"
+import { SWRConfig } from 'swr';
 import dynamic from 'next/dynamic';
 import { WagmiConfig } from 'wagmi';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
@@ -53,15 +54,22 @@ function Providers({ children }: any) {
 
     return (
         <div>
-            <WagmiConfig client={wagmiClient}>
-                <RainbowKitProvider
-                    chains={chains}
-                    initialChain={chainSelected[Number(chainId || 0)]}
-                    theme={myCustomThem}
-                >
-                    {children}
-                </RainbowKitProvider>
-            </WagmiConfig>
+            <SWRConfig
+                value={{
+                    refreshInterval: 86400,
+                    fetcher: (resource, init) =>
+                        fetch(resource, init).then((res) => res.json()),
+                }}>
+                <WagmiConfig client={wagmiClient}>
+                    <RainbowKitProvider
+                        chains={chains}
+                        initialChain={chainSelected[Number(chainId || 0)]}
+                        theme={myCustomThem}
+                    >
+                        {children}
+                    </RainbowKitProvider>
+                </WagmiConfig>
+            </SWRConfig>
         </div >
     )
 }
