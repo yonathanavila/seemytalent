@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
+import Image from "next/image";
 import { timeAgo } from "../../../utils/constants";
 
 const baseURI = process.env.NEXT_PUBLIC_BASE_URI || "/api/v1"
@@ -11,11 +12,11 @@ const Comment = ({ item }: any) => {
         <>
             <div className="media flex pb-4">
                 <a className="mr-4" href="#">
-                    <img className="rounded-full max-w-none w-12 h-12" src="https://randomuser.me/api/portraits/men/82.jpg" />
+                    <Image className="rounded-full max-w-none w-12 h-12" alt="profile-picture" src="https://randomuser.me/api/portraits/men/82.jpg" width={50} height={50} />
                 </a>
                 <div className="media-body">
                     <div>
-                        <a className="inline-block text-base font-bold mr-2" href="#">{item?.C2}</a>
+                        <a className="inline-block text-base font-bold mr-2" >{item?.C2}</a>
                         <span className="text-slate-500 dark:text-slate-300">{timeAgo(item?.created_at)}</span>
                     </div>
                     <p>{item?.C3}</p>
@@ -184,7 +185,7 @@ const Page = () => {
                             {apiCall?.length > 0 &&
                                 <div className="pt-6">
 
-                                    {result?.length > 0 && result?.map((item: any, index: any) => <Comment item={item} />)}
+                                    {result?.length > 0 && result?.map((item: any, index: any) => <Comment key={index} item={item} />)}
 
                                     <div className="w-full">
                                         <button
