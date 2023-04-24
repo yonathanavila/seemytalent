@@ -6,9 +6,9 @@ export default function Page() {
             <nav className="relative px-4 py-4 flex justify-between items-center">
                 <a className=" font-bold flex items-center" target="_blank">
                     <Image src={'/img/SeeMyTalent.png'} alt="SeeMyTalent" width={35} height={35} className="m-2" />
-                    <a className="text-sm text-white hover:bg-gray-800 hover:cursor-pointer p-3 rounded-xl" target="_blank">Home</a>
-                    <a className="text-sm text-gray-400 font-bold hover:bg-gray-800 hover:cursor-pointer p-3 rounded-xl" target="_blank">About Us</a>
-                    <a className="text-sm text-gray-400 font-bold hover:bg-gray-800 hover:cursor-pointer p-3 rounded-xl" target="_blank">Docs</a>
+                    <a className="text-md text-white hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank">Home</a>
+                    <a className="text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank">About Us</a>
+                    <a className="text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank">Docs</a>
                 </a>
                 <div className="lg:hidden">
                     <button className="navbar-burger flex items-center text-blue-600 p-3">
@@ -21,7 +21,7 @@ export default function Page() {
                 <div className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
                     <div className="relative">
                         <input
-                            className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-slate-600 rounded-lg placeholder:text-slate-600 dark:placeholder:text-slate-300 font-medium pr-20"
+                            className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-gray-800 rounded-lg placeholder:text-gray-600 dark:placeholder:text-gray-300 font-medium pr-20"
                             type="text" placeholder="Search profile" />
 
                         <span className="flex absolute right-3 top-2/4 -mt-3 items-center">
@@ -33,7 +33,7 @@ export default function Page() {
                         </span>
                     </div>
                 </div>
-                <a className="hidden lg:inline-block py-2 px-6 bg-gray-50 hover:bg-gray-100  text-sm text-gray-900 font-bold rounded-xl transition duration-200" target="_blank">Connect</a>
+                <button className="hidden lg:inline-block py-2 px-6 bg-blue-800 bg-opacity-50 hover:tex-blue-700 text-md text-blue-100 font-bold rounded-xl transition duration-200">Connect</button>
             </nav >
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column', minHeight: '100vh' }}>
