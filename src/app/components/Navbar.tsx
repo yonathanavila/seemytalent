@@ -31,7 +31,7 @@ const Navbar = () => {
                         </span>
                     </div>
                 </div>
-                <ConnectButton accountStatus="address" label="Sign in" className="hidden sm:block lg:inline-block py-2 px-6 bg-blue-800 bg-opacity-50 hover:tex-blue-700 text-md text-blue-100 font-bold rounded-xl " />
+                <ConnectButton accountStatus="address" label="Sign in" />
             </nav >
             <div className="lg:hidden font-bold flex flex-wrap justify-center">
                 <a className="flex-item text-md text-white hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('/')}>Home</a>
