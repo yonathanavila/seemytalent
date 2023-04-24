@@ -31,3 +31,18 @@ body {
   pointer-events: none;
   z-index: -1;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #424242;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #424242;
+  border-radius: 4px;
+}
