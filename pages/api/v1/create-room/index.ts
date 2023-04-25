@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const CreateRoom = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { data } = await axios.post(
             'https://iriko.testing.huddle01.com/api/v1/create-room',
@@ -24,4 +24,4 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 };
 
-export default handler;
+export default CreateRoom;

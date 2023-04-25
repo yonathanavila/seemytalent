@@ -77,4 +77,4 @@ function Providers({ children }: any) {
     )
 }
 
-export default dynamic(() => Promise.resolve(Providers), { ssr: false });
+export default Providers;
