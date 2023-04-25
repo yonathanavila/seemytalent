@@ -1,34 +1,46 @@
-import { useHuddle01 } from "@huddle01/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { useEventListener, useHuddle01 } from "@huddle01/react";
+import { Audio, Video } from "@huddle01/react/components";
+/* Uncomment to see the Xstate Inspector */
+// import { Inspect } from '@huddle01/react/components';
 
 import {
-    useLobby,
     useAudio,
-    useVideo,
-    useRoom,
+    useLobby,
     useMeetingMachine,
     usePeers,
-    useRecording
+    useRoom,
+    useVideo,
+    useRecording,
 } from "@huddle01/react/hooks";
 
-const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
+import { useDisplayName } from "@huddle01/react/app-utils";
 
-const InterviewRecord = () => {
+import Button from "../components/Button";
+
+const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
+const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
+
+
+const App = () => {
+    // refs
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const { state, send } = useMeetingMachine();
 
     const [roomId, setRoomId] = useState<any>("");
-    const { fetchAudioStream, stopAudioStream, error: micError, produceAudio, stopProducingAudio, stream: micStream } = useAudio();
-    const { initialize, isInitialized } = useHuddle01();
-    const { state, send } = useMeetingMachine();
-    const { joinRoom, leaveRoom } = useRoom();
+    const [displayNameText, setDisplayNameText] = useState("Guest");
+
+    const { initialize } = useHuddle01();
     const { joinLobby } = useLobby();
     const {
-        startRecording,
-        stopRecording,
-        error,
-        data: recordingData,
-    } = useRecording();
-    const { peers } = usePeers();
+        fetchAudioStream,
+        produceAudio,
+        stopAudioStream,
+        stopProducingAudio,
+        stream: micStream,
+    } = useAudio();
     const {
         fetchVideoStream,
         produceVideo,
@@ -36,6 +48,23 @@ const InterviewRecord = () => {
         stopProducingVideo,
         stream: camStream,
     } = useVideo();
+    const { joinRoom, leaveRoom } = useRoom();
+
+    // Event Listner
+    useEventListener("lobby:cam-on", () => {
+        if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
+    });
+
+    const { peers } = usePeers();
+
+    const {
+        startRecording,
+        stopRecording,
+        error,
+        data: recordingData,
+    } = useRecording();
+
+    const { setDisplayName, error: displayNameError } = useDisplayName();
 
     const getRoomId = () => {
         fetch(`${baseURI}/create-room`, {
@@ -50,92 +79,196 @@ const InterviewRecord = () => {
     }
 
     useEffect(() => {
-        initialize(projectId);
+        if (initialize.isCallable && projectId) {
+            initialize(projectId);
+        }
         getRoomId();
-
     }, []);
 
+    useEventListener("room:joined", () => {
+        console.log("room:joined");
+    });
+    useEventListener("lobby:joined", () => {
+        console.log("lobby:joined");
+    });
 
     return (
-        <>
-            <h1>Interview</h1>
-            <h2 className="text-2xl">Room State</h2>
-            <h3 className="break-words">{JSON.stringify(state.value)}</h3>
-            <h2 className="text-2xl">Me Id</h2>
-            <div className="break-words">
-                {JSON.stringify(state.context.peerId)}
-            </div>
-            <h2 className="text-2xl">DisplayName</h2>
-            <div className="break-words">
-                {JSON.stringify(state.context.displayName)}
-            </div>
-            <h2 className="text-2xl">Room Id</h2>
-            <div className="break-words">
-                {JSON.stringify(roomId)}
-            </div>
-            <h2 className="text-2xl">Recording Data</h2>
-            <div className="break-words">{JSON.stringify(recordingData)}</div>
-            <h2 className="text-2xl">Error</h2>
-            <div className="break-words text-red-500">
-                {JSON.stringify(state.context.error)}
-            </div>
-            <h2 className="text-2xl">Peers</h2>
-            <div className="break-words">{JSON.stringify(peers)}</div>
-            <h2 className="text-2xl">Consumers</h2>
-            <div className="break-words">
-                {JSON.stringify(state.context.consumers)}
-            </div>
-            <h2 className="text-3xl text-yellow-500 font-extrabold">Lobby</h2>
-            <div className="flex gap-4 flex-wrap">
+        <div className="grid grid-cols-2">
+            <div>
+                <h1 className="text-6xl font-bold">
+                    Welcome to{" "}
+                    <a className="text-blue-600" href="https://huddle01.com">
+                        Huddle01 SDK!
+                    </a>
+                </h1>
 
-            </div>
-            <div className="flex items-center justify-center py-8">
-                <div className="grid gap-4 grid-cols-3 grid-rows-3">
-                    <div>{isInitialized && roomId ? 'Hello World' : 'Please initialize'}</div>
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        disabled={!joinLobby.isCallable}
-                        onClick={() => joinLobby(roomId?.data?.roomId)}
+                <h2 className="text-2xl">Room State</h2>
+                <h3 className="break-words">{JSON.stringify(state.value)}</h3>
+
+                <h2 className="text-2xl">Me Id</h2>
+                <div className="break-words">
+                    {JSON.stringify(state.context.peerId)}
+                </div>
+                <h2 className="text-2xl">DisplayName</h2>
+                <div className="break-words">
+                    {JSON.stringify(state.context.displayName)}
+                </div>
+                <h2 className="text-2xl">Recording Data</h2>
+                <div className="break-words">{JSON.stringify(recordingData)}</div>
+
+                <h2 className="text-2xl">Error</h2>
+                <div className="break-words text-red-500">
+                    {JSON.stringify(state.context.error)}
+                </div>
+                <h2 className="text-2xl">Peers</h2>
+                <div className="break-words">{JSON.stringify(peers)}</div>
+                <h2 className="text-2xl">Consumers</h2>
+                <div className="break-words">
+                    {JSON.stringify(state.context.consumers)}
+                </div>
+
+                <br />
+                <br />
+                <h2 className="text-3xl text-red-500 font-extrabold">Initialized</h2>
+                <Button
+                    disabled={!joinLobby.isCallable}
+                    onClick={() => {
+                        joinLobby(roomId?.data?.roomId);
+                    }}
+                >
+                    JOIN_LOBBY
+                </Button>
+                <br />
+                <br />
+                <h2 className="text-3xl text-yellow-500 font-extrabold">Lobby</h2>
+                <div className="flex gap-4 flex-wrap">
+                    <input
+                        type="text"
+                        placeholder="Your Room Id"
+                        value={displayNameText}
+                        onChange={(e) => setDisplayNameText(e.target.value)}
+                        className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none mr-2"
+                    />
+                    <Button
+                        disabled={!setDisplayName.isCallable}
+                        onClick={() => {
+                            setDisplayName(displayNameText);
+                        }}
                     >
-                        Join Lobby
-                    </button>
-                    {/* Webcam */}
-                    <button disabled={!fetchVideoStream.isCallable} onClick={fetchVideoStream} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        {`SET_DISPLAY_NAME error: ${displayNameError}`}
+                    </Button>
+                    <Button
+                        disabled={!fetchVideoStream.isCallable}
+                        onClick={fetchVideoStream}
+                    >
                         FETCH_VIDEO_STREAM
-                    </button>
-                    {/* Mic */}
-                    <button disabled={!fetchAudioStream.isCallable} onClick={fetchAudioStream} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    </Button>
+
+                    <Button
+                        disabled={!fetchAudioStream.isCallable}
+                        onClick={fetchAudioStream}
+                    >
                         FETCH_AUDIO_STREAM
-                    </button>
+                    </Button>
 
-                    <button disabled={!joinRoom.isCallable} onClick={joinRoom} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
                         JOIN_ROOM
-                    </button>
+                    </Button>
 
-                    <button disabled={!state.matches("Initialized.JoinedLobby")} onClick={() => send("LEAVE_LOBBY")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <Button
+                        disabled={!state.matches("Initialized.JoinedLobby")}
+                        onClick={() => send("LEAVE_LOBBY")}
+                    >
                         LEAVE_LOBBY
-                    </button>
+                    </Button>
 
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    <Button
                         disabled={!stopVideoStream.isCallable}
                         onClick={stopVideoStream}
                     >
                         STOP_VIDEO_STREAM
-                    </button>
-
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    </Button>
+                    <Button
                         disabled={!stopAudioStream.isCallable}
                         onClick={stopAudioStream}
                     >
                         STOP_AUDIO_STREAM
-                    </button>
-
+                    </Button>
                 </div>
-            </div >
-        </>
-    );
-}
+                <br />
+                <h2 className="text-3xl text-green-600 font-extrabold">Room</h2>
+                <div className="flex gap-4 flex-wrap">
+                    <Button
+                        disabled={!produceAudio.isCallable}
+                        onClick={() => produceAudio(micStream)}
+                    >
+                        PRODUCE_MIC
+                    </Button>
 
-export default InterviewRecord;
+                    <Button
+                        disabled={!produceVideo.isCallable}
+                        onClick={() => produceVideo(camStream)}
+                    >
+                        PRODUCE_CAM
+                    </Button>
+
+                    <Button
+                        disabled={!stopProducingAudio.isCallable}
+                        onClick={() => stopProducingAudio()}
+                    >
+                        STOP_PRODUCING_MIC
+                    </Button>
+
+                    <Button
+                        disabled={!stopProducingVideo.isCallable}
+                        onClick={() => stopProducingVideo()}
+                    >
+                        STOP_PRODUCING_CAM
+                    </Button>
+
+                    <Button
+                        disabled={!startRecording.isCallable}
+                        onClick={() =>
+                            startRecording(`${window.location.href}rec/${roomId}`)
+                        }
+                    >
+                        {`START_RECORDING error: ${error}`}
+                    </Button>
+                    <Button disabled={!stopRecording.isCallable} onClick={stopRecording}>
+                        STOP_RECORDING
+                    </Button>
+
+                    <Button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
+                        LEAVE_ROOM
+                    </Button>
+                </div>
+
+                {/* Uncomment to see the Xstate Inspector */}
+                {/* <Inspect /> */}
+            </div>
+            <div>
+                Me Video:
+                <video ref={videoRef} autoPlay muted></video>
+                <div className="grid grid-cols-4">
+                    {Object.values(peers)
+                        .filter((peer) => peer.cam)
+                        .map((peer) => (
+                            <Video
+                                key={peer.peerId}
+                                peerId={peer.peerId}
+                                track={peer.cam}
+                                debug
+                            />
+                        ))}
+                    {Object.values(peers)
+                        .filter((peer) => peer.mic)
+                        .map((peer) => (
+                            <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
+                        ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default App;
