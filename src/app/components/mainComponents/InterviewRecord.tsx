@@ -17,6 +17,7 @@ import { useEventListener, useHuddle01 } from "@huddle01/react";
 import Button from "../Button";
 import CustomInput from "../Input";
 import CustomCard from "../Card";
+import CopyToClipboardButton from "../CopyToClipboardButton";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
@@ -99,8 +100,6 @@ const App = () => {
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column', minHeight: '100vh' }}>
             <div className="wrapper pt-10">
-
-
                 <div className="grid grid-cols-2">
                     <CustomCard title="" className="bg-gradient-to-b from-[#8498FB] to-[#49B8F1]">
                         <a className="mr-4">
@@ -119,37 +118,34 @@ const App = () => {
                         </div>
 
                     </CustomCard >
-                    <div>
-                        {!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : address) : "Custom Name"} Video:
-                        <video ref={videoRef} autoPlay muted></video>
-                        <div className="grid grid-cols-4">
-                            {Object.values(peers)
-                                .filter((peer) => peer.cam)
-                                .map((peer) => (
-                                    <Video
-                                        key={peer.peerId}
-                                        peerId={peer.peerId}
-                                        track={peer.cam}
-                                        debug
-                                    />
-                                ))}
-                            {Object.values(peers)
-                                .filter((peer) => peer.mic)
-                                .map((peer) => (
-                                    <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
-                                ))}
-                        </div>
-                    </div>
                     <CustomCard title="">
-                        <h2 className="text-2xl">Room</h2>
-                        <h3 className="break-words">{roomId && roomId?.data?.roomId}</h3>
-                        <h2 className="text-2xl">DisplayName</h2>
-                        <div className="break-words">
-                            {JSON.stringify(state.context.displayName)}
-                        </div>
-                        <h2 className="text-2xl">Peers</h2>
-                        <div className="break-words">{JSON.stringify(peers)}</div>
+                        <div className="grid grid-cols-3">
+                            <Button
+                                disabled={!fetchVideoStream.isCallable}
+                                onClick={fetchVideoStream}
+                            >
+                                Turn on my camera
+                            </Button>
 
+                            <Button
+                                disabled={!fetchAudioStream.isCallable}
+                                onClick={fetchAudioStream}
+                            >
+                                Turn on my mic
+                            </Button>
+                        </div>
+                    </CustomCard>
+                    <CustomCard title="">
+                        <div className="grid grid-cols-3">
+                            <h3 className="text-2xl font-semibold m-2">Room</h3>
+                            <h3 className="text-2xl font-semibold m-2">DisplayName</h3>
+                        </div>
+                        <div className="grid grid-cols-3">
+                            <CopyToClipboardButton text={roomId && roomId?.data?.roomId} />
+                            <CopyToClipboardButton text={!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : address) : state.context.displayName} />
+                        </div>
+                        <h3 className="text-2xl font-semibold mt-4">Peers</h3>
+                        <div className="break-words">{JSON.stringify(peers)}</div>
                         <br />
                         <br />
                         <Button
@@ -162,7 +158,7 @@ const App = () => {
                         </Button>
                         <br />
                         <br />
-                        <h2 className="text-3xl text-white-500 font-extrabold">Lobby</h2>
+                        <h3 className="text-2xl m-2 text-white-500 font-extrabold">Lobby</h3>
                         <div className="flex gap-4 flex-wrap">
                             <CustomInput
                                 type="text"
@@ -178,19 +174,6 @@ const App = () => {
                                 }}
                             >
                                 {`Custom name`}
-                            </Button>
-                            <Button
-                                disabled={!fetchVideoStream.isCallable}
-                                onClick={fetchVideoStream}
-                            >
-                                Turn on my camera
-                            </Button>
-
-                            <Button
-                                disabled={!fetchAudioStream.isCallable}
-                                onClick={fetchAudioStream}
-                            >
-                                Turn on my mic
                             </Button>
 
                             <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
@@ -218,7 +201,7 @@ const App = () => {
                             </Button>
                         </div>
                         <br />
-                        <h2 className="text-3xl text-green-600 font-extrabold">Room</h2>
+                        <h3 className="text-3xl text-green-600 font-extrabold">Room</h3>
                         <div className="flex gap-4 flex-wrap">
                             <Button
                                 disabled={!produceAudio.isCallable}
@@ -265,6 +248,28 @@ const App = () => {
                             </Button>
                         </div>
                     </CustomCard>
+                    <div>
+                        {!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : address) : "Custom Name"} Video:
+                        <video ref={videoRef} autoPlay muted></video>
+                        <div className="grid grid-cols-4">
+                            {Object.values(peers)
+                                .filter((peer) => peer.cam)
+                                .map((peer) => (
+                                    <Video
+                                        key={peer.peerId}
+                                        peerId={peer.peerId}
+                                        track={peer.cam}
+                                        debug
+                                    />
+                                ))}
+                            {Object.values(peers)
+                                .filter((peer) => peer.mic)
+                                .map((peer) => (
+                                    <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
+                                ))}
+                        </div>
+                    </div>
+
 
                 </div>
             </div>

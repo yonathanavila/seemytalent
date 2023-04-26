@@ -129,7 +129,7 @@ const Page = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column', minHeight: '100vh' }}>
+            <div className="flex flex-col items-center justify-between min-h-screen">
                 <div className="wrapper pt-10">
                     <div className="flex items-center justify-center py-8">
                         <button id="theme-toggle" type="button"
