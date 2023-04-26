@@ -13,25 +13,23 @@ import { useEnsName, useAccount } from 'wagmi'
 import { useDisplayName } from "@huddle01/react/app-utils";
 import { useEventListener, useHuddle01 } from "@huddle01/react";
 
-import Button from "../Button";
-import CustomInput from "../Input";
-import CustomCard from "../Card";
-import CopyToClipboardButton from "../CopyToClipboardButton";
-import getAddress from "../../../../utils/functions/common";
 import Video from "../Video";
+import Button from "../Button";
+import CustomCard from "../Card";
+import CustomInput from "../Input";
+import getAddress from "../../../../utils/functions/common";
+import useGetEnsName from "../../../../hooks/useGetEnsName";
+import CopyToClipboardButton from "../CopyToClipboardButton";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
 
 const App = () => {
-
     // wagmi hooks
     const { address } = useAccount();
-    const {
-        data: dataGetEnsName,
-        isError: errorGetEnsName,
-        isLoading: isLoadingGetEnsName
-    } = useEnsName({ address });
+    const { data: ens } = useEnsName({ address });
+    // custom hooks
+    const { ensName } = useGetEnsName(address);
     // huddle01 hooks
     const [roomId, setRoomId] = useState<any>("");
     const { state, send } = useMeetingMachine();
@@ -94,44 +92,34 @@ const App = () => {
     });
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column', minHeight: '100vh' }}>
+        <div className="flex min-h-screen flex-col items-center justify-between p-20">
             <div className="wrapper pt-10">
-                <div className="grid grid-cols-2">
-                    <CustomCard title="" className="bg-gradient-to-b from-[#8498FB] to-[#49B8F1]">
+                <div className="box-border max-w-7xl mx-4 max-w-7xl mx-4 sm:columns-1 md:columns-2 lg:columns-2 xl:columns-2">
+                    <CustomCard className={`${ens && 'bg-gradient-to-b from-[#8498FB] to-[#49B8F1]'}`}>
                         <a className="mr-4">
                             <Image
                                 className="rounded-full max-w-none w-25 h-25"
                                 alt="profile-picture"
-                                src={!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? `https://metadata.ens.domains/mainnet/avatar/${dataGetEnsName}` : "/img/wolf.webp") : "/img/wolf.webp"}
+                                src={(ens ? `https://metadata.ens.domains/mainnet/avatar/${ens}` : "/img/wolf.webp")}
                                 width={80}
                                 height={80}
                             />
                         </a>
                         <div className="media-body">
                             <div>
-                                <a className="inline-block text-base font-bold mr-2" >{!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? <h1>{dataGetEnsName}</h1> : <h1>{getAddress(address!)}</h1>) : <h1>{"Custom name"}</h1>}</a>
+                                <a className="inline-block text-base font-bold mr-2" >{(displayNameText || ensName || ens || getAddress(address) || "Custom text") as string}</a>
                             </div>
                         </div>
 
                     </CustomCard >
-                    <Video
-                        ensName={dataGetEnsName}
-                        errorEnsName={errorGetEnsName}
-                        isLoadingEnsName={isLoadingGetEnsName}
-                        address={getAddress(address)}
-                        peers={peers}
-                        camStream={camStream}
-                        fetchVideoStream={fetchVideoStream}
-                        fetchAudioStream={fetchAudioStream}
-                    />
-                    <CustomCard title="">
+                    <CustomCard>
                         <div className="grid grid-cols-3">
                             <h3 className="text-2xl font-semibold m-2">Room</h3>
                             <h3 className="text-2xl font-semibold m-2">DisplayName</h3>
                         </div>
                         <div className="grid grid-cols-3">
                             <CopyToClipboardButton text={roomId && roomId?.data?.roomId} />
-                            <CopyToClipboardButton text={!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : getAddress(address!)) : state.context.displayName} />
+                            <CopyToClipboardButton text={(displayNameText || ens || getAddress(address) || "Custom text") as string} />
                         </div>
                         <h3 className="text-2xl font-semibold mt-4">Peers</h3>
                         <div className="break-words">{JSON.stringify(peers)}</div>
@@ -238,8 +226,14 @@ const App = () => {
                         </div>
                     </CustomCard>
 
-
-
+                    <Video
+                        ensName={(displayNameText || ens || getAddress(address) || "Custom text") as string}
+                        address={getAddress(address)}
+                        peers={peers}
+                        camStream={camStream}
+                        fetchVideoStream={fetchVideoStream}
+                        fetchAudioStream={fetchAudioStream}
+                    />
                 </div>
             </div>
         </div>

@@ -7,9 +7,7 @@ import Button from "./Button";
 
 
 const VideoComponent: React.FC<{
-    ensName: undefined | null | string;
-    errorEnsName: boolean;
-    isLoadingEnsName: boolean;
+    ensName: string;
     address: `0x${string}` | undefined | string;
     peers: any;
     camStream: any;
@@ -18,8 +16,6 @@ const VideoComponent: React.FC<{
     className?: string;
 }> = ({
     ensName,
-    errorEnsName,
-    isLoadingEnsName,
     address,
     peers,
     camStream,
@@ -34,46 +30,42 @@ const VideoComponent: React.FC<{
         });
 
         return (<>
-            <div className="grid grid-cols-2">
-                <CustomCard title="">
-                    <div className="grid grid-cols-3">
-                        <Button
-                            disabled={!fetchVideoStream.isCallable}
-                            onClick={fetchVideoStream}
-                        >
-                            Turn on my camera
-                        </Button>
+            <CustomCard title="">
+                <div className="grid grid-cols-3">
+                    <Button
+                        disabled={!fetchVideoStream.isCallable}
+                        onClick={fetchVideoStream}
+                    >
+                        Turn on my camera
+                    </Button>
 
-                        <Button
-                            disabled={!fetchAudioStream.isCallable}
-                            onClick={fetchAudioStream}
-                        >
-                            Turn on my mic
-                        </Button>
-                    </div>
-                </CustomCard>
-                <div>
-                    {!errorEnsName && !isLoadingEnsName ? (ensName ? ensName : address) : "Custom Name"} Video:
-                    <video ref={videoRef} autoPlay muted></video>
-                    <div className="grid grid-cols-4">
-                        {Object.values(peers)
-                            .filter((peer: any) => peer.cam)
-                            .map((peer: any) => (
-                                <Video
-                                    key={peer.peerId}
-                                    peerId={peer.peerId}
-                                    track={peer.cam}
-                                    debug
-                                />
-                            ))}
-                        {Object.values(peers)
-                            .filter((peer: any) => peer.mic)
-                            .map((peer: any) => (
-                                <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
-                            ))}
-                    </div>
+                    <Button
+                        disabled={!fetchAudioStream.isCallable}
+                        onClick={fetchAudioStream}
+                    >
+                        Turn on my mic
+                    </Button>
                 </div>
-            </div>
+                {ensName} Video:
+                <video ref={videoRef} autoPlay muted></video>
+                <div className="grid grid-cols-4">
+                    {Object.values(peers)
+                        .filter((peer: any) => peer.cam)
+                        .map((peer: any) => (
+                            <Video
+                                key={peer.peerId}
+                                peerId={peer.peerId}
+                                track={peer.cam}
+                                debug
+                            />
+                        ))}
+                    {Object.values(peers)
+                        .filter((peer: any) => peer.mic)
+                        .map((peer: any) => (
+                            <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
+                        ))}
+                </div>
+            </CustomCard>
         </>)
     }
 
