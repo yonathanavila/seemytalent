@@ -107,19 +107,17 @@ const App = () => {
                         </a>
                         <div className="media-body">
                             <div>
-                                <a className="inline-block text-base font-bold mr-2" >{(displayNameText || ensName || ens || getAddress(address) || "Custom text") as string}</a>
+                                <a className="inline-block text-base font-bold mr-2 mt-2" >{(displayNameText || ensName || ens || getAddress(address) || "Custom text") as string}</a>
                             </div>
                         </div>
 
                     </CustomCard >
                     <CustomCard>
-                        <div className="grid grid-cols-3">
-                            <h3 className="text-2xl font-semibold m-2">Room</h3>
-                            <h3 className="text-2xl font-semibold m-2">DisplayName</h3>
-                        </div>
-                        <div className="grid grid-cols-3">
-                            <CopyToClipboardButton text={roomId && roomId?.data?.roomId} />
-                            <CopyToClipboardButton text={(displayNameText || ens || getAddress(address) || "Custom text") as string} />
+
+                        <h3 className="text-2xl font-semibold m-2">Room</h3>
+                        <div className="flex flex-row flex-wrap gap-0.5 mt-0.5">
+                            <CopyToClipboardButton title={"Room Id"} text={roomId && roomId?.data?.roomId} />
+                            <CopyToClipboardButton title={"Display name"} text={(displayNameText || ens || getAddress(address) || "Custom text") as string} />
                         </div>
                         <h3 className="text-2xl font-semibold mt-4">Peers</h3>
                         <div className="break-words">{JSON.stringify(peers)}</div>
