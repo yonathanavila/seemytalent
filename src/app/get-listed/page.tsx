@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { timeAgo } from "../../../utils/constants";
 import CustomInput from "../components/Input";
 import Button from "../components/Button";
+import CustomCard from "../components/Card";
 
 const baseURI = process.env.NEXT_PUBLIC_BASE_URI || "/api/v1"
 
@@ -146,10 +147,7 @@ const Page = () => {
                         </button>
                     </div>
                     <div className="box-border max-w-7xl mx-4 ">
-                        <article className="mb-4 p-6 rounded-xl bg-white dark:bg-slate-800 flex flex-col bg-clip-border">
-                            <h2 className="text-3xl font-extrabold dark:text-white">
-                                Get listed
-                            </h2>
+                        <CustomCard title={"Get listed"}>
                             <div className="py-4">
                                 <a className="inline-flex items-center" href="#">
                                     <span className="mr-2">
@@ -207,7 +205,7 @@ const Page = () => {
                                 </div>
                             }
 
-                        </article>
+                        </CustomCard>
                     </div>
                 </div>
                 <footer className="w-full flex justify-center flex-col py-4 text-center mt-14">
