@@ -9,6 +9,7 @@ import {
     useVideo,
     useRecording,
 } from "@huddle01/react/hooks";
+import useSWR from "swr";
 import { useEnsName, useAccount } from 'wagmi'
 import { useDisplayName } from "@huddle01/react/app-utils";
 import { useEventListener, useHuddle01 } from "@huddle01/react";
@@ -28,6 +29,7 @@ const App = () => {
     // wagmi hooks
     const { address } = useAccount();
     const { data: ens } = useEnsName({ address });
+    const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
     // custom hooks
     const { ensName } = useGetEnsName(address);
     // huddle01 hooks
@@ -80,6 +82,7 @@ const App = () => {
         if (initialize.isCallable && projectId) {
             initialize(projectId);
         }
+
         getRoomId();
     }, []);
 
@@ -97,10 +100,11 @@ const App = () => {
                 <div className="box-border max-w-7xl mx-4 max-w-7xl mx-4 sm:columns-1 md:columns-2 lg:columns-2 xl:columns-2">
                     <CustomCard className={`${ens && 'bg-gradient-to-b from-[#8498FB] to-[#49B8F1]'}`}>
                         <a className="mr-4">
+                            { }
                             <Image
                                 className="rounded-full max-w-none w-25 h-25"
                                 alt="profile-picture"
-                                src={(ens ? `https://metadata.ens.domains/mainnet/avatar/${ens}` : "/img/wolf.webp")}
+                                src={((!ensAvatar?.message ? `https://metadata.ens.domains/mainnet/avatar/${ens}` : "/img/wolf.webp") || "/img/wolf.webp")}
                                 width={80}
                                 height={80}
                             />
@@ -131,6 +135,20 @@ const App = () => {
                         >
                             Join Lobby
                         </Button>
+
+                        <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
+                            Join Room
+                        </Button>
+
+                        <Button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
+                            Leave Room
+                        </Button>
+                        <Button
+                            disabled={!state.matches("Initialized.JoinedLobby")}
+                            onClick={() => send("LEAVE_LOBBY")}
+                        >
+                            Leave Lobby
+                        </Button>
                         <br />
                         <br />
                         <h3 className="text-2xl m-2 text-white-500 font-extrabold">Lobby</h3>
@@ -149,17 +167,6 @@ const App = () => {
                                 }}
                             >
                                 {`Custom name`}
-                            </Button>
-
-                            <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
-                                JOIN_ROOM
-                            </Button>
-
-                            <Button
-                                disabled={!state.matches("Initialized.JoinedLobby")}
-                                onClick={() => send("LEAVE_LOBBY")}
-                            >
-                                LEAVE_LOBBY
                             </Button>
 
                             <Button
@@ -218,9 +225,6 @@ const App = () => {
                                 STOP_RECORDING
                             </Button>
 
-                            <Button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
-                                LEAVE_ROOM
-                            </Button>
                         </div>
                     </CustomCard>
 
