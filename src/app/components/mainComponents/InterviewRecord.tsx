@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
     useAudio,
@@ -10,7 +10,6 @@ import {
     useRecording,
 } from "@huddle01/react/hooks";
 import { useEnsName, useAccount } from 'wagmi'
-import { Audio, Video } from "@huddle01/react/components";
 import { useDisplayName } from "@huddle01/react/app-utils";
 import { useEventListener, useHuddle01 } from "@huddle01/react";
 
@@ -18,6 +17,8 @@ import Button from "../Button";
 import CustomInput from "../Input";
 import CustomCard from "../Card";
 import CopyToClipboardButton from "../CopyToClipboardButton";
+import getAddress from "../../../../utils/functions/common";
+import Video from "../Video";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
@@ -32,7 +33,6 @@ const App = () => {
         isLoading: isLoadingGetEnsName
     } = useEnsName({ address });
     // huddle01 hooks
-    const videoRef = useRef<HTMLVideoElement>(null);
     const [roomId, setRoomId] = useState<any>("");
     const { state, send } = useMeetingMachine();
     const { joinRoom, leaveRoom } = useRoom();
@@ -76,7 +76,6 @@ const App = () => {
                 console.log(data)
                 setRoomId(data)
             })
-
     }
 
     useEffect(() => {
@@ -86,10 +85,7 @@ const App = () => {
         getRoomId();
     }, []);
 
-    // Event Listner
-    useEventListener("lobby:cam-on", () => {
-        if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
-    });
+
     useEventListener("room:joined", () => {
         console.log("room:joined");
     });
@@ -113,28 +109,21 @@ const App = () => {
                         </a>
                         <div className="media-body">
                             <div>
-                                <a className="inline-block text-base font-bold mr-2" >{!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? <h1>{dataGetEnsName}</h1> : <h1>{address}</h1>) : <h1>{"Custom name"}</h1>}</a>
+                                <a className="inline-block text-base font-bold mr-2" >{!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? <h1>{dataGetEnsName}</h1> : <h1>{getAddress(address!)}</h1>) : <h1>{"Custom name"}</h1>}</a>
                             </div>
                         </div>
 
                     </CustomCard >
-                    <CustomCard title="">
-                        <div className="grid grid-cols-3">
-                            <Button
-                                disabled={!fetchVideoStream.isCallable}
-                                onClick={fetchVideoStream}
-                            >
-                                Turn on my camera
-                            </Button>
-
-                            <Button
-                                disabled={!fetchAudioStream.isCallable}
-                                onClick={fetchAudioStream}
-                            >
-                                Turn on my mic
-                            </Button>
-                        </div>
-                    </CustomCard>
+                    <Video
+                        ensName={dataGetEnsName}
+                        errorEnsName={errorGetEnsName}
+                        isLoadingEnsName={isLoadingGetEnsName}
+                        address={getAddress(address)}
+                        peers={peers}
+                        camStream={camStream}
+                        fetchVideoStream={fetchVideoStream}
+                        fetchAudioStream={fetchAudioStream}
+                    />
                     <CustomCard title="">
                         <div className="grid grid-cols-3">
                             <h3 className="text-2xl font-semibold m-2">Room</h3>
@@ -142,7 +131,7 @@ const App = () => {
                         </div>
                         <div className="grid grid-cols-3">
                             <CopyToClipboardButton text={roomId && roomId?.data?.roomId} />
-                            <CopyToClipboardButton text={!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : address) : state.context.displayName} />
+                            <CopyToClipboardButton text={!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : getAddress(address!)) : state.context.displayName} />
                         </div>
                         <h3 className="text-2xl font-semibold mt-4">Peers</h3>
                         <div className="break-words">{JSON.stringify(peers)}</div>
@@ -248,27 +237,7 @@ const App = () => {
                             </Button>
                         </div>
                     </CustomCard>
-                    <div>
-                        {!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : address) : "Custom Name"} Video:
-                        <video ref={videoRef} autoPlay muted></video>
-                        <div className="grid grid-cols-4">
-                            {Object.values(peers)
-                                .filter((peer) => peer.cam)
-                                .map((peer) => (
-                                    <Video
-                                        key={peer.peerId}
-                                        peerId={peer.peerId}
-                                        track={peer.cam}
-                                        debug
-                                    />
-                                ))}
-                            {Object.values(peers)
-                                .filter((peer) => peer.mic)
-                                .map((peer) => (
-                                    <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
-                                ))}
-                        </div>
-                    </div>
+
 
 
                 </div>
