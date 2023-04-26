@@ -1,13 +1,12 @@
 "use client";
-import dynamic from "next/dynamic";
+import InterviewRecord from "../components/mainComponents/InterviewRecord";
 
-const DynamicInterviewRecord = dynamic(() => import("../components/mainComponents/InterviewRecord"), { loading: () => <p>Loading...</p> });
 
 const Interview = () => {
 
     return (
-        < >
-            <DynamicInterviewRecord />
+        <>
+            <InterviewRecord />
         </>
     )
 }

@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
-import { useEventListener, useHuddle01 } from "@huddle01/react";
-import { Audio, Video } from "@huddle01/react/components";
-/* Uncomment to see the Xstate Inspector */
-// import { Inspect } from '@huddle01/react/components';
-
+import Image from "next/image";
 import {
     useAudio,
     useLobby,
@@ -14,8 +9,10 @@ import {
     useVideo,
     useRecording,
 } from "@huddle01/react/hooks";
-
+import { useEnsName, useAccount } from 'wagmi'
+import { Audio, Video } from "@huddle01/react/components";
 import { useDisplayName } from "@huddle01/react/app-utils";
+import { useEventListener, useHuddle01 } from "@huddle01/react";
 
 import Button from "../Button";
 import CustomInput from "../Input";
@@ -24,11 +21,16 @@ import CustomCard from "../Card";
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
 
-
 const App = () => {
-    // refs
-    const { setDisplayName, error: displayNameError } = useDisplayName();
-    const [displayNameText, setDisplayNameText] = useState("Guest");
+
+    // wagmi hooks
+    const { address } = useAccount();
+    const {
+        data: dataGetEnsName,
+        isError: errorGetEnsName,
+        isLoading: isLoadingGetEnsName
+    } = useEnsName({ address });
+    // huddle01 hooks
     const videoRef = useRef<HTMLVideoElement>(null);
     const [roomId, setRoomId] = useState<any>("");
     const { state, send } = useMeetingMachine();
@@ -56,6 +58,13 @@ const App = () => {
         error,
         data: recordingData,
     } = useRecording();
+    // refs
+    const {
+        setDisplayName,
+        error: displayNameError
+    } = useDisplayName();
+    const [displayNameText, setDisplayNameText] = useState<string>("");
+
 
     const getRoomId = () => {
         fetch(`${baseURI}/create-room`, {
@@ -91,8 +100,47 @@ const App = () => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column', minHeight: '100vh' }}>
             <div className="wrapper pt-10">
 
+
                 <div className="grid grid-cols-2">
-                    <CustomCard title="Interview">
+                    <CustomCard title="" className="bg-gradient-to-b from-[#8498FB] to-[#49B8F1]">
+                        <a className="mr-4">
+                            <Image
+                                className="rounded-full max-w-none w-25 h-25"
+                                alt="profile-picture"
+                                src={!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? `https://metadata.ens.domains/mainnet/avatar/${dataGetEnsName}` : "/img/wolf.webp") : "/img/wolf.webp"}
+                                width={80}
+                                height={80}
+                            />
+                        </a>
+                        <div className="media-body">
+                            <div>
+                                <a className="inline-block text-base font-bold mr-2" >{!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? <h1>{dataGetEnsName}</h1> : <h1>{address}</h1>) : <h1>{"Custom name"}</h1>}</a>
+                            </div>
+                        </div>
+
+                    </CustomCard >
+                    <div>
+                        {!errorGetEnsName && !isLoadingGetEnsName ? (dataGetEnsName ? dataGetEnsName : address) : "Custom Name"} Video:
+                        <video ref={videoRef} autoPlay muted></video>
+                        <div className="grid grid-cols-4">
+                            {Object.values(peers)
+                                .filter((peer) => peer.cam)
+                                .map((peer) => (
+                                    <Video
+                                        key={peer.peerId}
+                                        peerId={peer.peerId}
+                                        track={peer.cam}
+                                        debug
+                                    />
+                                ))}
+                            {Object.values(peers)
+                                .filter((peer) => peer.mic)
+                                .map((peer) => (
+                                    <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
+                                ))}
+                        </div>
+                    </div>
+                    <CustomCard title="">
                         <h2 className="text-2xl">Room</h2>
                         <h3 className="break-words">{roomId && roomId?.data?.roomId}</h3>
                         <h2 className="text-2xl">DisplayName</h2>
@@ -104,22 +152,21 @@ const App = () => {
 
                         <br />
                         <br />
-                        <h2 className="text-3xl text-red-500 font-extrabold">Initialized</h2>
                         <Button
                             disabled={!joinLobby.isCallable}
                             onClick={() => {
                                 joinLobby(roomId?.data?.roomId);
                             }}
                         >
-                            JOIN_LOBBY
+                            Join Lobby
                         </Button>
                         <br />
                         <br />
-                        <h2 className="text-3xl text-yellow-500 font-extrabold">Lobby</h2>
+                        <h2 className="text-3xl text-white-500 font-extrabold">Lobby</h2>
                         <div className="flex gap-4 flex-wrap">
                             <CustomInput
                                 type="text"
-                                placeholder="Your Room Id"
+                                placeholder="Enter your name"
                                 name="room-id"
                                 value={displayNameText}
                                 onChange={(e) => setDisplayNameText(e.target.value)}
@@ -130,20 +177,20 @@ const App = () => {
                                     setDisplayName(displayNameText);
                                 }}
                             >
-                                {`SET_DISPLAY_NAME error: ${displayNameError}`}
+                                {`Custom name`}
                             </Button>
                             <Button
                                 disabled={!fetchVideoStream.isCallable}
                                 onClick={fetchVideoStream}
                             >
-                                FETCH_VIDEO_STREAM
+                                Turn on my camera
                             </Button>
 
                             <Button
                                 disabled={!fetchAudioStream.isCallable}
                                 onClick={fetchAudioStream}
                             >
-                                FETCH_AUDIO_STREAM
+                                Turn on my mic
                             </Button>
 
                             <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
@@ -218,27 +265,7 @@ const App = () => {
                             </Button>
                         </div>
                     </CustomCard>
-                    <div>
-                        Me Video:
-                        <video ref={videoRef} autoPlay muted></video>
-                        <div className="grid grid-cols-4">
-                            {Object.values(peers)
-                                .filter((peer) => peer.cam)
-                                .map((peer) => (
-                                    <Video
-                                        key={peer.peerId}
-                                        peerId={peer.peerId}
-                                        track={peer.cam}
-                                        debug
-                                    />
-                                ))}
-                            {Object.values(peers)
-                                .filter((peer) => peer.mic)
-                                .map((peer) => (
-                                    <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
-                                ))}
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
