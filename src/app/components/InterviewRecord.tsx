@@ -18,6 +18,7 @@ import {
 import { useDisplayName } from "@huddle01/react/app-utils";
 
 import Button from "../components/Button";
+import CustomInput from "./Input";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
@@ -25,13 +26,11 @@ const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
 
 const App = () => {
     // refs
-    const videoRef = useRef<HTMLVideoElement>(null);
-
-    const { state, send } = useMeetingMachine();
-
-    const [roomId, setRoomId] = useState<any>("");
     const [displayNameText, setDisplayNameText] = useState("Guest");
-
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [roomId, setRoomId] = useState<any>("");
+    const { state, send } = useMeetingMachine();
+    const { joinRoom, leaveRoom } = useRoom();
     const { initialize } = useHuddle01();
     const { joinLobby } = useLobby();
     const {
@@ -48,12 +47,6 @@ const App = () => {
         stopProducingVideo,
         stream: camStream,
     } = useVideo();
-    const { joinRoom, leaveRoom } = useRoom();
-
-    // Event Listner
-    useEventListener("lobby:cam-on", () => {
-        if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
-    });
 
     const { peers } = usePeers();
 
@@ -85,6 +78,10 @@ const App = () => {
         getRoomId();
     }, []);
 
+    // Event Listner
+    useEventListener("lobby:cam-on", () => {
+        if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
+    });
     useEventListener("room:joined", () => {
         console.log("room:joined");
     });
@@ -142,12 +139,12 @@ const App = () => {
                 <br />
                 <h2 className="text-3xl text-yellow-500 font-extrabold">Lobby</h2>
                 <div className="flex gap-4 flex-wrap">
-                    <input
+                    <CustomInput
                         type="text"
                         placeholder="Your Room Id"
+                        name="room-id"
                         value={displayNameText}
                         onChange={(e) => setDisplayNameText(e.target.value)}
-                        className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none mr-2"
                     />
                     <Button
                         disabled={!setDisplayName.isCallable}
