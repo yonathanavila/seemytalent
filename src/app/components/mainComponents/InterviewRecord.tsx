@@ -94,64 +94,44 @@ const App = () => {
         console.log("lobby:joined");
     });
 
+    const handleReturnLobby = () => {
+
+    }
+
     return (
-        <div className="flex min-h-screen flex-col items-center justify-between p-20">
-            <div className="wrapper pt-10">
-                <div className="box-border max-w-7xl mx-4 max-w-7xl mx-4 sm:columns-1 md:columns-2 lg:columns-2 xl:columns-2">
+        <>
+            <div className="flex-grow m-5">
+
+                <button
+                    className="w-auto py-3 px-4 m-2 bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75 flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white"
+                    onClick={handleReturnLobby}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                        <path d="M10 17l-5-5m0 0l5-5m-5 5h12" />
+                    </svg>
+
+                    Return lobby
+                </button>
+            </div>
+            <div className="flex-grow mx-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-auto">
                     <CustomCard className={`${ens && 'bg-gradient-to-b from-[#8498FB] to-[#49B8F1]'}`}>
-
-                        <a className="mr-4">
-                            { }
-                            <Image
-                                className="rounded-full max-w-none w-25 h-25"
-                                alt="profile-picture"
-                                src={((!ensAvatar?.message ? `https://metadata.ens.domains/mainnet/avatar/${ens}` : "/img/wolf.webp") || "/img/wolf.webp")}
-                                width={80}
-                                height={80}
-                            />
-                        </a>
-                        <div className="media-body">
+                        <div className="flex justify-between">
                             <div>
-                                <a className="inline-block text-base font-bold mr-2 mt-2" >{(displayNameText || ensName || ens || getAddress(address) || "Custom text") as string}</a>
+                                <Image
+                                    className="rounded-full max-w-none w-25 h-25 ml-5"
+                                    alt="profile-picture"
+                                    src={((!ensAvatar?.message ? `https://metadata.ens.domains/mainnet/avatar/${ens}` : "/img/wolf.webp") || "/img/wolf.webp")}
+                                    width={80}
+                                    height={80}
+                                />
+                                <div className="flex flex-col items-start justify-center gap-1 w-full overflow-hidden">
+                                    <a className="font-satoshi font-bold text-white text-[1.875rem] leading-[2.5rem]" >{(displayNameText || ensName || ens || getAddress(address) || "Custom text") as string}</a>
+                                </div>
                             </div>
-                        </div>
 
-                    </CustomCard >
-                    <CustomCard>
-                        <Button
-                            disabled={!joinLobby.isCallable}
-                            onClick={() => {
-                                joinLobby(roomId?.data?.roomId);
-                            }}
-                        >
-                            Join Lobby
-                        </Button>
-
-                        <Button disabled={!joinRoom.isCallable} onClick={joinRoom}>
-                            Join Room
-                        </Button>
-
-                        <Button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
-                            Leave Room
-                        </Button>
-                        <Button
-                            disabled={!state.matches("Initialized.JoinedLobby")}
-                            onClick={() => send("LEAVE_LOBBY")}
-                        >
-                            Leave Lobby
-                        </Button>
-                        <br />
-                        <br />
-                        <h3 className="text-2xl m-2 text-white-500 font-extrabold">Lobby</h3>
-                        <div className="flex gap-4 flex-wrap">
-                            <CustomInput
-                                type="text"
-                                placeholder="Enter your name"
-                                name="room-id"
-                                value={displayNameText}
-                                onChange={(e) => setDisplayNameText(e.target.value)}
-                            />
                             <Button
+                                className="w-[200px]"
                                 disabled={!setDisplayName.isCallable}
                                 onClick={() => {
                                     setDisplayName(displayNameText);
@@ -159,77 +139,37 @@ const App = () => {
                             >
                                 {`Custom name`}
                             </Button>
-
-                            <Button
-                                disabled={!stopVideoStream.isCallable}
-                                onClick={stopVideoStream}
-                            >
-                                STOP_VIDEO_STREAM
-                            </Button>
-                            <Button
-                                disabled={!stopAudioStream.isCallable}
-                                onClick={stopAudioStream}
-                            >
-                                STOP_AUDIO_STREAM
-                            </Button>
                         </div>
-                        <br />
-                        <h3 className="text-3xl text-green-600 font-extrabold">Room</h3>
-                        <div className="flex gap-4 flex-wrap">
+                    </CustomCard >
+                    <CustomCard>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Button
-                                disabled={!produceAudio.isCallable}
-                                onClick={() => produceAudio(micStream)}
+                                disabled={!fetchVideoStream.isCallable}
+                                onClick={fetchVideoStream}
                             >
-                                PRODUCE_MIC
+                                Camera
                             </Button>
 
                             <Button
-                                disabled={!produceVideo.isCallable}
-                                onClick={() => produceVideo(camStream)}
+                                disabled={!fetchAudioStream.isCallable}
+                                onClick={fetchAudioStream}
                             >
-                                PRODUCE_CAM
+                                Mic
                             </Button>
-
-                            <Button
-                                disabled={!stopProducingAudio.isCallable}
-                                onClick={() => stopProducingAudio()}
-                            >
-                                STOP_PRODUCING_MIC
-                            </Button>
-
-                            <Button
-                                disabled={!stopProducingVideo.isCallable}
-                                onClick={() => stopProducingVideo()}
-                            >
-                                STOP_PRODUCING_CAM
-                            </Button>
-
-                            <Button
-                                disabled={!startRecording.isCallable}
-                                onClick={() =>
-                                    startRecording(`${window.location.href}rec/${roomId}`)
-                                }
-                            >
-                                {`START_RECORDING error: ${error}`}
-                            </Button>
-                            <Button disabled={!stopRecording.isCallable} onClick={stopRecording}>
-                                STOP_RECORDING
-                            </Button>
-
                         </div>
                     </CustomCard>
-
-                    <Video
-                        ensName={(displayNameText || ens || getAddress(address) || "Custom text") as string}
-                        address={getAddress(address)}
-                        peers={peers}
-                        camStream={camStream}
-                        fetchVideoStream={fetchVideoStream}
-                        fetchAudioStream={fetchAudioStream}
-                    />
                 </div>
             </div>
-        </div>
+            <div className="flex-grow mx-5 my-5 ">
+                <CustomCard className="h-[500px]">
+                    <Video
+                        ensName={(displayNameText || ens || getAddress(address) || "Custom text") as string}
+                        peers={peers}
+                        camStream={camStream}
+                    />
+                </CustomCard>
+            </div>
+        </>
     );
 };
 
