@@ -2,14 +2,34 @@
 import Image from "next/image"
 import { useRouter } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
 
     const router = useRouter();
 
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.pageYOffset > 0) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <>
-            <nav className="relative px-4 py-4 flex justify-between items-center">
+        <div className={`fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-gray-900 border-b-[1px] border-gray-300' : 'bg-transparent'
+            }`}>
+            <nav className="p-5 w-full h-18 z-2 px-4 py-4 flex justify-between items-center">
                 <div className="font-semibold flex items-center" >
                     <Image src={'/img/SeeMyTalent.png'} alt="SeeMyTalent" width={35} height={35} className="m-2 hover:cursor-pointer" onClick={() => router.push('/')} />
                     <a className="hidden sm:block text-md text-white hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('/')}>Home</a>
@@ -38,7 +58,7 @@ const Navbar = () => {
                 <a className="flex-item text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('https://docs.seemytalent.xyz/about-cafecito.eth/about-me')}>About Us</a>
                 <a className="flex-item text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('https://docs.seemytalent.xyz/')}>Docs</a>
             </div>
-        </>
+        </div>
     )
 }
 

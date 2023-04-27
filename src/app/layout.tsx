@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import Provider from './Provider';
 import Navbar from './components/Navbar';
 
@@ -18,7 +19,9 @@ export default function RootLayout({
       <body className='bg-gradient-to-b from-[#202738] to-[#070816]'>
         <Provider>
           <Navbar />
-          {children}
+          <div className='pt-[70px]'>
+            {children}
+          </div>
           <div id="background-radial-gradient" style={{ width: '200vw', height: '200vh', transform: 'translate(-50vw,-100vh)', background: 'linear-gradient(rgb(32,39,56) 0%,rgb(7,8,22)100%)' }}></div>
         </Provider>
       </body>
