@@ -99,6 +99,7 @@ const App = () => {
             <div className="wrapper pt-10">
                 <div className="box-border max-w-7xl mx-4 max-w-7xl mx-4 sm:columns-1 md:columns-2 lg:columns-2 xl:columns-2">
                     <CustomCard className={`${ens && 'bg-gradient-to-b from-[#8498FB] to-[#49B8F1]'}`}>
+
                         <a className="mr-4">
                             { }
                             <Image
@@ -117,16 +118,6 @@ const App = () => {
 
                     </CustomCard >
                     <CustomCard>
-
-                        <h3 className="text-2xl font-semibold m-2">Room</h3>
-                        <div className="flex flex-row flex-wrap gap-0.5 mt-0.5">
-                            <CopyToClipboardButton title={"Room Id"} text={roomId && roomId?.data?.roomId} />
-                            <CopyToClipboardButton title={"Display name"} text={(displayNameText || ens || getAddress(address) || "Custom text") as string} />
-                        </div>
-                        <h3 className="text-2xl font-semibold mt-4">Peers</h3>
-                        <div className="break-words">{JSON.stringify(peers)}</div>
-                        <br />
-                        <br />
                         <Button
                             disabled={!joinLobby.isCallable}
                             onClick={() => {
