@@ -33,7 +33,7 @@ const Navbar = () => {
     }, []);
 
     return (
-        <div className={`fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-gray-900 border-b-[1px] border-gray-300' : 'bg-transparent'
+        <div className={`fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-gray-900 border-b-[1px] border-[#2E3443]' : 'bg-transparent'
             }`}>
             <nav className="p-5 w-full h-18 z-2 px-4 py-4 flex justify-between lg:items-center">
                 <div className="font-semibold flex items-center" >
