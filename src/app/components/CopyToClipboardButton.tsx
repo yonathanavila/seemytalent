@@ -1,8 +1,9 @@
-const CopyToClipboardButton = ({ title, text }: any) => {
+const CopyToClipboardButton = ({ children, text }: any) => {
+
     const handleCopyClick = async () => {
         try {
-            await navigator.clipboard.writeText(text);
-            alert(`Copied to clipboard: ${text}`);
+            await navigator.clipboard.writeText(children);
+            alert(`Copied to clipboard: ${children}`);
         } catch (error) {
             console.error(`Error copying to clipboard: ${error}`);
         }
@@ -10,13 +11,13 @@ const CopyToClipboardButton = ({ title, text }: any) => {
 
     return (
         <a
-            className="flex items-start gap-0.5 py-2 px-3 bg-gray-700 border border-gray-300 rounded-lg transition ease-in-out duration-150 cursor-pointer inline-flex h-10"
+            className="flex items-start gap-0.5 py-2 px-3 border border-gray-300 rounded-lg transition ease-in-out duration-150 cursor-pointer inline-flex h-10 max-w-max m-2 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
             onClick={handleCopyClick}
         >
             <div className="flex items-start gap-0.5 w-fit-content flex-initial">
                 <div className="flex flex-row items-center overflow-hidden gap-0.5">
-                    <div className="text-gray-500 text-lg font-bold leading-5">
-                        {title}
+                    <div className="text-gray-500 text-lg leading-5">
+                        {children}
                     </div>
                 </div>
             </div>

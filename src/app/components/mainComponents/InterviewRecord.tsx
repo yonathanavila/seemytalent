@@ -101,7 +101,6 @@ const App = () => {
     return (
         <>
             <div className="flex-grow m-5">
-
                 <button
                     className="w-auto py-3 px-4 m-2 bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75 flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white"
                     onClick={handleReturnLobby}
