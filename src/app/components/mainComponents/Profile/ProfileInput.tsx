@@ -11,7 +11,7 @@ const Button: React.FC<{
 }> = ({ title, children, svg, onClick, className, disabled }) => {
 
     return (
-        <a className="flex items-start gap-0.5 px-3 py-2 border border-gray-300 dark:bg-[#131A2A] rounded-md transition duration-150 ease-in-out cursor-pointer max-w-max m-2 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105">
+        <a className="z-0 flex items-start gap-0.5 px-3 py-2 border border-gray-300 dark:bg-[#131A2A] rounded-md transition duration-150 ease-in-out cursor-pointer max-w-max m-2 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105">
             <div className="flex items-start gap-0.5 w-fit-content flex-initial">
                 <div className="flex flex-row items-center overflow-hidden gap-0.5">
                     <div className="text-gray-500 text-lg leading-5">
