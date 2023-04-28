@@ -14,9 +14,9 @@ const CopyToClipboardButton = ({ children, text }: any) => {
             className="flex items-start gap-0.5 py-2 px-3 border border-gray-300 rounded-lg transition ease-in-out duration-150 cursor-pointer inline-flex h-10 max-w-max m-2 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
             onClick={handleCopyClick}
         >
-            <div className="flex items-start gap-0.5 w-fit-content flex-initial">
+            <div className="flex items-start gap-0.5 w-fit-content flex-initial overflow-hidden">
                 <div className="flex flex-row items-center overflow-hidden gap-0.5">
-                    <div className="text-gray-500 text-lg leading-5">
+                    <div className="text-gray-500 text-lg leading-5 ">
                         {children}
                     </div>
                 </div>
