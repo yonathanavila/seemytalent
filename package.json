@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "@huddle01/huddle01-iframe": "^0.0.9",
     "@huddle01/react": "^0.0.7",
     "@rainbow-me/rainbowkit": "^0.12.9",
@@ -26,6 +27,7 @@
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
     "react-toastify": "^9.1.2",
     "swr": "^2.1.4",
     "tailwindcss": "3.3.1",
