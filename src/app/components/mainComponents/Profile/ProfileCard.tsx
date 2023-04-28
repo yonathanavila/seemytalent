@@ -79,7 +79,7 @@ const ProfileCard: React.FC<{
                     </div>
                     <div
                         onClick={toggleModal}
-                        className="animate-bounce relative w-10 h-10 mt-4 cursor-pointer rounded-2xl dark:bg-[#293249] border-4 dark:border-[#0D111C] z-10 mx-auto -mt-18 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
+                        className="animate-bounce z-0 relative w-10 h-10 mt-4 cursor-pointer rounded-2xl dark:bg-[#293249] border-4 dark:border-[#0D111C] z-10 mx-auto -mt-18 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
                     >
                         <div
                             className="flex items-center justify-center w-full h-full"
