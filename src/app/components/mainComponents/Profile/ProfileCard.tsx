@@ -33,7 +33,7 @@ const ProfileCard: React.FC<{
     return (
         <>
 
-            <CustomCard title={"yonathancruz.eth"} className="dark:bg-[#0D111C] border border-[1px] border-[#2E3443]">
+            <CustomCard title={"yonathancruz.eth"} className="dark:bg-[#0D111C] border border-[1px] border-[#2E3443] ">
                 <OptionsProfile />
                 <CustomCard className="dark:bg-[#131A2A] ">
 
@@ -78,7 +78,7 @@ const ProfileCard: React.FC<{
                     </div>
                     <div
                         onClick={toggleModal}
-                        className="relative w-10 h-10 mt-2 cursor-pointer rounded-2xl dark:bg-[#293249] border-4 dark:border-[#0D111C] z-10 mx-auto -mt-18 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
+                        className="animate-bounce relative w-10 h-10 mt-4 cursor-pointer rounded-2xl dark:bg-[#293249] border-4 dark:border-[#0D111C] z-10 mx-auto -mt-18 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
                     >
                         <div
                             className="flex items-center justify-center w-full h-full"
@@ -94,6 +94,7 @@ const ProfileCard: React.FC<{
             </CustomCard>
 
             {isModalOpen && (
+
                 <Modal onClick={toggleModal} >
                     <div className="h-100 overflow-auto">
                         <ProfileSubtitles>

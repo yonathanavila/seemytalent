@@ -7,8 +7,8 @@ const Modal: React.FC<{
     className?: string;
 }> = ({ children, onClick, title, className }) => {
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-white w-auto p-6 rounded-lg dark:bg-[#0D111C] dark:bg-[#0D111C] border border-[1px] border-[#2E3443]">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+            <div className="bg-white w-auto p-6 rounded-lg dark:bg-[#0D111C] dark:bg-[#0D111C] border border-[1px] border-[#2E3443] ">
                 <div className="flex justify-between mb-4">
                     <p className="dark:text-[#79829E] font-semibold">{title}</p>
                     <div
