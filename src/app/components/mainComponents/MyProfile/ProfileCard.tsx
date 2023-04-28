@@ -1,24 +1,29 @@
 import useSWR from "swr";
-import React, { useState } from 'react';
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEnsName, useAccount } from 'wagmi'
-
-import CustomCard from '../../Card';
-import OptionsProfile from './ProfileOptions';
-import getAddress from "../../../../../utils/functions/common";
-import ProfileSubtitles from "./ProfileSubtitles";
-import CopyToClipboardButton from "../../CopyToClipboardButton";
-import ProfileInput from "./ProfileInput";
-import ProfileTextArea from "./ProfileTextArea";
+import React, { useRef, useState } from 'react';
 import Modal from "../Modal";
+import Button from "../../Button";
+import CustomCard from '../../Card';
+import ProfileInput from "./ProfileInput";
+import OptionsProfile from './ProfileOptions';
+import ProfileTextArea from "./ProfileTextArea";
 import ProfileChackbox from "./ProfileCheckbox";
+import ProfileSubtitles from "./ProfileSubtitles";
+import getAddress from "../../../../../utils/functions/common";
+import CopyToClipboardButton from "../../CopyToClipboardButton";
 
 const ProfileCard: React.FC<{
+    onlyRead?: boolean;
     className?: string;
     disabled?: boolean;
-}> = ({ className, disabled }) => {
+}> = ({ onlyRead, className, disabled }) => {
 
+    const router = useRouter();
+    const modalRef: any = useRef();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isMessageOpen, setMessageOpen] = useState(false);
 
     const toggleModal = () => {
         console.log("toggleModal");
@@ -30,11 +35,43 @@ const ProfileCard: React.FC<{
     const { data: ens } = useEnsName({ address });
     const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
 
-    return (
-        <div>
+    const showMessageModal = () => {
+        setMessageOpen(!isMessageOpen);
+    }
 
-            <OptionsProfile />
-            <CustomCard className={`${ens ? 'bg-gradient-to-b from-[#8498FB] to-[#49B8F1] ' : 'dark:bg-[#131A2A] text-white'} `}>
+    return (
+        <div className={className}>
+
+            {!onlyRead && (<OptionsProfile Arrayfunction={[showMessageModal]} />)}
+
+            {isMessageOpen && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 " ref={modalRef}>
+                    <div className="w-[322px] h-[310px] dark:bg-[#0D111C] rounded-lg border border-[1px] border-[#2E3443] relative ">
+                        <div className="flex justify-between m-4">
+                            <p className="dark:text-[#79829E] font-semibold">Room</p>
+                            <div onClick={showMessageModal} className="cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </div>
+                        </div>
+                        <Button onClick={() => router.push('/interview')} className="flex items-center justify-center absolute bottom-0" >
+
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 mr-2">
+                                <path d="M12 1v6m0 0v6m0-6h6m-6 0H6"></path>
+                                <circle cx="18" cy="12" r="1"></circle>
+                                <circle cx="6" cy="12" r="1"></circle>
+                                <circle cx="12" cy="18" r="1"></circle>
+                                <circle cx="12" cy="6" r="1"></circle>
+                            </svg>
+                            Enter to the room
+                        </Button>
+                    </div>
+                </div>
+            )}
+
+            <CustomCard className={`${ens ? 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1] ' : 'dark:bg-[#131A2A] text-white'} `}>
 
                 <div className="flex justify-between">
                     <div>
@@ -46,7 +83,7 @@ const ProfileCard: React.FC<{
                             height={80}
                         />
                         <div className="flex flex-col items-start justify-center gap-1 w-full my-2">
-                            <a className={`mt-2 font-satoshi font-bold ${ens ? 'text-black' : 'text-white'} lg:text-[1.875rem] text-2xl sm:text-2xl leading-[2.5rem]`}>{(ens || getAddress(address) || "Custom text") as string}</a>
+                            <a className={`mt-2 font-satoshi font-bold ${ens ? 'text-black' : 'text-white'} text-2xl leading-10`}>{(ens || getAddress(address) || "Custom text") as string}</a>
                         </div>
                     </div>
                 </div>
@@ -75,19 +112,24 @@ const ProfileCard: React.FC<{
                         November 10, 2019
                     </ProfileInput>
                 </div>
-                <div
-                    onClick={toggleModal}
-                    className="animate-bounce z-0 relative w-10 h-10 mt-4 cursor-pointer rounded-2xl dark:bg-[#293249] border-4 dark:border-[#0D111C] z-10 mx-auto -mt-18 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
-                >
+
+                {!onlyRead && (
                     <div
-                        className="flex items-center justify-center w-full h-full"
+                        onClick={toggleModal}
+                        className="animate-bounce z-0 relative w-10 h-10 mt-4 cursor-pointer rounded-2xl dark:bg-[#293249] border-4 dark:border-[#0D111C] z-10 mx-auto -mt-18 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#5D6785" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <polyline points="19 12 12 19 5 12"></polyline>
-                        </svg>
+                        <div
+                            className="flex items-center justify-center w-full h-full"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#5D6785" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
                     </div>
-                </div>
+                )}
+
+
 
             </CustomCard>
             {isModalOpen && (

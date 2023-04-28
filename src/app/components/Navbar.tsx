@@ -38,8 +38,8 @@ const Navbar = () => {
             <nav className="p-5 w-full h-18 z-2 px-4 py-4 flex justify-between lg:items-center z-100">
                 <div className="font-semibold flex items-center" >
                     <Image src={'/img/SeeMyTalent.png'} alt="SeeMyTalent" width={35} height={35} className="m-2 hover:cursor-pointer" onClick={() => router.push('/')} />
-                    <a className="hidden sm:block text-md text-white hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('/')}>Home</a>
-                    <a className="hidden sm:block text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" onClick={() => router.push('https://docs.seemytalent.xyz/about-cafecito.eth/about-me')}>About Us</a>
+                    <a className="hidden sm:block text-md text-white hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('/')}>Home</a>{/* 
+                    <a className="hidden sm:block text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" onClick={() => router.push('https://docs.seemytalent.xyz/about-cafecito.eth/about-me')}>About Us</a> */}
                     <a className="hidden sm:block text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" onClick={() => router.push('https://docs.seemytalent.xyz/')}>Docs</a>
                 </div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:space-x-6">
