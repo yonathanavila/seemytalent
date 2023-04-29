@@ -7,6 +7,9 @@ const nextConfig = {
   compiler: {
     removeConsole: true,
   },
+  images: {
+    domains: ['metadata.ens.domains'],
+  }
 }
 
 module.exports = nextConfig

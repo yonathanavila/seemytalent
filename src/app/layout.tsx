@@ -1,5 +1,6 @@
-import Provider from './Provider';
-import Navbar from './components/Navbar';
+import Provider from '~/app/Provider';
+import Footer from '~/app/components/Footer';
+import Navbar from '~/app/components/Navbar';
 
 import './globals.css'
 
@@ -13,12 +14,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="en">
-      <body>
+      <body className='bg-gradient-to-b from-[#202738] to-[#070816]'>
         <Provider>
           <Navbar />
-          {children}
+          <div className='pt-[200px] md:pt-[200px] lg:pt-[70px]'>
+            {children}
+          </div>
+          <Footer />
           <div id="background-radial-gradient" style={{ width: '200vw', height: '200vh', transform: 'translate(-50vw,-100vh)', background: 'linear-gradient(rgb(32,39,56) 0%,rgb(7,8,22)100%)' }}></div>
         </Provider>
       </body>

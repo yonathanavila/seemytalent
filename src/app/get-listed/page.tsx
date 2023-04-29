@@ -4,7 +4,10 @@ import Image from "next/image";
 import { useAccount } from "wagmi";
 import { toast } from 'react-toastify';
 import { useEffect, useState } from "react";
-import { timeAgo } from "../../../utils/constants";
+import { timeAgo } from "~/root/utils/constants";
+import CustomInput from "~/app/components/Input";
+import Button from "~/app/components/Button";
+import CustomCard from "~/app/components/Card";
 
 const baseURI = process.env.NEXT_PUBLIC_BASE_URI || "/api/v1"
 
@@ -126,7 +129,7 @@ const Page = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column', minHeight: '100vh' }}>
+            <div className="flex flex-col items-center justify-between min-h-screen">
                 <div className="wrapper pt-10">
                     <div className="flex items-center justify-center py-8">
                         <button id="theme-toggle" type="button"
@@ -144,10 +147,7 @@ const Page = () => {
                         </button>
                     </div>
                     <div className="box-border max-w-7xl mx-4 ">
-                        <article className="mb-4 p-6 rounded-xl bg-white dark:bg-slate-800 flex flex-col bg-clip-border">
-                            <h2 className="text-3xl font-extrabold dark:text-white">
-                                Get listed
-                            </h2>
+                        <CustomCard title={"Get listed"}>
                             <div className="py-4">
                                 <a className="inline-flex items-center" href="#">
                                     <span className="mr-2">
@@ -161,10 +161,7 @@ const Page = () => {
                                 </a>
                             </div>
                             <div className="relative">
-                                <input
-                                    className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-slate-600 rounded-lg placeholder:text-slate-600 dark:placeholder:text-slate-300 font-medium pr-20"
-                                    type="text" placeholder="Write your name" name="C2" onChange={handleCallerInfoChange} />
-
+                                <CustomInput type="text" placeholder="Write your name" name="C2" onChange={handleCallerInfoChange} />
                                 <span className="flex absolute right-3 top-2/4 -mt-3 items-center ">
                                     <svg className="mr-2" style={{ width: 26, height: 26 }} viewBox="0 0 24 24">
                                         <path fill="currentColor"
@@ -174,10 +171,7 @@ const Page = () => {
                                 </span>
                             </div>
                             <div className="relative mt-4">
-                                <input
-                                    className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-slate-600 rounded-lg placeholder:text-slate-600 dark:placeholder:text-slate-300 font-medium pr-20"
-                                    type="text" placeholder="Write your comment" name="C3" onChange={handleCallerInfoChange} />
-
+                                <CustomInput type="text" placeholder="Write your comment" name="C3" onChange={handleCallerInfoChange} />
                                 <span className="flex absolute right-3 top-2/4 -mt-3 items-center">
                                     <svg className="mr-2" style={{ width: 26, height: 26 }} viewBox="0 0 24 24">
                                         <path fill="currentColor"
@@ -190,12 +184,11 @@ const Page = () => {
                                 </span>
                             </div>
                             <div className="w-full mt-4">
-                                <button
-                                    className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75"
+                                <Button
                                     onClick={handlerSave}
                                 >
                                     Save
-                                </button>
+                                </Button>
                             </div>
                             {apiCall?.length > 0 &&
                                 <div className="pt-6">
@@ -203,17 +196,16 @@ const Page = () => {
                                     {result?.length > 0 && result?.map((item: any, index: any) => <Comment key={index} item={item} />)}
 
                                     <div className="w-full">
-                                        <button
+                                        <Button
                                             onClick={handlerShowMore}
-                                            className="py-3 px-4 w-full block bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75"
                                         >
                                             Show more comments
-                                        </button>
+                                        </Button>
                                     </div>
                                 </div>
                             }
 
-                        </article>
+                        </CustomCard>
                     </div>
                 </div>
                 <footer className="w-full flex justify-center flex-col py-4 text-center mt-14">
