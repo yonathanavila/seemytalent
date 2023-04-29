@@ -5,13 +5,12 @@ import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { wagmiClient } from '../../utils/functions/client';
-import { chainSelected } from '../../utils/functions/chain';
-import { chains } from '../../utils/functions/provider';
+import store from '@/utils/store';
+import { chains } from '@/utils/functions/provider';
+import { wagmiClient } from '@/utils/functions/client';
+import { chainSelected } from '@/utils/functions/chain';
 import '@rainbow-me/rainbowkit/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
-import store from '@/utils/store';
-
 
 const myCustomThem: any = {
     blurs: {

@@ -1,10 +1,9 @@
 "use client";
-import { addTalent, selectTalent } from "@/utils/slice/talents";
-
-import ProfileCard from "../components/MainComponents/MyProfile/ProfileCard";
-import { useAppDispatch, useAppSelector } from "@/hooks/useAppDispatch";
-import { exampleData } from "@/utils/example";
 import { useState } from "react";
+import { exampleData } from "@/utils/example";
+import { selectTalent } from "@/utils/slice/talents";
+import { useAppSelector } from "@/hooks/useAppDispatch";
+import ProfileCard from "../components/MainComponents/MyProfile/ProfileCard";
 
 const Talents = () => {
 
@@ -48,7 +47,6 @@ const Talents = () => {
                         )}
                     </div>
                 )}
-
             </div>
         </>
     )
