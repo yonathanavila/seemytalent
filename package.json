@@ -10,10 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.1",
     "@huddle01/huddle01-iframe": "^0.0.9",
     "@huddle01/react": "^0.0.7",
+    "@metamask/utils": "^5.0.2",
     "@rainbow-me/rainbowkit": "^0.12.9",
+    "@reduxjs/toolkit": "^1.9.1",
     "@supabase/supabase-js": "^2.21.0",
     "@types/node": "18.15.12",
     "@types/react": "18.0.37",
