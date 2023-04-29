@@ -19,15 +19,13 @@ import { useEventListener, useHuddle01 } from "@huddle01/react";
 import Video from "../Video";
 import Button from "../Button";
 import CustomCard from "../Card";
-import CustomInput from "../Input";
-import getAddress from "../../../../utils/functions/common";
-import useGetEnsName from "../../../../hooks/useGetEnsName";
-import CopyToClipboardButton from "../CopyToClipboardButton";
+import getAddress from "@/utils/functions/common";
+import useGetEnsName from "@/hooks/useGetEnsName";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
 
-const App = () => {
+const InterviewRecord = () => {
     // wagmi hooks
     const { address } = useAccount();
     const { data: ens } = useEnsName({ address });
@@ -175,4 +173,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default InterviewRecord;
