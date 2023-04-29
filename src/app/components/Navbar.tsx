@@ -2,21 +2,47 @@
 import Image from "next/image"
 import { useRouter } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
 
     const router = useRouter();
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.pageYOffset > 0) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <>
-            <nav className="relative px-4 py-4 flex justify-between items-center">
+        <div className={`z-10 fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-gray-900 border-b-[1px] border-[#2E3443]' : 'bg-transparent'
+            }`}>
+            <nav className="p-5 w-full h-18 z-2 px-4 py-4 flex justify-between lg:items-center z-100">
                 <div className="font-semibold flex items-center" >
                     <Image src={'/img/SeeMyTalent.png'} alt="SeeMyTalent" width={35} height={35} className="m-2 hover:cursor-pointer" onClick={() => router.push('/')} />
                     <a className="hidden sm:block text-md text-white hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('/')}>Home</a>
-                    <a className="hidden sm:block text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" onClick={() => router.push('https://docs.seemytalent.xyz/about-cafecito.eth/about-me')}>About Us</a>
+                    <a className="hidden sm:block text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" onClick={() => router.push('/profile')}>Collection</a>
                     <a className="hidden sm:block text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" onClick={() => router.push('https://docs.seemytalent.xyz/')}>Docs</a>
                 </div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+                <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:space-x-6">
                     <div className="relative">
                         <input
                             className="pt-2 pb-2 pl-3 w-full h-11 bg-slate-100 dark:bg-gray-800 rounded-lg placeholder:text-gray-600 dark:placeholder:text-gray-300 font-medium pr-20"
@@ -33,12 +59,7 @@ const Navbar = () => {
                 </div>
                 <ConnectButton accountStatus="address" label="Sign in" />
             </nav >
-            <div className="lg:hidden font-bold flex flex-wrap justify-center">
-                <a className="flex-item text-md text-white hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('/')}>Home</a>
-                <a className="flex-item text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('https://docs.seemytalent.xyz/about-cafecito.eth/about-me')}>About Us</a>
-                <a className="flex-item text-md text-gray-400 font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('https://docs.seemytalent.xyz/')}>Docs</a>
-            </div>
-        </>
+        </div >
     )
 }
 

@@ -1,3 +1,3 @@
-import { Chain, mainnet } from 'wagmi/chains';
+import { Chain, mainnet, filecoinHyperspace } from 'wagmi/chains';
 
-export const chainSelected: Chain[] = [mainnet];
+export const chainSelected: Chain[] = [filecoinHyperspace];

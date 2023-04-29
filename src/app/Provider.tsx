@@ -2,11 +2,13 @@
 import { SWRConfig } from 'swr';
 import dynamic from 'next/dynamic';
 import { WagmiConfig } from 'wagmi';
-import { ToastContainer, toast } from 'react-toastify';
+import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { wagmiClient } from '../../utils/functions/client';
-import { chainSelected } from '../../utils/functions/chain';
-import { chains } from '../../utils/functions/provider';
+import store from '~/root/utils/store';
+import { chains } from '~/root/utils/functions/provider';
+import { wagmiClient } from '~/root/utils/functions/client';
+import { chainSelected } from '~/root/utils/functions/chain';
 import '@rainbow-me/rainbowkit/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -56,25 +58,28 @@ function Providers({ children }: any) {
 
     return (
         <div>
-            <SWRConfig
-                value={{
-                    refreshInterval: 86400,
-                    fetcher: (resource, init) =>
-                        fetch(resource, init).then((res) => res.json()),
-                }}>
-                <WagmiConfig client={wagmiClient}>
-                    <RainbowKitProvider
-                        chains={chains}
-                        initialChain={chainSelected[Number(chainId || 0)]}
-                        theme={myCustomThem}
-                    >
-                        {children}
-                        <ToastContainer />
-                    </RainbowKitProvider>
-                </WagmiConfig>
-            </SWRConfig>
+            <Provider store={store}>
+                <SWRConfig
+                    value={{
+                        refreshInterval: 86400,
+                        fetcher: (resource, init) =>
+                            fetch(resource, init).then((res) => res.json()),
+                    }}>
+                    <WagmiConfig client={wagmiClient}>
+                        <RainbowKitProvider
+                            chains={chains}
+                            initialChain={chainSelected[Number(chainId || 0)]}
+                            theme={myCustomThem}
+                        >
+                            {children}
+                            <ToastContainer />
+                        </RainbowKitProvider>
+                    </WagmiConfig>
+                </SWRConfig>
+            </Provider>
         </div >
     )
 }
 
-export default Providers;
+export default dynamic(() => Promise.resolve(Providers), { ssr: false });
+
