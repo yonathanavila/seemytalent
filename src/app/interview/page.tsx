@@ -1,6 +1,7 @@
 "use client";
 
-import InterviewRecord from "../components/MainComponents/InterviewRecord";
+import InterviewRecord from "~/app/components/MainComponents/InterviewRecord";
+
 
 
 const Interview = () => {

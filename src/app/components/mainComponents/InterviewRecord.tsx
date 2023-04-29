@@ -16,11 +16,11 @@ import { useEnsName, useAccount } from 'wagmi'
 import { useDisplayName } from "@huddle01/react/app-utils";
 import { useEventListener, useHuddle01 } from "@huddle01/react";
 
-import Video from "../Video";
-import Button from "../Button";
-import CustomCard from "../Card";
-import getAddress from "@/utils/functions/common";
-import useGetEnsName from "@/hooks/useGetEnsName";
+import Video from "~/app/components/Video";
+import Button from "~/app/components/Button";
+import CustomCard from "~/app/components/Card";
+import { getAddress } from "ethers/lib/utils.js";
+import useGetEnsName from "~/root/hooks/useGetEnsName";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";

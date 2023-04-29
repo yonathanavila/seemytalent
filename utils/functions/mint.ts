@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import ethToWei from './ethToWei';
-import { contractABI } from '@/abi/SeeMyTalent';
+import { contractABI } from '~/root/abi/SeeMyTalent';
 import { getMaxPriorityFeePerGas } from './getFee';
 
 const seeMyTalentAddress = process.env.NEXT_PUBLIC_MAIN as string;

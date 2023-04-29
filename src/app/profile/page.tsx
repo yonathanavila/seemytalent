@@ -1,5 +1,5 @@
 "use client"
-import ProfileCard from "../components/MainComponents/MyProfile/ProfileCard";
+import ProfileCard from "~/app/components/MainComponents/MyProfile/ProfileCard";
 
 const Profile = () => {
 

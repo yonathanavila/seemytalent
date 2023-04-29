@@ -5,10 +5,10 @@ import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import store from '@/utils/store';
-import { chains } from '@/utils/functions/provider';
-import { wagmiClient } from '@/utils/functions/client';
-import { chainSelected } from '@/utils/functions/chain';
+import store from '~/root/utils/store';
+import { chains } from '~/root/utils/functions/provider';
+import { wagmiClient } from '~/root/utils/functions/client';
+import { chainSelected } from '~/root/utils/functions/chain';
 import '@rainbow-me/rainbowkit/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
 

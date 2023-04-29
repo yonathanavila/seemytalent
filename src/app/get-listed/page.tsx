@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useAccount } from "wagmi";
 import { toast } from 'react-toastify';
 import { useEffect, useState } from "react";
-import { timeAgo } from "../../../utils/constants";
-import CustomInput from "../components/Input";
-import Button from "../components/Button";
-import CustomCard from "../components/Card";
+import { timeAgo } from "~/root/utils/constants";
+import CustomInput from "~/app/components/Input";
+import Button from "~/app/components/Button";
+import CustomCard from "~/app/components/Card";
 
 const baseURI = process.env.NEXT_PUBLIC_BASE_URI || "/api/v1"
 

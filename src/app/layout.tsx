@@ -1,6 +1,6 @@
-import Provider from './Provider';
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
+import Provider from '~/app/Provider';
+import Footer from '~/app/components/Footer';
+import Navbar from '~/app/components/Navbar';
 
 import './globals.css'
 

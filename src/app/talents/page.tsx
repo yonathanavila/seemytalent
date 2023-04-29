@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import { exampleData } from "@/utils/example";
-import { selectTalent } from "@/utils/slice/talents";
-import { useAppSelector } from "@/hooks/useAppDispatch";
-import ProfileCard from "../components/MainComponents/MyProfile/ProfileCard";
+import { exampleData } from "~/root/utils/example";
+import { selectTalent } from "~/root/utils/slice/talents";
+import { useAppSelector } from "~/root/hooks/useAppDispatch";
+import ProfileCard from "~/app/components/MainComponents/MyProfile/ProfileCard";
 
 const Talents = () => {
 
