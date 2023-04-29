@@ -1,7 +1,7 @@
 // export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
 // export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; }
 
-import { IProfileBasic } from "@/src/app/components/MainComponents/MyProfile/ProfileCard";
+import { IProfileBasic } from "~/app/components/MainComponents/MyProfile/ProfileCard";
 
 export const exampleData: Array<IProfileBasic> = [{
     id: '0x1234567890123456789012345678901234567890',

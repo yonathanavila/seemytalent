@@ -25,7 +25,7 @@ import useGetEnsName from "~/root/hooks/useGetEnsName";
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
 
-const InterviewRecord = () => {
+function InterviewRecord() {
     // wagmi hooks
     const { address } = useAccount();
     const { data: ens } = useEnsName({ address });
@@ -126,7 +126,7 @@ const InterviewRecord = () => {
                                     height={80}
                                 />
                                 <div className="flex flex-col items-start justify-center gap-1 w-full overflow-hidden">
-                                    <a className="font-satoshi font-bold text-white text-[1.875rem] leading-[2.5rem]" >{(displayNameText || ensName || ens || getAddress(address) || "Custom text") as string}</a>
+                                    <a className="font-satoshi font-bold text-white text-[1.875rem] leading-[2.5rem]" >{(displayNameText || ensName || ens || getAddress(address!) || "Custom text") as string}</a>
                                 </div>
                             </div>
 
@@ -163,7 +163,7 @@ const InterviewRecord = () => {
             <div className="flex-grow mx-5 my-5 ">
                 <CustomCard className="h-[500px]">
                     <Video
-                        ensName={(displayNameText || ens || getAddress(address) || "Custom text") as string}
+                        ensName={(displayNameText || ens || getAddress(address!) || "Custom text") as string}
                         peers={peers}
                         camStream={camStream}
                     />

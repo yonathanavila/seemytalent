@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
-import talentsSlice from '@/utils/slice/talents';
+import talentsSlice from '~/root/utils/slice/talents';
 
 export function makeStore() {
     return configureStore({
