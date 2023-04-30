@@ -14,7 +14,7 @@ const Button: React.FC<{
         <a className="z-0 border border-[1px] dark:border-[#2E3443] flex items-start gap-0.5 px-3 py-2 dark:bg-[#131A2A] rounded-md transition duration-150 ease-in-out cursor-pointer max-w-max m-2 animate-move-up-down transition duration-500 ease-in-out transform hover:scale-105">
             <div className="flex items-start gap-0.5 w-fit-content flex-initial">
                 <div className="flex flex-row items-center overflow-hidden gap-0.5">
-                    <div className="text-gray-500 text-lg leading-5">
+                    <div className="text-black dark:text-gray-500 text-lg leading-5">
                         {title}
                     </div>
                 </div>

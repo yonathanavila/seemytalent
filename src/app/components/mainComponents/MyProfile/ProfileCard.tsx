@@ -104,7 +104,7 @@ const ProfileCard: React.FC<{
                     </div>
                 )}
 
-                <CustomCard className={`${ens ? 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1] ' : 'dark:bg-[#131A2A] text-white'} `}>
+                <CustomCard className={`${ens ? 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1] ' : 'dark:bg-[#131A2A] bg-[#F5F6FC] text-black dark:text-white'} `}>
                     <div className="group flex items-center">
                         <Image
                             className="shrink-0 h-12 w-12 m-2 rounded-full"

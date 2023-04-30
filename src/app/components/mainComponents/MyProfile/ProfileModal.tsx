@@ -62,7 +62,7 @@ const ProfileModal: React.FC<{
                     Work Experience
                 </ProfileSubtitles>
                 <div className="max-w-lg mx-auto p-8">
-                    <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg hover:cursor-pointer" open>
+                    <details className="open:bg-[#F5F6FC] dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg hover:cursor-pointer">
                         <summary className="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">
                             What do I like to do?
                         </summary>
@@ -79,7 +79,7 @@ const ProfileModal: React.FC<{
                                         {item?.startDate} - {item?.endDate}
                                     </ProfileInput>
                                     <div className="max-w-lg mx-auto p-8">
-                                        <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg" open>
+                                        <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg">
                                             <summary className="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">
                                                 What did I do in this job?
                                             </summary>
@@ -89,7 +89,7 @@ const ProfileModal: React.FC<{
                                         </details>
                                     </div>
                                     <div className="max-w-lg mx-auto p-8">
-                                        <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg" open>
+                                        <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg">
                                             <summary className="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">
                                                 My responsibilities...
                                             </summary>
