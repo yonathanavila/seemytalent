@@ -15,6 +15,7 @@ import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOpt
 import ProfileTextArea from "~/app/components/mainComponents/MyProfile/ProfileTextArea";
 import ProfileChackbox from "~/app/components/mainComponents/MyProfile/ProfileCheckbox";
 import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
+import getAddress from "~/root/utils/functions/common";
 
 export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
 export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; }
@@ -116,7 +117,7 @@ const ProfileCard: React.FC<{
                                 height={80}
                             />
                             <div className="flex flex-col items-start justify-center w-full my-2">
-                                <a className={`mt-2 font-satoshi font-bold ${ens ? 'text-black' : 'text-white'} text-2xl leading-10`}>{(ens || address || "Custom text") as string}</a>
+                                <a className={`mt-2 font-satoshi font-bold ${ens ? 'text-black' : 'text-white'} text-2xl leading-10`}>{(ens || getAddress(address) || "Custom text") as string}</a>
                             </div>
                         </div>
                     </div>
