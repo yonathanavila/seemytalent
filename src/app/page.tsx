@@ -30,14 +30,14 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
+          <h2 className={`${inter.className} text-black dark:text-white  mb-3 text-2xl font-semibold`}>
             Docs{' '}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
           </h2>
           <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
+            className={`${inter.className} text-black dark:text-white m-0 max-w-[30ch] text-sm opacity-50`}
           >
             Find in-depth information about SeeMyTalent features and API.
           </p>
@@ -49,14 +49,14 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
+          <h2 className={`${inter.className} text-black dark:text-white mb-3 text-2xl font-semibold`}>
             About me{' '}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
           </h2>
           <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
+            className={`${inter.className} text-black dark:text-white m-0 max-w-[30ch] text-sm opacity-50`}
           >
             See my Web3 Journey
           </p>
@@ -68,14 +68,14 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
+          <h2 className={`${inter.className} text-black dark:text-white mb-3 text-2xl font-semibold`}>
             Enter to the App{' '}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>
           </h2>
           <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
+            className={`${inter.className} text-black dark:text-white m-0 max-w-[30ch] text-sm opacity-50`}
           >
             Be the first to use SeeMyTalent by getting listed on our new site!
           </p>

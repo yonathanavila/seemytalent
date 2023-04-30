@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image"
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useEffect, useState } from "react";
-import { useTheme } from 'next-themes'
 
 const Navbar = () => {
 
@@ -56,8 +56,7 @@ const Navbar = () => {
     const { theme, setTheme } = useTheme()
 
     return (
-        <div className={`z-10 fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-white  dark:bg-gray-900  border-b-[1px] border-[#D2D9EE] dark:border-[#2E3443]' : 'bg-transparent'
-            }`}>
+        <div className={`z-10 fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-white  dark:bg-gray-900  border-b-[1px] border-[#D2D9EE] dark:border-[#2E3443]' : 'bg-transparent'}`}>
             <nav className="p-5 w-full h-18 z-2 px-4 py-4 flex justify-between lg:items-center z-100">
                 <div className="font-bold text-md flex items-center" >
                     <Image src={'/img/SeeMyTalent.png'} alt="SeeMyTalent" width={35} height={35} className="m-2 hover:cursor-pointer" onClick={() => router.push('/')} />
@@ -101,11 +100,8 @@ const Navbar = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-moon w-5 h-5 text-gray-500">
                             <path d="M12 2a10 10 0 000 20c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 100-16 8 8 0 000 16z" />
                         </svg>
-
                     )}
-
                 </div>
-
                 <ConnectButton accountStatus="address" label="Sign in" />
             </nav >
         </div >
