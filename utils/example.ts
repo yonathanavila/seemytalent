@@ -1,6 +1,3 @@
-// export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
-// export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; }
-
 import { IProfileBasic } from "~/app/components/mainComponents/MyProfile/ProfileCard";
 
 export const exampleData: Array<IProfileBasic> = [{
@@ -16,6 +13,44 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
+    },
     isVerified: true
 }, {
     id: '0x1234567890123456789012345678901234567832',
@@ -29,6 +64,47 @@ export const exampleData: Array<IProfileBasic> = [{
         description: 'I am a senior software engineer with 10 years of experience.',
         years: '10',
         startDate: '2010-01-01'
+    },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            university: 'University of São Paulo',
+            gpa: '3.5',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsibilities: ['I am a senior software engineer with 10 years of experience.']
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
     },
     isVerified: true
 }, {
@@ -44,6 +120,44 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
+    },
     isVerified: true
 }, {
     id: '0x1234567893233456789012345678901234567890',
@@ -57,6 +171,44 @@ export const exampleData: Array<IProfileBasic> = [{
         description: 'I am a senior software engineer with 10 years of experience.',
         years: '10',
         startDate: '2010-01-01'
+    },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
     },
     isVerified: true
 }, {
@@ -72,6 +224,44 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
+    },
     isVerified: true
 }, {
     id: '0x1544567890123456789012345678901234567890',
@@ -85,6 +275,44 @@ export const exampleData: Array<IProfileBasic> = [{
         description: 'I am a senior software engineer with 10 years of experience.',
         years: '10',
         startDate: '2010-01-01'
+    },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
     },
     isVerified: true
 }, {
@@ -100,6 +328,44 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
+    },
     isVerified: true
 }, {
     id: '0x1234567897523456789012345678901234567890',
@@ -114,6 +380,44 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
+    },
     isVerified: true
 }, {
     id: '0x12345678901232156789012345678901234567890',
@@ -127,6 +431,44 @@ export const exampleData: Array<IProfileBasic> = [{
         description: 'I am a senior software engineer with 10 years of experience.',
         years: '10',
         startDate: '2010-01-01'
+    },
+    detail: {
+        personalInformation: {
+            name: 'Yonathan Cruz',
+            email: 'yonathancruz2015@gmail.com',
+            phone: '+55 11 99999-9999',
+            address: 'Rua dos Bobos, 0',
+            dateOfBird: '1990-01-01',
+            nationality: 'Brazilian',
+        },
+        education: [{
+            degree: 'Bachelor of Computer Science',
+            institution: 'University of São Paulo',
+            startDate: '2010-01-01',
+            endDate: '2014-01-01',
+
+        }],
+        workExperience: [{
+            title: 'Senior Software Engineer',
+            company: 'Google',
+            startDate: '2014-01-01',
+            endDate: '2020-01-01',
+        }],
+        skills: [{
+            name: 'JavaScript',
+            level: 'Expert',
+        }, {
+            name: 'TypeScript',
+            level: 'Expert',
+        }, {
+            name: 'React',
+            level: 'Expert',
+        }],
+        projects: [{
+            name: 'SIGMEPE',
+            description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
+        }]
+
     },
     isVerified: true
 }];

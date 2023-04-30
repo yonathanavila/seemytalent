@@ -102,7 +102,7 @@ function InterviewRecord() {
         <>
             <div className="flex-grow m-5">
                 <button
-                    className="w-auto py-3 px-4 m-2 bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75 flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white"
+                    className="w-auto py-3 px-4 m-2 bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75 flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-black dark:text-white"
                     onClick={() => router.push('/profile')}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
@@ -125,7 +125,7 @@ function InterviewRecord() {
                                     height={80}
                                 />
                                 <div className="flex flex-col items-start justify-center gap-1 w-full overflow-hidden">
-                                    <a className="font-satoshi font-bold text-white text-[1.875rem] leading-[2.5rem]" >{(displayNameText || ensName || ens || getAddress(address!) || "Custom text") as string}</a>
+                                    <a className="font-satoshi font-bold text-black dark:text-white text-[1.875rem] leading-[2.5rem]" >{(displayNameText || ensName || ens || getAddress(address!) || "Custom text") as string}</a>
                                 </div>
                             </div>
 

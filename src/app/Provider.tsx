@@ -1,11 +1,13 @@
 "use client"
-import { SWRConfig } from 'swr';
+// import next/dynamic to load components dynamically
 import dynamic from 'next/dynamic';
+import { SWRConfig } from 'swr';
 import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'next-themes'
 import { ToastContainer } from 'react-toastify';
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { Analytics } from '@vercel/analytics/react';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 
 import store from '~/root/utils/store';
 import { chains } from '~/root/utils/functions/provider';
@@ -13,6 +15,9 @@ import { wagmiClient } from '~/root/utils/functions/client';
 import { chainSelected } from '~/root/utils/functions/chain';
 import '@rainbow-me/rainbowkit/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { useEffect, useState } from 'react'
+
 
 const myCustomThem: any = {
     blurs: {
@@ -57,32 +62,47 @@ const myCustomThem: any = {
 
 function Providers({ children }: any) {
     const chainId: any = process.env.NEXT_PUBLIC_MAINNET_TESTNET === "mainnet" ? 0 : 0;
+    const [theme, setTheme] = useState<any>();
+
+    useEffect(() => {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setTheme('dark')
+        } else {
+            setTheme('light')
+
+        }
+    }, [])
+
 
     return (
-        <div>
-            <Provider store={store}>
-                <SWRConfig
-                    value={{
-                        refreshInterval: 86400,
-                        fetcher: (resource, init) =>
-                            fetch(resource, init).then((res) => res.json()),
-                    }}>
-                    <WagmiConfig client={wagmiClient}>
-                        <RainbowKitProvider
-                            chains={chains}
-                            initialChain={chainSelected[Number(chainId || 0)]}
-                            theme={myCustomThem}
-                        >
-                            {children}
-                            <ToastContainer />
-                        </RainbowKitProvider>
-                    </WagmiConfig>
-                </SWRConfig>
-            </Provider>
+        <>
+            <ThemeProvider attribute='class'>
+                <Provider store={store}>
+                    <SWRConfig
+                        value={{
+                            refreshInterval: 86400,
+                            fetcher: (resource, init) =>
+                                fetch(resource, init).then((res) => res.json()),
+                        }}>
+                        <WagmiConfig client={wagmiClient}>
+                            <RainbowKitProvider
+                                chains={chains}
+                                initialChain={chainSelected[Number(chainId || 0)]}
+                                theme={myCustomThem}
+                            >
+                                {children}
+                                <ToastContainer />
+                            </RainbowKitProvider>
+                        </WagmiConfig>
+                    </SWRConfig>
+                </Provider>
+            </ThemeProvider>
             <Analytics />
-        </div >
+        </ >
     )
 }
 
-export default dynamic(() => Promise.resolve(Providers), { ssr: false });
+export default dynamic(() => Promise.resolve(Providers), {
+    ssr: false,
+});
 

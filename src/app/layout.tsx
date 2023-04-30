@@ -1,7 +1,6 @@
 import Provider from '~/app/Provider';
 import Footer from '~/app/components/Footer';
 import Navbar from '~/app/components/Navbar';
-
 import './globals.css'
 
 export const metadata = {
@@ -16,16 +15,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
 
+
   return (
-    <html lang="en">
-      <body className='bg-gradient-to-b from-[#202738] to-[#070816]'>
+    <html lang="en" className='light'>
+      {/* fixed top-0 left-0 right-0 pointer-events-none z-[-1] w-screen h-screen bg-gradient-to-b from-blue-800 to-blue-900 */}
+      <body className='bg-gradient-to-b from-[#F5D9C9] to-[#FFFFFF] dark:from-[#131727] dark:to-[#070816]'>
         <Provider>
           <Navbar />
-          <div className='pt-[200px] md:pt-[200px] lg:pt-[70px]'>
+          <div className='pt-[200px] md:pt-[200px] lg:pt-[70px] z-100'>
             {children}
           </div>
           <Footer />
-          <div id="background-radial-gradient" style={{ width: '200vw', height: '200vh', transform: 'translate(-50vw,-100vh)', background: 'linear-gradient(rgb(32,39,56) 0%,rgb(7,8,22)100%)' }}></div>
+
         </Provider>
       </body>
     </html>

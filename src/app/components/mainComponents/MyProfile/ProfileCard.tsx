@@ -1,23 +1,23 @@
 import useSWR from "swr";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEnsName, useAccount } from 'wagmi'
 import React, { useRef, useState, useEffect } from 'react';
 
 import Button from "~/app/components/Button";
 import CustomCard from '~/app/components/Card';
+import getAddress from "~/root/utils/functions/common";
 import Modal from "~/app/components/mainComponents/Modal";
 import { selectTalent, addTalent } from "~/root/utils/slice/talents";
 import CopyToClipboardButton from "~/app/components/CopyToClipboardButton";
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 import ProfileInput from "~/app/components/mainComponents/MyProfile/ProfileInput";
 import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOptions';
-import ProfileTextArea from "~/app/components/mainComponents/MyProfile/ProfileTextArea";
-import ProfileChackbox from "~/app/components/mainComponents/MyProfile/ProfileCheckbox";
 import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
+import ProfileModal from "./ProfileModal";
 
 export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
-export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; }
+export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; detail: any }
 
 const ProfileCard: React.FC<{
     data: IProfileBasic;
@@ -104,20 +104,17 @@ const ProfileCard: React.FC<{
                     </div>
                 )}
 
-                <CustomCard className={`${ens ? 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1] ' : 'dark:bg-[#131A2A] text-white'} `}>
-
-                    <div className="flex justify-between">
-                        <div>
-                            <Image
-                                className="rounded-full  w-25 h-25 ml-5"
-                                alt="profile-picture"
-                                src={((data?.image ? data?.image : "/img/wolf.webp") || "/img/wolf.webp")}
-                                width={80}
-                                height={80}
-                            />
-                            <div className="flex flex-col items-start justify-center w-full my-2">
-                                <a className={`mt-2 font-satoshi font-bold ${ens ? 'text-black' : 'text-white'} text-2xl leading-10`}>{(ens || address || "Custom text") as string}</a>
-                            </div>
+                <CustomCard className={`${ens ? 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1] ' : 'dark:bg-[#131A2A] bg-[#F5F6FC] text-black dark:text-white'} `}>
+                    <div className="group flex items-center">
+                        <Image
+                            className="shrink-0 h-12 w-12 m-2 rounded-full"
+                            alt="profile-picture"
+                            src={((data?.image ? data?.image : "/img/wolf.webp") || "/img/wolf.webp")}
+                            width={80}
+                            height={80}
+                        />
+                        <div className="ltr:ml-3 rtl:mr-3">
+                            <p className="text-sm font-medium dark:text-slate-300 dark:group-hover:text-white">{(ens || getAddress(address) || "Custom text") as string}</p>
                         </div>
                     </div>
 
@@ -163,7 +160,7 @@ const ProfileCard: React.FC<{
 
                     <div
                         className={`${isSelected ? 'animate-pulse' : 'group-hover:animate-pulse'
-                            } absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 dark:bg-gray-800 dark:text-white text-center rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
+                            } absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 bg-[#A95623] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
                     />
 
                     {onlyRead && (
@@ -176,93 +173,7 @@ const ProfileCard: React.FC<{
                 {isModalOpen && (
 
                     <Modal onClick={toggleModal} >
-                        <div className="h-100 overflow-auto">
-                            <ProfileSubtitles>
-                                Personal Information
-                            </ProfileSubtitles>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileInput title="Full Name">
-                                    {data?.ens || data || "Custom text"}
-                                </ProfileInput>
-                                <CopyToClipboardButton title="Email">
-                                    yonathancruz2015@gmail.com
-                                </CopyToClipboardButton>
-                                <CopyToClipboardButton title="Phone Number">
-                                    +503 6889 1234
-                                </CopyToClipboardButton>
-                            </div>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileInput title="Address">
-                                    Calle toluca
-                                </ProfileInput>
-                                <ProfileInput title="Date of Birth">
-                                    April 21, 1997
-                                </ProfileInput>
-                                <ProfileInput title="Nationality">
-                                    Honduran
-                                </ProfileInput>
-                            </div>
-                            <ProfileSubtitles>
-                                Education
-                            </ProfileSubtitles>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileInput title="Degree/Qualification">
-                                    Software Engineer
-                                </ProfileInput>
-                                <ProfileInput title="University/Institution">
-                                    Universidad Catolica de Honduras
-                                </ProfileInput>
-                            </div>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileInput title="GPA/Percentage">
-                                    Honduran
-                                </ProfileInput>
-                                <ProfileInput title="Aditional Education">
-                                    Honduran
-                                </ProfileInput>
-                            </div>
-                            <ProfileSubtitles>
-                                Work Experience
-                            </ProfileSubtitles>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileInput title="Job Title">
-                                    Full Stack Developer
-                                </ProfileInput>
-                                <ProfileInput title="Company">
-                                    Freelance
-                                </ProfileInput>
-                                <ProfileInput title="Employment Duration">
-                                    December 21, 2022 - Present
-                                </ProfileInput>
-                            </div>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileTextArea title="Job Description" value={" Full Stack Developer"} />
-                                <ProfileTextArea title="Achievements/Responsibilities" value={" Full Stack Developer"} />
-                            </div>
-                            <ProfileSubtitles>
-                                Skills
-                            </ProfileSubtitles>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileChackbox />
-                            </div>
-                            <ProfileSubtitles>
-                                Projects
-                            </ProfileSubtitles>
-                            <div className="flex flex-wrap justify-center">
-                                <ProfileInput
-                                    title="Proyect Title"
-                                    svg={<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" className="ml-2 block mt-1 w-3 h-3 text-gray-500" ><path fillRule="evenodd" clipRule="evenodd" d="M0 8.15217C0 5.52282 2.11999 3.3913 4.73514 3.3913H10.7676C11.6632 3.3913 12.3892 4.12127 12.3892 5.02174C12.3892 5.9222 11.6632 6.65217 10.7676 6.65217H4.73514C3.91119 6.65217 3.24324 7.32375 3.24324 8.15217V19.2391C3.24324 20.0676 3.91119 20.7391 4.73514 20.7391H15.7622C16.5861 20.7391 17.2541 20.0676 17.2541 19.2391V13.5652C17.2541 12.6648 17.9801 11.9348 18.8757 11.9348C19.7713 11.9348 20.4973 12.6648 20.4973 13.5652V19.2391C20.4973 21.8685 18.3773 24 15.7622 24H4.73514C2.11999 24 0 21.8685 0 19.2391V8.15217Z" fill="currentColor"></path><path fillRule="evenodd" clipRule="evenodd" d="M13.2324 1.63043C13.2324 0.729971 13.9585 0 14.8541 0H22.3784C23.274 0 24 0.729971 24 1.63043V8.93478C24 9.83525 23.274 10.5652 22.3784 10.5652C21.4828 10.5652 20.7568 9.83525 20.7568 8.93478V5.56665L11.8494 14.5225C11.2161 15.1592 10.1893 15.1592 9.55604 14.5225C8.92276 13.8857 8.92276 12.8534 9.55604 12.2167L18.4634 3.26087H14.8541C13.9585 3.26087 13.2324 2.5309 13.2324 1.63043Z" fill="currentColor"></path></svg>}
-                                >
-                                    Onchain Events
-                                </ProfileInput>
-                                <ProfileInput
-                                    title="Proyect Title"
-                                    svg={<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" className="ml-2 block mt-1 w-3 h-3 text-gray-500" ><path fillRule="evenodd" clipRule="evenodd" d="M0 8.15217C0 5.52282 2.11999 3.3913 4.73514 3.3913H10.7676C11.6632 3.3913 12.3892 4.12127 12.3892 5.02174C12.3892 5.9222 11.6632 6.65217 10.7676 6.65217H4.73514C3.91119 6.65217 3.24324 7.32375 3.24324 8.15217V19.2391C3.24324 20.0676 3.91119 20.7391 4.73514 20.7391H15.7622C16.5861 20.7391 17.2541 20.0676 17.2541 19.2391V13.5652C17.2541 12.6648 17.9801 11.9348 18.8757 11.9348C19.7713 11.9348 20.4973 12.6648 20.4973 13.5652V19.2391C20.4973 21.8685 18.3773 24 15.7622 24H4.73514C2.11999 24 0 21.8685 0 19.2391V8.15217Z" fill="currentColor"></path><path fillRule="evenodd" clipRule="evenodd" d="M13.2324 1.63043C13.2324 0.729971 13.9585 0 14.8541 0H22.3784C23.274 0 24 0.729971 24 1.63043V8.93478C24 9.83525 23.274 10.5652 22.3784 10.5652C21.4828 10.5652 20.7568 9.83525 20.7568 8.93478V5.56665L11.8494 14.5225C11.2161 15.1592 10.1893 15.1592 9.55604 14.5225C8.92276 13.8857 8.92276 12.8534 9.55604 12.2167L18.4634 3.26087H14.8541C13.9585 3.26087 13.2324 2.5309 13.2324 1.63043Z" fill="currentColor"></path></svg>}
-                                >
-                                    SIGMEPE
-                                </ProfileInput>
-                            </div>
-                        </div>
+                        <ProfileModal detail={data?.detail} ens={ens || getAddress(address)} />
                     </Modal>
 
                 )}
