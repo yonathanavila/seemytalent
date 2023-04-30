@@ -6,15 +6,15 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import Button from "~/app/components/Button";
 import CustomCard from '~/app/components/Card';
-import Modal from "~/app/components/MainComponents/Modal";
+import Modal from "~/app/components/mainComponents/Modal";
 import { selectTalent, addTalent } from "~/root/utils/slice/talents";
 import CopyToClipboardButton from "~/app/components/CopyToClipboardButton";
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
-import ProfileInput from "~/app/components/MainComponents/MyProfile/ProfileInput";
-import OptionsProfile from '~/app/components/MainComponents/MyProfile/ProfileOptions';
-import ProfileTextArea from "~/app/components/MainComponents/MyProfile/ProfileTextArea";
-import ProfileChackbox from "~/app/components/MainComponents/MyProfile/ProfileCheckbox";
-import ProfileSubtitles from "~/app/components/MainComponents/MyProfile/ProfileSubtitles";
+import ProfileInput from "~/app/components/mainComponents/MyProfile/ProfileInput";
+import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOptions';
+import ProfileTextArea from "~/app/components/mainComponents/MyProfile/ProfileTextArea";
+import ProfileChackbox from "~/app/components/mainComponents/MyProfile/ProfileCheckbox";
+import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
 
 export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
 export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; }
