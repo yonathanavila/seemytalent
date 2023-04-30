@@ -3,6 +3,7 @@ import Image from "next/image"
 import { useRouter } from 'next/navigation';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEffect, useState } from "react";
+import { useTheme } from 'next-themes'
 
 const Navbar = () => {
 
@@ -25,12 +26,34 @@ const Navbar = () => {
             }
         };
 
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
         window.addEventListener('scroll', handleScroll);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    const handleChangeTheme = () => {
+        setTheme(theme === 'dark' ? 'light' : 'dark')
+        window.location.reload()
+    };
+
+    const handleDarkMode = () => {
+        localStorage.theme = 'dark';
+    };
+
+    const handleRespectOsPreference = () => {
+        localStorage.removeItem('theme');
+    };
+
+    const { theme, setTheme } = useTheme()
 
     return (
         <div className={`z-10 fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-gray-900 border-b-[1px] border-[#2E3443]' : 'bg-transparent'
@@ -57,6 +80,32 @@ const Navbar = () => {
                         </span>
                     </div>
                 </div>
+
+                <div
+                    onClick={handleChangeTheme}
+                    className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-md dark:text-white font-bold hover:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl"
+                >
+                    {theme === 'dark' ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-sun w-5 h-5 text-yellow-500">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                    ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-moon w-5 h-5 text-gray-500">
+                            <path d="M12 2a10 10 0 000 20c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 100-16 8 8 0 000 16z" />
+                        </svg>
+
+                    )}
+
+                </div>
+
                 <ConnectButton accountStatus="address" label="Sign in" />
             </nav >
         </div >
