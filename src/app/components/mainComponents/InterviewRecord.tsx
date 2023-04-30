@@ -67,24 +67,23 @@ function InterviewRecord() {
     } = useDisplayName();
     const [displayNameText, setDisplayNameText] = useState<string>("");
 
-
-    const getRoomId = () => {
-        fetch(`${baseURI}/create-room`, {
-            method: "GET",
-
-        }).then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                setRoomId(data)
-            })
-    }
-
     useEffect(() => {
         if (initialize.isCallable && projectId) {
             initialize(projectId);
         }
 
-        getRoomId();
+        const getRoomId = () => {
+            return fetch(`${baseURI}/create-room`, {
+                method: "GET",
+
+            }).then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    setRoomId(data)
+                })
+        }
+
+        getRoomId()
     }, []);
 
 

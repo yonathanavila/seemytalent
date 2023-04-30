@@ -5,6 +5,8 @@ import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { Analytics } from '@vercel/analytics/react';
+
 import store from '~/root/utils/store';
 import { chains } from '~/root/utils/functions/provider';
 import { wagmiClient } from '~/root/utils/functions/client';
@@ -77,6 +79,7 @@ function Providers({ children }: any) {
                     </WagmiConfig>
                 </SWRConfig>
             </Provider>
+            <Analytics />
         </div >
     )
 }

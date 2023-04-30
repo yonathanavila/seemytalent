@@ -60,8 +60,7 @@ const ProfileCard: React.FC<{
             }
         }
 
-    }
-        , [talent]);
+    }, [talent, data?.id]);
 
     const handleAddTalent = async (id_: any) => {
         const found = await talent.find((element: any) => element == id_);
