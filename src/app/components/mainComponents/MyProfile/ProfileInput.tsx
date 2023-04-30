@@ -23,7 +23,7 @@ const Button: React.FC<{
                 {children}
             </div>
             {svg}
-        </a>
+        </a >
     );
 };
 
