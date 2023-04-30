@@ -1,4 +1,6 @@
 "use client"
+// import next/dynamic to load components dynamically
+import dynamic from 'next/dynamic';
 import { SWRConfig } from 'swr';
 import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
@@ -100,4 +102,7 @@ function Providers({ children }: any) {
     )
 }
 
-export default Providers
+export default dynamic(() => Promise.resolve(Providers), {
+    ssr: false,
+});
+

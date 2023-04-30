@@ -2,9 +2,7 @@
 
 import InterviewRecord from "~/app/components/mainComponents/InterviewRecord";
 
-
-
-const Interview = () => {
+function Interview() {
 
     return (
         <div className="flex flex-col h-screen">

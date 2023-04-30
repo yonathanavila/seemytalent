@@ -160,7 +160,7 @@ const ProfileCard: React.FC<{
 
                     <div
                         className={`${isSelected ? 'animate-pulse' : 'group-hover:animate-pulse'
-                            } absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 dark:bg-gray-800 dark:text-white text-center rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
+                            } absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 bg-[#A95623] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
                     />
 
                     {onlyRead && (
