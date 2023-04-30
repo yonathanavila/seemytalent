@@ -27,7 +27,7 @@ const Talents = () => {
                     <div className="relative">
                         <div className="fixed bottom-0 right-0">
                             <span
-                                className="absolute bottom-0 right-0 px-2 py-1 m-4 text-white rounded-full text-2xl hover:animate-bounce hover:cursor-pointer"
+                                className="absolute bottom-0 right-0 px-2 py-1 m-4 text-black dark:text-white rounded-full text-2xl hover:animate-bounce hover:cursor-pointer"
                                 onClick={handleDivClick}
                                 style={{ zIndex: 10 }} // Set a higher z-index value for the div
                             >

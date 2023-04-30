@@ -19,7 +19,7 @@ const Button: React.FC<{
                     </div>
                 </div>
             </div>
-            <div className="text-white text-base font-medium leading-5 ml-2">
+            <div className="text-black dark:text-white text-base font-medium leading-5 ml-2">
                 {children}
             </div>
             {svg}
