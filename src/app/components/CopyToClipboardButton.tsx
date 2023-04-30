@@ -3,7 +3,6 @@ const CopyToClipboardButton = ({ children, text }: any) => {
     const handleCopyClick = async () => {
         try {
             await navigator.clipboard.writeText(children);
-            alert(`Copied to clipboard: ${children}`);
         } catch (error) {
             console.error(`Error copying to clipboard: ${error}`);
         }
