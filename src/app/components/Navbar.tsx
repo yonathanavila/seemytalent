@@ -42,7 +42,6 @@ const Navbar = () => {
 
     const handleChangeTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark')
-        window.location.reload()
     };
 
     const handleDarkMode = () => {

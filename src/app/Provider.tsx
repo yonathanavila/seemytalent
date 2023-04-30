@@ -1,12 +1,11 @@
 "use client"
 import { SWRConfig } from 'swr';
-import dynamic from 'next/dynamic';
 import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'next-themes'
+import { ToastContainer } from 'react-toastify';
+import { Analytics } from '@vercel/analytics/react';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 
 import store from '~/root/utils/store';
 import { chains } from '~/root/utils/functions/provider';
@@ -96,19 +95,9 @@ function Providers({ children }: any) {
                     </SWRConfig>
                 </Provider>
             </ThemeProvider>
-            {theme === 'dark' ? (
-                <>
-                    <div id="background-radial-gradient" style={{ width: '200vw', height: '200vh', transform: 'translate(-50vw,-100vh)', background: 'linear-gradient(rgb(32,39,56) 0%,rgb(7,8,22)100%)' }}></div>
-                </>
-            ) : (
-                <>
-                    <div id="background-radial-gradient" style={{ width: "200vw", height: "200vh", transform: "translate(-50vw, -100vh)", background: "radial-gradient(100% 100% at 50% 0%, rgba(214, 103, 37, 0.51) 0%, rgba(255, 255, 255, 0) 100%), rgb(255, 255, 255)" }}></div>
-                </>
-            )}
-
             <Analytics />
         </ >
     )
 }
 
-export default dynamic(() => Promise.resolve(Providers), { ssr: false });
+export default Providers
