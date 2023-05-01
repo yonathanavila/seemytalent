@@ -9,7 +9,7 @@ const Modal: React.FC<{
     return (
 
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-white dark:bg-black bg-opacity-50">
-            <div className="bg-white w-auto p-6 rounded-lg bg-white dark:bg-[#0D111C] border border-[1px] border-[#2E3443]">
+            <div className="w-auto p-6 rounded-lg border border-[1px] border-[#D2D9EE] dark:border-[#2E3443] ">
                 <div className="flex justify-between mb-4">
                     <p className="dark:text-[#79829E] font-semibold">{title}</p>
                     <div onClick={onClick} className="cursor-pointer text-black dark:text-white">
@@ -19,20 +19,6 @@ const Modal: React.FC<{
                         </svg>
                     </div>
                 </div>
-
-                {/*  <div className="h-[85vh] overflow-hidden p-6 m-2 rounded-xl bg-[#FFFF] flex flex-col bg-clip-border dark:bg-[#0D111C] border border-[1px] border-[#D2D9EE] dark:border-[#2E3443]">
-                            <h2 className="lg:text-3xl sm:text-xl font-extrabold text-black dark:text-white p-4">yonathancruz.eth</h2>
-
-                            <div className="h-full overflow-y-auto overflow-x-hidden">
-
-                                {exampleData.map((data, index) => {
-                                    return (
-                                        <ProfileCard key={index} data={data} className="mr-5" />
-                                    )
-                                })}
-
-                            </div>
-                        </div> */}
                 <div className="h-[85vh] overflow-hidden">
                     <div className="h-full overflow-y-auto overflow-x-hidden">
                         {children}
