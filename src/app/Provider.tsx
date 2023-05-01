@@ -4,10 +4,10 @@ import dynamic from 'next/dynamic';
 import { SWRConfig } from 'swr';
 import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from 'next-themes'
+import { ThemeProvider, useTheme } from 'next-themes'
 import { ToastContainer } from 'react-toastify';
 import { Analytics } from '@vercel/analytics/react';
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { RainbowKitProvider, darkTheme, lightTheme, midnightTheme } from '@rainbow-me/rainbowkit';
 
 import store from '~/root/utils/store';
 import { chains } from '~/root/utils/functions/provider';
@@ -19,7 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react'
 
 
-const myCustomThem: any = {
+const myCustomTheme: any = {
     blurs: {
         modalOverlay: '...',
     },
@@ -60,19 +60,11 @@ const myCustomThem: any = {
     },
 };
 
+
+
 function Providers({ children }: any) {
     const chainId: any = process.env.NEXT_PUBLIC_MAINNET_TESTNET === "mainnet" ? 0 : 0;
-    const [theme, setTheme] = useState<any>();
-
-    useEffect(() => {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            setTheme('dark')
-        } else {
-            setTheme('light')
-
-        }
-    }, [])
-
+    const { theme, setTheme } = useTheme();
 
     return (
         <>
@@ -88,7 +80,7 @@ function Providers({ children }: any) {
                             <RainbowKitProvider
                                 chains={chains}
                                 initialChain={chainSelected[Number(chainId || 0)]}
-                                theme={myCustomThem}
+                                theme={midnightTheme()}
                             >
                                 {children}
                                 <ToastContainer />
@@ -96,13 +88,15 @@ function Providers({ children }: any) {
                         </WagmiConfig>
                     </SWRConfig>
                 </Provider>
-            </ThemeProvider>
+            </ThemeProvider >
             <Analytics />
         </ >
     )
 }
 
+// dynamic export to avoid SSR
 export default dynamic(() => Promise.resolve(Providers), {
     ssr: false,
 });
+
 

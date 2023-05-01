@@ -78,12 +78,12 @@ const ProfileCard: React.FC<{
             <div className={`${onlyRead && ((isSelected?.selected ? 'transition-opacity duration-300 ease-in-out opacity-75 hover:cursor-pointer' : 'transition-opacity duration-300 ease-in-out hover:opacity-75 hover:cursor-pointer'))}`}>
                 {!onlyRead && (<OptionsProfile Arrayfunction={[showMessageModal]} />)}
                 {isMessageOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 " ref={modalRef}>
-                        <div className="w-[322px] h-[310px] dark:bg-[#0D111C] rounded-lg border border-[1px] border-[#2E3443] relative ">
+                    <div className="fixed inset-0 flex items-center justify-center z-50 dark:bg-black bg-opacity-50 shadow-md" ref={modalRef}>
+                        <div className="w-[322px] h-[310px] shadow-md bg-white dark:bg-[#0D111C] rounded-lg border border-[1px] border-[#D2D9EE] dark:border-[#2E3443] relative ">
                             <div className="flex justify-between m-4">
-                                <p className="dark:text-[#79829E] font-semibold">Room</p>
+                                <p className="text-black dark:text-[#79829E] font-semibold">Room</p>
                                 <div onClick={showMessageModal} className="cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="text-black dark:text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <line x1="18" y1="6" x2="6" y2="18"></line>
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
                                     </svg>
@@ -104,7 +104,7 @@ const ProfileCard: React.FC<{
                     </div>
                 )}
 
-                <CustomCard className={`${ens ? 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1] ' : 'dark:bg-[#131A2A] bg-[#F5F6FC] text-black dark:text-white'} `}>
+                <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} `}>
                     <div className="group flex items-center">
                         <Image
                             className="shrink-0 h-12 w-12 m-2 rounded-full"
@@ -160,7 +160,7 @@ const ProfileCard: React.FC<{
 
                     <div
                         className={`${isSelected ? 'animate-pulse' : 'group-hover:animate-pulse'
-                            } absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 bg-[#A95623] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
+                            } absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 bg-[#CDA28A] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
                     />
 
                     {onlyRead && (
