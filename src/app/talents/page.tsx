@@ -138,22 +138,23 @@ const Talents = () => {
                                 </div>
                             </ul>
                         </animated.div>
-                        {talent.length > 0 && (
-                            <div className="relative" onClick={handleClick}>
-                                <div className="fixed bottom-0 right-0">
-                                    <span
-                                        className="absolute bottom-0 right-0 px-2 py-1 m-4 text-black dark:text-white rounded-full text-2xl hover:animate-bounce hover:cursor-pointer"
-                                        style={{ zIndex: 10 }} // Set a higher z-index value for the div
-                                    >
-                                        <span className="relative flex h-3 w-3">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                                            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                                        </span>
-                                        {talent.length}
-                                    </span>
-                                </div>
-                            </div>
-                        )}
+
+                    </div>
+                )}
+                {talent.length > 0 && (
+                    <div className="relative" onClick={handleClick}>
+                        <div className="fixed bottom-0 right-0">
+                            <span
+                                className="absolute bottom-0 right-0 px-2 py-1 m-4 text-black dark:text-white rounded-full text-2xl hover:animate-bounce hover:cursor-pointer"
+                                style={{ zIndex: 10 }} // Set a higher z-index value for the div
+                            >
+                                <span className="relative flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                                </span>
+                                {talent.length}
+                            </span>
+                        </div>
                     </div>
                 )}
             </div >
