@@ -34,6 +34,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ""
         }],
         skills: [{
             name: 'JavaScript',

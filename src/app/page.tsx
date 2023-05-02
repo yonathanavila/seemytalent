@@ -50,7 +50,7 @@ const Home = () => {
           rel="noopener noreferrer"
         >
           <h2 className={`${inter.className} text-black dark:text-white mb-3 text-2xl font-semibold`}>
-            About me{' '}
+            About{' '}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               -&gt;
             </span>

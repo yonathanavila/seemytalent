@@ -6,7 +6,7 @@ const Button: React.FC<{
 }> = ({ children, className }) => {
     return (
         <h2
-            className={`text-lg font-extrabold text-black dark:text-white ${className}`}
+            className={`text-2xl font-semibold dark:font-extrabold text-black dark:text-white ${className}`}
         >
             {children}
         </h2>

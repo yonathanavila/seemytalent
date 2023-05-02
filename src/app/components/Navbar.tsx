@@ -57,7 +57,7 @@ const Navbar = () => {
     return (
         <div className={`z-10 fixed top-0 w-full transition-colors duration-300 ${isScrolled ? 'bg-white  dark:bg-gray-900  border-b-[1px] border-[#D2D9EE] dark:border-[#2E3443]' : 'bg-transparent'}`}>
             <nav className="p-5 w-full h-18 z-2 px-4 py-4 flex justify-between lg:items-center z-100">
-                <div className="font-bold text-md flex items-center" >
+                <div className="font-semibold text-md dark:font-bold dark:text-md flex items-center" >
                     <Image src={'/img/SeeMyTalent.png'} alt="SeeMyTalent" width={35} height={35} className="m-2 hover:cursor-pointer" onClick={() => router.push('/')} />
                     <a className="hidden sm:block text-black dark:text-white hover:bg-gray-300 hover:dark:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" target="_blank" onClick={() => router.push('/')}>Home</a>
                     <a className="hidden sm:block text-black dark:text-gray-400 hover:bg-gray-300 hover:dark:bg-gray-800 hover:bg-opacity-50 hover:cursor-pointer p-3 rounded-xl" onClick={() => router.push('/profile')}>Collection</a>

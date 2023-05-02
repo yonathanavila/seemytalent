@@ -7,32 +7,23 @@ export const ABI = [
                 "type": "address"
             },
             {
+                "internalType": "contract IERC721ACustom",
+                "name": "_earliestToken",
+                "type": "address"
+            },
+            {
                 "internalType": "uint256",
                 "name": "_claimPeriodEnd",
                 "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_transferContract",
+                "type": "address"
             }
         ],
         "stateMutability": "nonpayable",
         "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "bool",
-                "name": "claim",
-                "type": "bool"
-            }
-        ],
-        "name": "CanClaim",
-        "type": "event"
     },
     {
         "anonymous": false,
@@ -50,7 +41,26 @@ export const ABI = [
                 "type": "uint256"
             }
         ],
-        "name": "HasClaimed",
+        "name": "ApplicantRegistered",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "EarliestApplicantRegistered",
         "type": "event"
     },
     {
@@ -80,74 +90,29 @@ export const ABI = [
                 "internalType": "address",
                 "name": "recipient",
                 "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "claim",
+                "type": "uint256"
             }
         ],
-        "name": "RecruiterClaimed",
+        "name": "RecipientSet",
         "type": "event"
     },
     {
+        "anonymous": false,
         "inputs": [
             {
-                "internalType": "bytes32",
-                "name": "_identifyer",
-                "type": "bytes32"
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
             }
         ],
-        "name": "registerApplicant",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes32",
-                "name": "_identifyer",
-                "type": "bytes32"
-            }
-        ],
-        "name": "registerEarliestApplicant",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes32",
-                "name": "_identifyer",
-                "type": "bytes32"
-            }
-        ],
-        "name": "registerRecruiter",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "renounceOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes32",
-                "name": "_identifyer",
-                "type": "bytes32"
-            },
-            {
-                "internalType": "bytes[]",
-                "name": "encodedApplicants",
-                "type": "bytes[]"
-            }
-        ],
-        "name": "reveal",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
+        "name": "RecruiterRegistered",
+        "type": "event"
     },
     {
         "anonymous": false,
@@ -161,71 +126,12 @@ export const ABI = [
             {
                 "indexed": false,
                 "internalType": "bytes32",
-                "name": "identifyer",
+                "name": "identifier",
                 "type": "bytes32"
             }
         ],
         "name": "Revealed",
         "type": "event"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_claimProfileFee",
-                "type": "uint256"
-            }
-        ],
-        "name": "setClaimProfileFee",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "setPause",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address[]",
-                "name": "_recipients",
-                "type": "address[]"
-            }
-        ],
-        "name": "setRecipients",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
-            }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
     },
     {
         "anonymous": false,
@@ -247,10 +153,6 @@ export const ABI = [
         "type": "event"
     },
     {
-        "stateMutability": "payable",
-        "type": "receive"
-    },
-    {
         "inputs": [
             {
                 "internalType": "address",
@@ -264,25 +166,6 @@ export const ABI = [
                 "internalType": "bytes32",
                 "name": "identifyer",
                 "type": "bytes32"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "claimableProfile",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
             }
         ],
         "stateMutability": "view",
@@ -315,13 +198,32 @@ export const ABI = [
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "claimProfileFee",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "claimableEarliestProfile",
         "outputs": [
             {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "earliestProfileToken",
+        "outputs": [
+            {
+                "internalType": "contract IERC721ACustom",
+                "name": "",
+                "type": "address"
             }
         ],
         "stateMutability": "view",
@@ -373,6 +275,95 @@ export const ABI = [
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_identifier",
+                "type": "bytes32"
+            }
+        ],
+        "name": "registerApplicant",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_identifier",
+                "type": "bytes32"
+            }
+        ],
+        "name": "registerEarliestApplicant",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_identifier",
+                "type": "bytes32"
+            }
+        ],
+        "name": "registerRecruiter",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_identifier",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "bytes[]",
+                "name": "_encodedApplicants",
+                "type": "bytes[]"
+            }
+        ],
+        "name": "reveal",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "setPause",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address[]",
+                "name": "_recipients",
+                "type": "address[]"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_claimableTokens",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "setRecipients",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "token",
         "outputs": [
@@ -397,5 +388,53 @@ export const ABI = [
         ],
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "transferAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
+            }
+        ],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
     }
 ]
