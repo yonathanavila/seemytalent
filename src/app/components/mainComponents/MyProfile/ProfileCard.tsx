@@ -172,10 +172,10 @@ const ProfileCard: React.FC<{
                                     } group-hover:opacity-100 transition-opacity duration-300 ease-in-out`}
                             >
                                 {isSelected?.id && (
-                                    <p className="text-sm">Remove from pool</p>
+                                    <p className="text-sm text-black font-semibold dark:text-white">Remove from pool</p>
                                 )}
                                 {!isSelected?.id && (
-                                    <p className="text-sm">Add to the pool</p>
+                                    <p className="text-sm text-black font-semibold dark:text-white">Add to the pool</p>
                                 )}
                             </div>
                         )}
