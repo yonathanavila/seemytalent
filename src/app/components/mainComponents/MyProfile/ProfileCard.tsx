@@ -83,7 +83,7 @@ const ProfileCard: React.FC<{
             <div className={`${onlyRead && ((isSelected?.id ? 'transition-opacity duration-300 ease-in-out opacity-75 hover:cursor-pointer' : 'transition-opacity duration-300 ease-in-out hover:opacity-75 hover:cursor-pointer'))}`}>
                 {!onlyRead && (<OptionsProfile Arrayfunction={[showMessageModal]} />)}
                 {isMessageOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50 dark:bg-black bg-opacity-50 shadow-md" ref={modalRef}>
+                    <div className="fixed inset-0 flex items-center justify-center z-50 bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 shadow-md" ref={modalRef}>
                         <div className="w-[322px] h-[310px] shadow-md bg-white dark:bg-[#0D111C] rounded-lg border border-[1px] border-[#D2D9EE] dark:border-[#2E3443] relative ">
                             <div className="flex justify-between m-4">
                                 <p className="text-black dark:text-[#79829E] font-semibold">Room</p>

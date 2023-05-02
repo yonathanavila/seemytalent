@@ -6,7 +6,7 @@ import { useEnsName, useAccount } from 'wagmi'
 import CustomCard from '~/app/components/Card';
 import { exampleData } from "~/root/utils/example";
 import getAddress from "~/root/utils/functions/common";
-import { selectTalent, clearArray } from "~/root/utils/slice/talents";
+import { selectTalent, clearArray, removeTalent } from "~/root/utils/slice/talents";
 import { useSpring, animated, config } from '@react-spring/web';
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 
@@ -48,6 +48,16 @@ const Talents = () => {
         }
     }, [talent.length]);
 
+    const handleRemove = (data: any) => {
+        const foundIndex = talent.findIndex((element: any) => element.id === data?.id);
+
+        if (foundIndex !== -1) {
+            // Talent is already selected, remove it
+            dispatch(removeTalent(data));
+        }
+    };
+
+
     const gridCols = isButtonSelected ? 'lg:grid-cols-3' : 'grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5';
 
     return (
@@ -81,37 +91,47 @@ const Talents = () => {
                     </div>
                 </animated.div>
                 {isButtonSelected && (
-                    <animated.div
-                        className="w-full lg:w-30' md:w-1/2"
-                        style={{ ...columnAnimation, marginLeft: 'auto' }}
-                    >
-                        <CustomCard>
-                            <div className="flex justify-between mb-4">
-                                <button>Bag</button>
-                                <button onClick={handleClearAll}>Clear all</button>
+                    <div className="w-[40%] sticky top-0 h-screen overflow-y-auto pl-4">
+                        <animated.div
+                            style={{
+                                ...columnAnimation,
+                                marginLeft: 'auto',
+                                maxHeight: '80vh', // Set the maximum height to 80% of the viewport height
+                                overflowY: 'auto', // Enable vertical scrolling if content exceeds the maximum height
+
+                            }}
+                        >
+                            <div className="flex flex-col justify-center items-center">
+
+                                <CustomCard>
+                                    <div className="flex justify-between mb-4">
+                                        <button>Bag</button>
+                                        <button onClick={handleClearAll}>Clear all</button>
+                                    </div>
+
+                                    {talent.length > 0 && talent.map((item, index) => {
+                                        return (
+                                            <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'}  rounded-lg border border-[1px] border-red-500 hidden sm:flex lg:mb-[10px]`}>
+                                                <div className="group flex items-center">
+                                                    <Image
+                                                        className="shrink-0 h-12 w-12 m-2 rounded-full"
+                                                        alt="profile-picture"
+                                                        src={((item?.image ? item?.image : "/img/wolf.webp") || "/img/wolf.webp")}
+                                                        width={80}
+                                                        height={80}
+                                                    />
+                                                    <div className="ltr:ml-3 rtl:mr-3">
+                                                        <p className="text-sm font-medium dark:text-slate-300 dark:group-hover:text-white">{(ens || getAddress(address) || "Custom text") as string}</p>
+                                                    </div>
+                                                </div>
+                                                <button className="text-sm text-red-500 hover:text-red-700" onClick={() => handleRemove(item)}>Remove</button>
+                                            </CustomCard>
+                                        )
+                                    })}
+                                </CustomCard>
                             </div>
-
-                            {talent.length > 0 && talent.map((item, index) => {
-                                return (
-                                    <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'}  rounded-lg border border-[1px] border-red-500 hidden sm:flex lg:mb-[10px]`}>
-                                        <div className="group flex items-center">
-                                            <Image
-                                                className="shrink-0 h-12 w-12 m-2 rounded-full"
-                                                alt="profile-picture"
-                                                src={((item?.image ? item?.image : "/img/wolf.webp") || "/img/wolf.webp")}
-                                                width={80}
-                                                height={80}
-                                            />
-                                            <div className="ltr:ml-3 rtl:mr-3">
-                                                <p className="text-sm font-medium dark:text-slate-300 dark:group-hover:text-white">{(ens || getAddress(address) || "Custom text") as string}</p>
-                                            </div>
-                                        </div>
-                                    </CustomCard>
-                                )
-                            })}
-
-                        </CustomCard>
-                    </animated.div>
+                        </animated.div>
+                    </div>
                 )}
             </div>
         </>
