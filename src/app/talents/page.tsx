@@ -94,7 +94,7 @@ const Talents = () => {
                                     {talent.length > 0 && talent.map((item, index) => {
                                         return (
 
-                                            <li className="flex py-4 items-center first:pt-0 last:pb-0">
+                                            <li className="flex py-4 items-center first:pt-0 last:pb-0" key={index}>
                                                 <Image
                                                     className="h-10 w-10 rounded-full"
                                                     alt="profile-picture"
@@ -113,7 +113,7 @@ const Talents = () => {
                                                         Remove
                                                     </Button>
                                                 </div>
-                                                <div className="ml-auto text-right">
+                                                <div className="ml-auto text-right mr-2">
                                                     <div className="text-md text-black dark:text-white">0.20 ETH</div>
                                                     <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
                                                 </div>
