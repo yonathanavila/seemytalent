@@ -324,12 +324,12 @@ export const ABI = [
         "inputs": [
             {
                 "internalType": "bytes32",
-                "name": "_identifyer",
+                "name": "_identifier",
                 "type": "bytes32"
             },
             {
                 "internalType": "bytes[]",
-                "name": "encodedApplicants",
+                "name": "_encodedApplicants",
                 "type": "bytes[]"
             }
         ],
