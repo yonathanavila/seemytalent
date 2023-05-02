@@ -8,10 +8,10 @@ import Button from "~/app/components/Button";
 import CustomCard from '~/app/components/Card';
 import getAddress from "~/root/utils/functions/common";
 import Modal from "~/app/components/mainComponents/Modal";
-import { selectTalent, addTalent } from "~/root/utils/slice/talents";
 import CopyToClipboardButton from "~/app/components/CopyToClipboardButton";
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 import ProfileInput from "~/app/components/mainComponents/MyProfile/ProfileInput";
+import { selectTalent, addTalent, removeTalent, clearArray } from "~/root/utils/slice/talents";
 import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOptions';
 import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
 import ProfileModal from "./ProfileModal";
@@ -62,19 +62,26 @@ const ProfileCard: React.FC<{
 
     }, [talent, data?.id]);
 
-    const handleAddTalent = async (id_: any) => {
-        const found = await talent.find((element: any) => element == id_);
+    const handlePool = (id_: any) => {
+        const foundIndex = talent.findIndex((element: any) => element.id === id_);
 
-        if (found == id_) {
-            // element found
+        if (foundIndex !== -1) {
+            // Talent is already selected, remove it
+            dispatch(removeTalent(id_));
+
+            if (talent.length === 1) {
+                setIsSelected(undefined);
+                // If the last talent is being removed, clear the talent array
+                dispatch(clearArray());
+            }
         } else {
-            // element added
+            // Talent is not selected, add it
             dispatch(addTalent({ id: data?.id, selected: true }));
         }
-    }
+    };
 
     return (
-        <div className={`${className} relative group`} onClick={() => handleAddTalent(data?.id)}>
+        <div className={`${className} relative group`} onClick={() => handlePool(data?.id)}>
             <div className={`${onlyRead && ((isSelected?.selected ? 'transition-opacity duration-300 ease-in-out opacity-75 hover:cursor-pointer' : 'transition-opacity duration-300 ease-in-out hover:opacity-75 hover:cursor-pointer'))}`}>
                 {!onlyRead && (<OptionsProfile Arrayfunction={[showMessageModal]} />)}
                 {isMessageOpen && (
@@ -104,7 +111,7 @@ const ProfileCard: React.FC<{
                     </div>
                 )}
 
-                <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} `}>
+                <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} ${(isSelected?.selected && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
                     <div className="group flex items-center">
                         <Image
                             className="shrink-0 h-12 w-12 m-2 rounded-full"
@@ -117,9 +124,8 @@ const ProfileCard: React.FC<{
                             <p className="text-sm font-medium dark:text-slate-300 dark:group-hover:text-white">{(ens || getAddress(address) || "Custom text") as string}</p>
                         </div>
                     </div>
-
                 </CustomCard>
-                <CustomCard className="dark:bg-[#131A2A]">
+                <CustomCard className={`dark:bg-[#131A2A] ${(isSelected?.selected && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
 
                     <ProfileSubtitles>
                         Address
@@ -157,25 +163,30 @@ const ProfileCard: React.FC<{
                             </div>
                         </div>
                     )}
-
                     <div
-                        className={`${isSelected ? 'animate-pulse' : 'group-hover:animate-pulse'
-                            } absolute bottom-0 left-0 w-full lg:py-2 mt-[35px] bg-[#CDA28A] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
-                    />
-
-                    {onlyRead && (
-                        <div className={
-                            (isSelected?.selected ? ' animate-pulse absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 dark:bg-gray-800 dark:text-white text-center rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]' :
-                                'group-hover:animate-pulse absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 dark:bg-gray-800 dark:text-white text-center rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px')} />
-                    )}
-
+                        className={`${isSelected?.selected ? 'animate-pulse' : 'group-hover:animate-pulse'
+                            } absolute bottom-0 left-0 w-full lg:py-2 mt-[35px] bg-[#CDA28A] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px] ${isSelected?.selected ? 'border border-red-500' : ''
+                            } flex items-center justify-center`}
+                    >
+                        {onlyRead && (
+                            <div
+                                className={`${isSelected?.selected ? 'opacity-0' : 'opacity-100'
+                                    } group-hover:opacity-100 transition-opacity duration-300 ease-in-out`}
+                            >
+                                {isSelected?.selected && (
+                                    <p className="text-sm">Remove from pool</p>
+                                )}
+                                {!isSelected?.selected && (
+                                    <p className="text-sm">Add to the pool</p>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </CustomCard>
                 {isModalOpen && (
-
                     <Modal onClick={toggleModal} >
                         <ProfileModal detail={data?.detail} ens={ens || getAddress(address)} />
                     </Modal>
-
                 )}
             </div>
         </div>
