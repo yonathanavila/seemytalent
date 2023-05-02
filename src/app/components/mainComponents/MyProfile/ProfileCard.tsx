@@ -17,7 +17,7 @@ import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileS
 import ProfileModal from "./ProfileModal";
 
 export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
-export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; detail: any }
+export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; fee: number; detail: any }
 
 const ProfileCard: React.FC<{
     data: IProfileBasic;

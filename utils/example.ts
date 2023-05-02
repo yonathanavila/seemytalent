@@ -13,6 +13,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -67,6 +68,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -122,6 +124,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -174,6 +177,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -226,6 +230,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -278,6 +283,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -330,6 +336,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -382,6 +389,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',
@@ -434,6 +442,7 @@ export const exampleData: Array<IProfileBasic> = [{
         years: '10',
         startDate: '2010-01-01'
     },
+    fee: 0.1,
     detail: {
         personalInformation: {
             name: 'Yonathan Cruz',

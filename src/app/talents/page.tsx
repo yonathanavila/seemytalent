@@ -11,6 +11,7 @@ import { useSpring, animated, config } from '@react-spring/web';
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 
 import ProfileCard from "~/app/components/mainComponents/MyProfile/ProfileCard";
+import Button from "../components/Button";
 
 
 const Talents = () => {
@@ -63,7 +64,7 @@ const Talents = () => {
     return (
         <>
             <div className="flex">
-                <animated.div className="w-full md:w-70 lg:w-full md:w-1/2" style={columnAnimation}>
+                <animated.div className="w-full md:w-70 lg:w-full md:w-1/2 drop-shadow-lg" style={columnAnimation}>
 
                     <div className={`grid ${gridCols} sm:grid-cols-1 gap-2 m-2`}>
                         {exampleData.length > 0 && exampleData.map((item, index) => {
@@ -91,7 +92,7 @@ const Talents = () => {
                     </div>
                 </animated.div>
                 {isButtonSelected && (
-                    <div className="w-[40%] sticky top-0 h-screen overflow-y-auto pl-4">
+                    <div className="w-[40%] sticky top-0 h-screen overflow-y-auto pl-4 hidden sm:flex">
                         <animated.div
                             style={{
                                 ...columnAnimation,
@@ -101,39 +102,41 @@ const Talents = () => {
 
                             }}
                         >
-                            <div className="flex flex-col justify-center items-center">
+                            <ul role="list" className="p-6 divide-y divide-slate-200 bg-white dark:bg-[#0E121D] rounded-3xl font-semibold mr-5">
+                                {talent.length > 0 && talent.map((item, index) => {
+                                    return (
 
-                                <CustomCard>
-                                    <div className="flex justify-between mb-4">
-                                        <button>Bag</button>
-                                        <button onClick={handleClearAll}>Clear all</button>
-                                    </div>
-
-                                    {talent.length > 0 && talent.map((item, index) => {
-                                        return (
-                                            <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'}  rounded-lg border border-[1px] border-red-500 hidden sm:flex lg:mb-[10px]`}>
-                                                <div className="group flex items-center">
-                                                    <Image
-                                                        className="shrink-0 h-12 w-12 m-2 rounded-full"
-                                                        alt="profile-picture"
-                                                        src={((item?.image ? item?.image : "/img/wolf.webp") || "/img/wolf.webp")}
-                                                        width={80}
-                                                        height={80}
-                                                    />
-                                                    <div className="ltr:ml-3 rtl:mr-3">
-                                                        <p className="text-sm font-medium dark:text-slate-300 dark:group-hover:text-white">{(ens || getAddress(address) || "Custom text") as string}</p>
-                                                    </div>
-                                                </div>
-                                                <button className="text-sm text-red-500 hover:text-red-700" onClick={() => handleRemove(item)}>Remove</button>
-                                            </CustomCard>
-                                        )
-                                    })}
-                                </CustomCard>
-                            </div>
+                                        <li className="flex py-4 items-center first:pt-0 last:pb-0 drop-shadow-lg">
+                                            <Image
+                                                className="h-10 w-10 rounded-full"
+                                                alt="profile-picture"
+                                                src={(item?.image ? item?.image : '/img/wolf.webp') || '/img/wolf.webp'}
+                                                width={80}
+                                                height={80}
+                                            />
+                                            <div className="ml-3 overflow-hidden">
+                                                <p className="text-sm text-black dark:text-slate-500 truncate">
+                                                    {(item.ens || getAddress(item.address) || 'Custom text') as string}
+                                                </p>
+                                                <Button
+                                                    className="text-sm text-red-500 hover:text-red-700"
+                                                    onClick={() => handleRemove(item)}
+                                                >
+                                                    Remove
+                                                </Button>
+                                            </div>
+                                            <div className="ml-auto text-right">
+                                                <div className="text-md text-black dark:text-slate-500">0.20 ETH</div>
+                                                <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
+                                            </div>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
                         </animated.div>
                     </div>
                 )}
-            </div>
+            </div >
         </>
     )
 }
