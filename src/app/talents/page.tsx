@@ -29,6 +29,10 @@ const Talents = () => {
         setIsButtonSelected(!isButtonSelected);
     };
 
+    const handlePay = () => {
+        console.log('pay');
+    }
+
     // React Spring animation config
     const columnAnimation = useSpring({
         width: isButtonSelected ? '70%' : '100%',
@@ -72,7 +76,68 @@ const Talents = () => {
                                 <ProfileCard data={item} key={index} className="md:max-w-[300px] sm:max-w-full" onlyRead={true} />
                             )
                         })}
+                    </div>
+                </animated.div>
+                {isButtonSelected && (
+                    <div className="w-[40%] sticky top-[12vh] h-screen pl-4 hidden sm:flex drop-shadow-lg">
+                        <animated.div
+                            style={{
+                                ...columnAnimation,
+                                marginLeft: 'auto',
+                                maxHeight: '80vh', // Set the maximum height to 80% of the viewport height
+                                overflowY: 'auto', // Enable vertical scrolling if content exceeds the maximum height
 
+                            }}
+                        >
+                            <ul role="list" className="p-6 divide-y divide-[#2E3443] dark:divide-[#2E3443] bg-white dark:bg-[#0E121D] rounded-3xl font-semibold mr-5">
+                                <div className="overflow-y-auto h-[40vh]">
+                                    {talent.length > 0 && talent.map((item, index) => {
+                                        return (
+
+                                            <li className="flex py-4 items-center first:pt-0 last:pb-0">
+                                                <Image
+                                                    className="h-10 w-10 rounded-full"
+                                                    alt="profile-picture"
+                                                    src={(item?.image ? item?.image : '/img/wolf.webp') || '/img/wolf.webp'}
+                                                    width={80}
+                                                    height={80}
+                                                />
+                                                <div className="ml-3 overflow-hidden">
+                                                    <p className="text-sm text-black dark:text-slate-500 truncate">
+                                                        {(item.ens || getAddress(item.address) || 'Custom text') as string}
+                                                    </p>
+                                                    <Button
+                                                        className="text-sm text-red-500 hover:text-red-700"
+                                                        onClick={() => handleRemove(item)}
+                                                    >
+                                                        Remove
+                                                    </Button>
+                                                </div>
+                                                <div className="ml-auto text-right">
+                                                    <div className="text-md text-black dark:text-white">0.20 ETH</div>
+                                                    <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
+                                                </div>
+                                            </li>
+                                        )
+                                    })}
+                                </div>
+                                <div className="text-right mt-4 text-black dark:text-slate-500 font-medium">
+                                    <div className="ml-auto text-right mt-4">
+                                        <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
+                                        <div className="text-md text-black dark:text-white">0.20 ETH</div>
+                                        <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
+                                    </div>
+                                </div>
+
+                                <div className="text-right mt-4">
+                                    <Button
+                                        onClick={handlePay}
+                                        className="text-md text-white bg-[#F49765] dark:text-white dark:bg-blue-500 hover:bg-[#FFD7B3] px-4 py-2 rounded-lg">
+                                        Pay
+                                    </Button>
+                                </div>
+                            </ul>
+                        </animated.div>
                         {talent.length > 0 && (
                             <div className="relative" onClick={handleClick}>
                                 <div className="fixed bottom-0 right-0">
@@ -89,51 +154,6 @@ const Talents = () => {
                                 </div>
                             </div>
                         )}
-                    </div>
-                </animated.div>
-                {isButtonSelected && (
-                    <div className="w-[40%] sticky top-0 h-screen overflow-y-auto pl-4 hidden sm:flex">
-                        <animated.div
-                            style={{
-                                ...columnAnimation,
-                                marginLeft: 'auto',
-                                maxHeight: '80vh', // Set the maximum height to 80% of the viewport height
-                                overflowY: 'auto', // Enable vertical scrolling if content exceeds the maximum height
-
-                            }}
-                        >
-                            <ul role="list" className="p-6 divide-y divide-slate-200 bg-white dark:bg-[#0E121D] rounded-3xl font-semibold mr-5">
-                                {talent.length > 0 && talent.map((item, index) => {
-                                    return (
-
-                                        <li className="flex py-4 items-center first:pt-0 last:pb-0 drop-shadow-lg">
-                                            <Image
-                                                className="h-10 w-10 rounded-full"
-                                                alt="profile-picture"
-                                                src={(item?.image ? item?.image : '/img/wolf.webp') || '/img/wolf.webp'}
-                                                width={80}
-                                                height={80}
-                                            />
-                                            <div className="ml-3 overflow-hidden">
-                                                <p className="text-sm text-black dark:text-slate-500 truncate">
-                                                    {(item.ens || getAddress(item.address) || 'Custom text') as string}
-                                                </p>
-                                                <Button
-                                                    className="text-sm text-red-500 hover:text-red-700"
-                                                    onClick={() => handleRemove(item)}
-                                                >
-                                                    Remove
-                                                </Button>
-                                            </div>
-                                            <div className="ml-auto text-right">
-                                                <div className="text-md text-black dark:text-slate-500">0.20 ETH</div>
-                                                <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
-                                            </div>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
-                        </animated.div>
                     </div>
                 )}
             </div >
