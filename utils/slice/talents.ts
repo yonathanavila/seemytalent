@@ -17,7 +17,7 @@ export const talentSlice = createSlice({
             state.talent.push(action.payload);
         },
         removeTalent: (state, action) => {
-            const index = state.talent.findIndex((talent) => talent.id === action.payload);
+            const index = state.talent.findIndex((talent) => talent.id === action.payload.id);
             if (index !== -1) {
                 state.talent.splice(index, 1);
             }

@@ -52,22 +52,20 @@ const ProfileCard: React.FC<{
 
     useEffect(() => {
         if (talent.length > 0) {
-            const found = talent.find((element: any) => element.id == data?.id);
-            if (found) {
-                setIsSelected(found);
-            } else {
-                setIsSelected(found);
-            }
+            const found = talent.find((element: any) => element.id === data?.id);
+            setIsSelected(found?.id ? found : undefined);
         }
-
+        if (talent.length === 0) setIsSelected(undefined);
     }, [talent, data?.id]);
 
-    const handlePool = (id_: any) => {
-        const foundIndex = talent.findIndex((element: any) => element.id === id_);
+
+
+    const handlePool = (data: any) => {
+        const foundIndex = talent.findIndex((element: any) => element.id === data?.id);
 
         if (foundIndex !== -1) {
             // Talent is already selected, remove it
-            dispatch(removeTalent(id_));
+            dispatch(removeTalent(data));
 
             if (talent.length === 1) {
                 setIsSelected(undefined);
@@ -76,13 +74,13 @@ const ProfileCard: React.FC<{
             }
         } else {
             // Talent is not selected, add it
-            dispatch(addTalent({ id: data?.id, selected: true }));
+            dispatch(addTalent(data));
         }
     };
 
     return (
-        <div className={`${className} relative group`} onClick={() => handlePool(data?.id)}>
-            <div className={`${onlyRead && ((isSelected?.selected ? 'transition-opacity duration-300 ease-in-out opacity-75 hover:cursor-pointer' : 'transition-opacity duration-300 ease-in-out hover:opacity-75 hover:cursor-pointer'))}`}>
+        <div className={`${className} relative group`} onClick={() => handlePool(data)}>
+            <div className={`${onlyRead && ((isSelected?.id ? 'transition-opacity duration-300 ease-in-out opacity-75 hover:cursor-pointer' : 'transition-opacity duration-300 ease-in-out hover:opacity-75 hover:cursor-pointer'))}`}>
                 {!onlyRead && (<OptionsProfile Arrayfunction={[showMessageModal]} />)}
                 {isMessageOpen && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 dark:bg-black bg-opacity-50 shadow-md" ref={modalRef}>
@@ -111,7 +109,7 @@ const ProfileCard: React.FC<{
                     </div>
                 )}
 
-                <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} ${(isSelected?.selected && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
+                <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} ${(isSelected?.id && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
                     <div className="group flex items-center">
                         <Image
                             className="shrink-0 h-12 w-12 m-2 rounded-full"
@@ -125,7 +123,7 @@ const ProfileCard: React.FC<{
                         </div>
                     </div>
                 </CustomCard>
-                <CustomCard className={`dark:bg-[#131A2A] ${(isSelected?.selected && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
+                <CustomCard className={`dark:bg-[#131A2A] ${(isSelected?.id && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
 
                     <ProfileSubtitles>
                         Address
@@ -164,19 +162,19 @@ const ProfileCard: React.FC<{
                         </div>
                     )}
                     <div
-                        className={`${isSelected?.selected ? 'animate-pulse' : 'group-hover:animate-pulse'
+                        className={`${isSelected?.id ? 'animate-pulse' : 'group-hover:animate-pulse'
                             } absolute bottom-0 left-0 w-full lg:py-2 mt-[35px] bg-[#CDA28A] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px] ${isSelected?.selected ? 'border border-red-500' : ''
                             } flex items-center justify-center`}
                     >
                         {onlyRead && (
                             <div
-                                className={`${isSelected?.selected ? 'opacity-0' : 'opacity-100'
+                                className={`${isSelected?.id ? 'opacity-0' : 'opacity-100'
                                     } group-hover:opacity-100 transition-opacity duration-300 ease-in-out`}
                             >
-                                {isSelected?.selected && (
+                                {isSelected?.id && (
                                     <p className="text-sm">Remove from pool</p>
                                 )}
-                                {!isSelected?.selected && (
+                                {!isSelected?.id && (
                                     <p className="text-sm">Add to the pool</p>
                                 )}
                             </div>
