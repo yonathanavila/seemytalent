@@ -10,35 +10,39 @@ import {
     useVideo,
     useRecording,
 } from "@huddle01/react/hooks";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useEnsName, useAccount } from 'wagmi'
+import { Audio, Video } from "@huddle01/react/components";
 import { useDisplayName } from "@huddle01/react/app-utils";
 import { useEventListener, useHuddle01 } from "@huddle01/react";
-
-import Video from "~/app/components/Video";
 import Button from "~/app/components/Button";
 import CustomCard from "~/app/components/Card";
-import { getAddress } from "ethers/lib/utils.js";
+import getAddress from "~/root/utils/functions/common";
 import useGetEnsName from "~/root/hooks/useGetEnsName";
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
 
-function InterviewRecord() {
+function InterviewRecord({ roomId }: any) {
     // wagmi hooks
     const { address } = useAccount();
-    const { data: ens } = useEnsName({ address });
-    const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
-    // custom hooks
+    const ens: any = undefined
+    const ensName: any = undefined
+    const ensAvatar: any = undefined
+    /*     const { data: ens } = useEnsName({ address });
+        const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
+        // custom hooks
+        const { ensName } = useGetEnsName(address); */
+
     const router = useRouter();
-    const { ensName } = useGetEnsName(address);
     // huddle01 hooks
-    const [roomId, setRoomId] = useState<any>("");
     const { state, send } = useMeetingMachine();
     const { joinRoom, leaveRoom } = useRoom();
     const { initialize } = useHuddle01();
     const { joinLobby } = useLobby();
+    const videoRef = useRef<HTMLVideoElement>(null);
+
     const {
         fetchAudioStream,
         produceAudio,
@@ -67,36 +71,55 @@ function InterviewRecord() {
     } = useDisplayName();
     const [displayNameText, setDisplayNameText] = useState<string>("");
 
+
+    const InitializeMeeting = () => {
+
+        if (joinRoom.isCallable && fetchAudioStream.isCallable && fetchAudioStream.isCallable) {
+
+            fetchVideoStream();
+            fetchAudioStream();
+
+        }
+    }
+
+    const fetchParticipants = async () => {
+        produceVideo(micStream);
+        produceAudio(camStream);
+    }
+
     useEffect(() => {
         if (initialize?.isCallable && projectId) {
             initialize(projectId);
         }
 
-        const getRoomId = () => {
-            return fetch(`${baseURI}/create-room`, {
-                method: "GET",
-
-            }).then((res) => res.json())
-                .then((data) => {
-                    console.log(data)
-                    setRoomId(data)
-                })
+        if (joinLobby.isCallable && roomId) {
+            joinLobby(roomId);
+            InitializeMeeting()
         }
 
-        getRoomId()
-    }, [initialize]);
+    }, [initialize, joinLobby.isCallable]);
 
 
     useEventListener("room:joined", () => {
         console.log("room:joined");
+        if (produceAudio.isCallable && produceVideo.isCallable) {
+            fetchParticipants()
+        }
     });
     useEventListener("lobby:joined", () => {
         console.log("lobby:joined");
+        InitializeMeeting();
     });
 
-    const handleReturnLobby = () => {
+    // Event Listner
+    useEventListener("lobby:cam-on", () => {
+        console.log("cam-on");
+        if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
+        if (joinRoom.isCallable) {
 
-    }
+            joinRoom();
+        }
+    });
 
     return (
         <>
@@ -116,28 +139,23 @@ function InterviewRecord() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-auto">
                     <CustomCard className={`${ens && 'bg-gradient-to-b from-[#8498FB] to-[#49B8F1]'}`}>
                         <div className="flex justify-between">
-                            <div>
-                                <Image
-                                    className="rounded-full max-w-none w-25 h-25 ml-5"
-                                    alt="profile-picture"
-                                    src={((!ensAvatar?.message ? `https://metadata.ens.domains/mainnet/avatar/${ens}` : "/img/wolf.webp") || "/img/wolf.webp")}
-                                    width={80}
-                                    height={80}
-                                />
-                                <div className="flex flex-col items-start justify-center gap-1 w-full overflow-hidden">
-                                    <a className="font-satoshi font-bold text-black dark:text-white text-[1.875rem] leading-[2.5rem]" >{(displayNameText || ensName || ens || getAddress(address!) || "Custom text") as string}</a>
+                            <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} `}>
+                                <div className="group flex justify-between">
+                                    <div className="flex items-center">
+                                        <Image
+                                            className="shrink-0 h-12 w-12 m-2 rounded-full"
+                                            alt="profile-picture"
+                                            src={((ensAvatar?.message ? `https://metadata.ens.domains/mainnet/avatar/${ens}` : "/img/wolf.webp") || "/img/wolf.webp")}
+                                            width={80}
+                                            height={80}
+                                        />
+                                        <div className="mx-4">
+                                            <p className="text-sm font-medium dark:text-slate-300 dark:group-hover:text-white">{(ens || getAddress(address) || "Custom text") as string}</p>
+                                        </div>
+                                    </div>
+                                    <button className="text-sm font-medium text-gray-500 dark:text-slate-300">Custom name</button>
                                 </div>
-                            </div>
-
-                            <Button
-                                className="w-[200px]"
-                                disabled={!setDisplayName.isCallable}
-                                onClick={() => {
-                                    setDisplayName(displayNameText);
-                                }}
-                            >
-                                {`Custom name`}
-                            </Button>
+                            </CustomCard>
                         </div>
                     </CustomCard >
                     <CustomCard>
@@ -159,13 +177,32 @@ function InterviewRecord() {
                     </CustomCard>
                 </div>
             </div>
-            <div className="flex-grow mx-5 my-5 ">
-                <CustomCard className="h-[500px]">
-                    <Video
-                        ensName={(displayNameText || ens || getAddress(address!) || "Custom text") as string}
-                        peers={peers}
-                        camStream={camStream}
-                    />
+            <div className="flex-grow mx-5 my-2 ">
+                <CustomCard>
+                    <h2 className="text-2xl text-black">Room State</h2>
+                    <h3 className="break-words text-black">{JSON.stringify(state.value)}</h3>
+                    {ensName} Video:
+                    <div className="flex">
+                        <video ref={videoRef} autoPlay muted className="max-w-lg mx-5"></video>
+                        <div>
+                            {Object.values(peers)
+                                .filter((peer: any) => peer.cam)
+                                .map((peer: any) => (
+                                    <Video
+                                        key={peer.peerId}
+                                        peerId={peer.peerId}
+                                        track={peer.cam}
+                                        className="max-w-lg mx-5"
+                                        debug
+                                    />
+                                ))}
+                            {Object.values(peers)
+                                .filter((peer: any) => peer.mic)
+                                .map((peer: any) => (
+                                    <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
+                                ))}
+                        </div>
+                    </div>
                 </CustomCard>
             </div>
         </>

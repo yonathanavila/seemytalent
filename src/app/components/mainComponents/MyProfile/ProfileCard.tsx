@@ -17,6 +17,8 @@ import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOpt
 import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
 import { selectTalent, addTalent, removeTalent, clearArray } from "~/root/utils/slice/talents";
 
+const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
+
 const ProfileCard: React.FC<{
     data: IProfileBasic;
     onlyRead?: boolean;
@@ -26,11 +28,10 @@ const ProfileCard: React.FC<{
 
     const router = useRouter();
     const modalRef: any = useRef();
+    const [roomId, setRoomId] = useState<any>("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMessageOpen, setMessageOpen] = useState(false);
     const [isSelected, setIsSelected] = useState<any>(undefined);
-
-
     const toggleModal = () => {
         console.log("toggleModal");
         setIsModalOpen(!isModalOpen);
@@ -55,6 +56,22 @@ const ProfileCard: React.FC<{
         }
         if (talent.length === 0) setIsSelected(undefined);
     }, [talent, data?.id]);
+
+    useEffect(() => {
+        const getRoomId = async () => {
+            try {
+                const response = await fetch(`${baseURI}/create-room`, {
+                    method: "GET",
+                });
+                const data = await response.json();
+                setRoomId(data?.data?.roomId);
+
+            } catch (error) {
+                throw new Error(error);
+            }
+        }
+        getRoomId()
+    }, [data?.id])
 
     const handlePool = (data: any) => {
         const foundIndex = talent.findIndex((element: any) => element.id === data?.id);
@@ -90,7 +107,7 @@ const ProfileCard: React.FC<{
                                     </svg>
                                 </div>
                             </div>
-                            <Button onClick={() => router.push('/interview')} className="flex items-center justify-center absolute bottom-0" >
+                            <Button onClick={() => router.push('/interview/' + roomId)} className="flex items-center justify-center absolute bottom-0" >
 
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 mr-2">
                                     <path d="M12 1v6m0 0v6m0-6h6m-6 0H6"></path>

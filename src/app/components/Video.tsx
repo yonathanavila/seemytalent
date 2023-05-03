@@ -16,14 +16,15 @@ const VideoComponent: React.FC<{
         const videoRef = useRef<HTMLVideoElement>(null);
         // Event Listner
         useEventListener("lobby:cam-on", () => {
+            console.log("cam-on");
             if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
         });
 
-        return (<>
-            <div>
+        return (
+            <>
 
                 {ensName} Video:
-                <video ref={videoRef} autoPlay muted></video>
+                <video ref={videoRef} autoPlay muted className="z-100"></video>
                 <>
                     {Object.values(peers)
                         .filter((peer: any) => peer.cam)
@@ -41,8 +42,7 @@ const VideoComponent: React.FC<{
                             <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
                         ))}
                 </>
-            </div >
-        </>)
+            </>)
     }
 
 export default VideoComponent;
