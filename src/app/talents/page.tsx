@@ -169,7 +169,7 @@ const Talents = () => {
                                 <div className="text-right mt-4">
                                     <Button
                                         onClick={handlePay}
-                                        className="text-md text-white bg-[#F49765] dark:text-white dark:bg-blue-500 hover:bg-[#FFD7B3] px-4 py-2 rounded-lg">
+                                        className="text-md bg-[#F49765] text-black dark:text-white dark:bg-blue-500 hover:bg-[#FFD7B3] px-4 py-2 rounded-lg">
                                         Pay
                                     </Button>
                                 </div>
