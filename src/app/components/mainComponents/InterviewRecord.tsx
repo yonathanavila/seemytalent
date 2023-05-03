@@ -128,7 +128,7 @@ function InterviewRecord({ roomId }: any) {
 
     return (
         <>
-            <div className="flex-grow m-5">
+            <div className="flex-grow ml-5">
                 <button
                     className="w-auto py-3 px-4 m-2 bg-slate-100 dark:bg-slate-700 text-center rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition ease-in-out delay-75 flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-black dark:text-white"
                     onClick={() => router.push('/profile')}
@@ -141,7 +141,7 @@ function InterviewRecord({ roomId }: any) {
                 </button>
             </div>
             <div className="flex-grow mx-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 h-xs">
                     <CustomCard className={`${ens && 'bg-gradient-to-b from-[#8498FB] to-[#49B8F1]'}`}>
                         <div className="flex justify-between">
                             <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} `}>
@@ -184,19 +184,21 @@ function InterviewRecord({ roomId }: any) {
             </div>
             <div className="flex-grow mx-5 my-2 ">
                 <CustomCard>
-                    <h2 className="text-2xl text-black">Room State</h2>
-                    <h3 className="break-words text-black">{JSON.stringify(state.value)}</h3>
+                    <h2 className="text-2xl font-semibold text-black dark:text-white">Room</h2>
                     {ensName} Video:
                     <div className="flex">
                         <animated.div className="w-full md:w-70 lg:w-full md:w-1/2 drop-shadow-lg" style={columnAnimation}>
+                            <span className="relative flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                            </span>
                             <video ref={videoRef} autoPlay muted className="max-w-lg mx-5"></video>
-
                         </animated.div>
                         <animated.div
                             style={{
                                 ...columnAnimation,
                                 marginLeft: 'auto',
-                                maxHeight: '80vh', // Set the maximum height to 80% of the viewport height
+                                maxHeight: 'auto', // Set the maximum height to 80% of the viewport height
                                 overflowY: 'auto', // Enable vertical scrolling if content exceeds the maximum height
 
                             }}
