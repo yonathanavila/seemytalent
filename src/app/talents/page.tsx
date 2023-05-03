@@ -36,7 +36,7 @@ const Talents = () => {
     const handlePay = async () => {
         try {
             const totalFeeWithFee = getTotalFee(talent);
-            let identifier: string = '';
+            let identifier: any = '';
             const talentsEncoded: Array<string> = [];
             talent.forEach((item: IProfileBasic) => {
                 identifier = getIndentifier(address, {
@@ -48,11 +48,13 @@ const Talents = () => {
                     dateOfBirth: item?.detail?.personalInformation?.dateOfBirth,
                     nationality: item?.detail?.personalInformation?.nationality,
                 });
+                console.log(identifier);
                 const encoded = getEncode({
                     amount: item?.fee,
                     address: item?.address,
-                    identifier
+                    identifier: identifier?.root
                 });
+                console.log(encoded);
                 talentsEncoded.push(encoded);
             });
             await reveal(provider, signer, identifier, talentsEncoded, totalFeeWithFee);

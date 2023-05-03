@@ -4,19 +4,18 @@ import { useRouter } from "next/navigation";
 import { useEnsName, useAccount } from 'wagmi'
 import React, { useRef, useState, useEffect } from 'react';
 
+import ProfileModal from "./ProfileModal";
 import Button from "~/app/components/Button";
 import CustomCard from '~/app/components/Card';
+import { IProfileBasic } from "~/root/utils/types";
 import getAddress from "~/root/utils/functions/common";
 import Modal from "~/app/components/mainComponents/Modal";
 import CopyToClipboardButton from "~/app/components/CopyToClipboardButton";
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 import ProfileInput from "~/app/components/mainComponents/MyProfile/ProfileInput";
-import { selectTalent, addTalent, removeTalent, clearArray } from "~/root/utils/slice/talents";
 import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOptions';
 import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
-import ProfileModal from "./ProfileModal";
-import { IProfileBasic } from "~/root/utils/types";
-
+import { selectTalent, addTalent, removeTalent, clearArray } from "~/root/utils/slice/talents";
 
 const ProfileCard: React.FC<{
     data: IProfileBasic;

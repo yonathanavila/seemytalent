@@ -51,16 +51,20 @@ export default function GenerateMerkleTree(
             root
         });
     } catch (error: any) {
-        console.log(error);
+        throw new Error(`[Error] GenerateMerkleTree: ${error.message}`);
     }
 }
 
 // Get proof
 // Function to calculate the hash of a leaf node
 function calculateHash(leaf: any) {
-    const bytes = utf8ToBytes(leaf);
-    const hash = keccak256(bytes);
-    return hash;
+    try {
+        const bytes = utf8ToBytes(leaf);
+        const hash = keccak256(bytes);
+        return hash;
+    } catch (error: any) {
+        throw new Error(`[Error] calculateHash: ${error.message}`);
+    }
 }
 
 // Function to generate a proof for a specific data element
