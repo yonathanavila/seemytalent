@@ -57,3 +57,7 @@ You need to add the enviaronment variables to run the project, you can see the e
 To learn more about SeeMyTalent, take a look at the following documentation:
 
 - [SeeMyTalent Documentation](https://docs.seemytalent.xyz/) - learn about SeeMyTalent features and Website.
+
+## License
+
+[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
