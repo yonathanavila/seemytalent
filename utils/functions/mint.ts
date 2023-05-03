@@ -5,7 +5,7 @@ import { getMaxPriorityFeePerGas } from './getFee';
 import { FetchSignerResult } from '@wagmi/core';
 
 const seeMyTalentAddress = process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS as string;
-const gasLimit = (process.env.NEXT_PUBLIC_GAS_LIMIT || 1864222) as Number;
+const gasLimit = (process.env.NEXT_PUBLIC_GAS_LIMIT || 11805182) as Number;
 
 /// @notice Register Early Applicant
 export const mintResume = async (
@@ -19,7 +19,6 @@ export const mintResume = async (
 
     args.push({
         gasLimit: gasLimit,
-        maxPriorityFeePerGas: maxPriorityFee?.toString(),
         value: ethToWei(String(fee))
     });
 
@@ -82,24 +81,23 @@ interface RevealResponse {
 export const reveal = async (
     provider: ethers.providers.Provider,
     signer: FetchSignerResult<ethers.Signer> | undefined,
-    identifier: string,
-    encodedApplicants: string[],
+    _identifier: string,
+    _encodedApplicants: string[],
     fee: number
 ): Promise<RevealResponse> => {
     // Input parameter validation
-    console.log('reveal', provider, signer, identifier, encodedApplicants, fee);
-    if (!provider || !signer || !identifier || !encodedApplicants || fee === undefined) {
+    console.log('reveal', _identifier, _encodedApplicants, fee);
+    if (!provider || !signer || !_identifier || !_encodedApplicants || fee === undefined) {
         throw new Error('Invalid input parameters');
     }
 
     const maxPriorityFee = await getMaxPriorityFeePerGas(provider);
     const args: any[] = [
-        identifier,
-        encodedApplicants,
+        _identifier,
+        _encodedApplicants,
         {
             gasLimit: gasLimit,
-            maxPriorityFeePerGas: maxPriorityFee?.toString(),
-            value: ethers.utils.parseEther(String(fee))
+            maxPriorityFeePerGas: maxPriorityFee?.toString()
         }
     ];
 

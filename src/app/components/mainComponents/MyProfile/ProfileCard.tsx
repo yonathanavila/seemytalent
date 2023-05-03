@@ -56,8 +56,6 @@ const ProfileCard: React.FC<{
         if (talent.length === 0) setIsSelected(undefined);
     }, [talent, data?.id]);
 
-
-
     const handlePool = (data: any) => {
         const foundIndex = talent.findIndex((element: any) => element.id === data?.id);
 

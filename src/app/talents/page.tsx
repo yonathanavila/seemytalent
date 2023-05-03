@@ -36,6 +36,7 @@ const Talents = () => {
     const handlePay = async () => {
         try {
             const totalFeeWithFee = getTotalFee(talent);
+            console.log(totalFeeWithFee);
             let identifier: any = '';
             const talentsEncoded: Array<string> = [];
             talent.forEach((item: IProfileBasic) => {
@@ -59,7 +60,8 @@ const Talents = () => {
             });
             await reveal(provider, signer, identifier?.root, talentsEncoded, totalFeeWithFee);
         } catch (error) {
-            console.error(error);
+
+            throw Error(error);
         }
     };
 
@@ -144,7 +146,7 @@ const Talents = () => {
                                                     </Button>
                                                 </div>
                                                 <div className="ml-auto text-right mr-2">
-                                                    <div className="text-md text-black dark:text-white">0.20 ETH</div>
+                                                    <div className="text-md text-black dark:text-white">{item?.fee} ETH</div>
                                                     <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
                                                 </div>
                                             </li>
@@ -154,7 +156,7 @@ const Talents = () => {
                                 <div className="text-right mt-4 text-black dark:text-slate-500 font-medium">
                                     <div className="ml-auto text-right mt-4">
                                         <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
-                                        <div className="text-md text-black dark:text-white">0.20 ETH</div>
+                                        <div className="text-md text-black dark:text-white">{getTotalFee(talent)} ETH</div>
                                         <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
                                     </div>
                                 </div>
