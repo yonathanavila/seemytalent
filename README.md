@@ -36,7 +36,7 @@ Overall, the recruitment platform offers an efficient and effective solution for
 ## Demo
 
 You can see the website online in [https://seemytalent.xyz](https://seemytalent.xyz)
-Also we provide a demo link how they works [Demo](https://seemytalent.xyz)
+Also we provide a [demo](https://seemytalent.xyz) link how they works
 ## Getting Started
 
 First, run the development server:
