@@ -5,7 +5,7 @@ import ProfileCard from "~/app/components/mainComponents/MyProfile/ProfileCard";
 const Profile = () => {
     return (
         <>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center h-screen">
                 <div className="pt-68 lg:px-8 pb-0 max-w-[900px] w-full">
                     <div className="box-border max-w-7xl mx-4 my-4">
                         <ProfileCard data={exampleData[0]} />

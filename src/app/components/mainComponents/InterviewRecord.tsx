@@ -1,6 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import useSWR from "swr";
 import Image from "next/image";
 import {
     useAudio,
@@ -11,7 +10,8 @@ import {
     useVideo,
     useRecording,
 } from "@huddle01/react/hooks";
-import useSWR from "swr";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useEnsName, useAccount } from 'wagmi'
 import { useDisplayName } from "@huddle01/react/app-utils";
 import { useEventListener, useHuddle01 } from "@huddle01/react";

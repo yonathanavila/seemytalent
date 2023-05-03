@@ -22,8 +22,10 @@ export default function RootLayout({
       <body className='bg-gradient-to-b from-[#F5D9C9] to-[#FFFFFF] dark:from-[#131727] dark:to-[#070816]'>
         <Provider>
           <Navbar />
-          <div className='pt-[200px] md:pt-[200px] lg:pt-[70px] z-100'>
-            {children}
+          <div className='bg-gradient-to-b from-[#F5D9C9] to-[#FFFFFF] dark:from-[#131727] dark:to-[#070816]'>
+            <div className='pt-[200px] md:pt-[200px] lg:pt-[70px] z-100'>
+              {children}
+            </div>
           </div>
           <Footer />
         </Provider>
