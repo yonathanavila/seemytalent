@@ -13,13 +13,15 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useEnsName, useAccount } from 'wagmi'
-import { Audio, Video } from "@huddle01/react/components";
-import { useDisplayName } from "@huddle01/react/app-utils";
-import { useEventListener, useHuddle01 } from "@huddle01/react";
 import Button from "~/app/components/Button";
 import CustomCard from "~/app/components/Card";
 import getAddress from "~/root/utils/functions/common";
 import useGetEnsName from "~/root/hooks/useGetEnsName";
+import { Audio, Video } from "@huddle01/react/components";
+import { useDisplayName } from "@huddle01/react/app-utils";
+import { useEventListener, useHuddle01 } from "@huddle01/react";
+import { useSpring, animated, config } from '@react-spring/web';
+
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
 const baseURI = process.env.NEXT_PUBLIC_BASE_API || "";
@@ -30,10 +32,6 @@ function InterviewRecord({ roomId }: any) {
     const ens: any = undefined
     const ensName: any = undefined
     const ensAvatar: any = undefined
-    /*     const { data: ens } = useEnsName({ address });
-        const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
-        // custom hooks
-        const { ensName } = useGetEnsName(address); */
 
     const router = useRouter();
     // huddle01 hooks
@@ -69,8 +67,15 @@ function InterviewRecord({ roomId }: any) {
         setDisplayName,
         error: displayNameError
     } = useDisplayName();
+    const [isButtonSelected, setIsButtonSelected] = useState(false);
+
     const [displayNameText, setDisplayNameText] = useState<string>("");
 
+    const columnAnimation = useSpring({
+        width: isButtonSelected ? '50%' : '100%',
+        config: isButtonSelected ? { ...config.slow, clamp: true, mass: 0.5, tension: 200 } : config.stiff,
+        from: { width: '0%' },
+    });
 
     const InitializeMeeting = () => {
 
@@ -183,25 +188,38 @@ function InterviewRecord({ roomId }: any) {
                     <h3 className="break-words text-black">{JSON.stringify(state.value)}</h3>
                     {ensName} Video:
                     <div className="flex">
-                        <video ref={videoRef} autoPlay muted className="max-w-lg mx-5"></video>
-                        <div>
-                            {Object.values(peers)
-                                .filter((peer: any) => peer.cam)
-                                .map((peer: any) => (
-                                    <Video
-                                        key={peer.peerId}
-                                        peerId={peer.peerId}
-                                        track={peer.cam}
-                                        className="max-w-lg mx-5"
-                                        debug
-                                    />
-                                ))}
-                            {Object.values(peers)
-                                .filter((peer: any) => peer.mic)
-                                .map((peer: any) => (
-                                    <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
-                                ))}
-                        </div>
+                        <animated.div className="w-full md:w-70 lg:w-full md:w-1/2 drop-shadow-lg" style={columnAnimation}>
+                            <video ref={videoRef} autoPlay muted className="max-w-lg mx-5"></video>
+
+                        </animated.div>
+                        <animated.div
+                            style={{
+                                ...columnAnimation,
+                                marginLeft: 'auto',
+                                maxHeight: '80vh', // Set the maximum height to 80% of the viewport height
+                                overflowY: 'auto', // Enable vertical scrolling if content exceeds the maximum height
+
+                            }}
+                        >
+                            <div>
+                                {Object.values(peers)
+                                    .filter((peer: any) => peer.cam)
+                                    .map((peer: any) => (
+                                        <Video
+                                            key={peer.peerId}
+                                            peerId={peer.peerId}
+                                            track={peer.cam}
+                                            className="max-w-lg mx-5"
+                                            debug
+                                        />
+                                    ))}
+                                {Object.values(peers)
+                                    .filter((peer: any) => peer.mic)
+                                    .map((peer: any) => (
+                                        <Audio key={peer.peerId} peerId={peer.peerId} track={peer.mic} />
+                                    ))}
+                            </div>
+                        </animated.div>
                     </div>
                 </CustomCard>
             </div>
