@@ -70,8 +70,14 @@ and you can see your entire journey, personal and contact information, also we p
 [![IMAGE ALT TEXT HERE](/docs/detail_talent.png)](/docs/detail_talent.png)
 
 ## Huddle01 conference
-You can see the Huddle01 conference between the recruiter and the applicant
-[![IMAGE ALT TEXT HERE](/docs/huddle01.png)](/docs/huddle01.png)
+First when the talent appear in the discovery view you can coordinate a meeting with them through the platform, click on `Meeting`
+
+[![IMAGE ALT TEXT HERE](/docs/buttom_meeting.png)](/docs/buttom_meeting.png)
+
+a new modal appear you can click on enter to the room to start the meeting
+
+[![IMAGE ALT TEXT HERE](/docs/modal_meeting.png)](/docs/modal_meeting.png)
+
 ## Demo
 
 You can see the website online in [https://seemytalent.xyz](https://seemytalent.xyz)
