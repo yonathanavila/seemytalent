@@ -15,9 +15,8 @@ import { selectTalent, addTalent, removeTalent, clearArray } from "~/root/utils/
 import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOptions';
 import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
 import ProfileModal from "./ProfileModal";
+import { IProfileBasic } from "~/root/utils/types";
 
-export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
-export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; fee: number; detail: any }
 
 const ProfileCard: React.FC<{
     data: IProfileBasic;

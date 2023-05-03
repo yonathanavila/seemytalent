@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from '~/root/utils/store';
-
 export interface ITalent {
     talent: Array<any>
 };

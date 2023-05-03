@@ -34,7 +34,7 @@ const ProfileModal: React.FC<{
                         {detail?.personalInformation?.address || "Custom text"}
                     </ProfileInput>
                     <ProfileInput title="Date of Birth">
-                        {detail?.personalInformation?.dateOfBird || "Custom text"}
+                        {detail?.personalInformation?.dateOfBirth || "Custom text"}
                     </ProfileInput>
                     <ProfileInput title="Nationality">
                         {detail?.personalInformation?.nationality || "Custom text"}

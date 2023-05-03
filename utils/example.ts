@@ -1,4 +1,4 @@
-import { IProfileBasic } from "~/app/components/mainComponents/MyProfile/ProfileCard";
+import { IProfileBasic } from "./types";
 
 export const exampleData: Array<IProfileBasic> = [{
     id: '0x1234567890123456789012345678901234567890',
@@ -20,12 +20,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -36,7 +37,7 @@ export const exampleData: Array<IProfileBasic> = [{
             startDate: '2014-01-01',
             endDate: '2020-01-01',
             description: 'I am a senior software engineer with 10 years of experience.',
-            responsabilities: ""
+            responsabilities: [""]
         }],
         skills: [{
             name: 'JavaScript',
@@ -75,7 +76,7 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
@@ -92,7 +93,7 @@ export const exampleData: Array<IProfileBasic> = [{
             startDate: '2014-01-01',
             endDate: '2020-01-01',
             description: 'I am a senior software engineer with 10 years of experience.',
-            responsibilities: ['I am a senior software engineer with 10 years of experience.']
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',
@@ -131,12 +132,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -146,6 +148,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',
@@ -184,12 +188,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -199,6 +204,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',
@@ -237,12 +244,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -252,6 +260,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',
@@ -290,12 +300,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -305,6 +316,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',
@@ -343,12 +356,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -358,6 +372,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',
@@ -396,12 +412,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -411,6 +428,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',
@@ -449,12 +468,13 @@ export const exampleData: Array<IProfileBasic> = [{
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
             address: 'Rua dos Bobos, 0',
-            dateOfBird: '1990-01-01',
+            dateOfBirth: '1990-01-01',
             nationality: 'Brazilian',
         },
         education: [{
             degree: 'Bachelor of Computer Science',
-            institution: 'University of São Paulo',
+            university: 'University of São Paulo',
+            gpa: '3.5',
             startDate: '2010-01-01',
             endDate: '2014-01-01',
 
@@ -464,6 +484,8 @@ export const exampleData: Array<IProfileBasic> = [{
             company: 'Google',
             startDate: '2014-01-01',
             endDate: '2020-01-01',
+            description: 'I am a senior software engineer with 10 years of experience.',
+            responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
             name: 'JavaScript',

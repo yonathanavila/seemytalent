@@ -1,27 +1,31 @@
 "use client";
 import useSWR from "swr";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useEnsName, useAccount } from 'wagmi'
-import CustomCard from '~/app/components/Card';
-import { exampleData } from "~/root/utils/example";
-import getAddress from "~/root/utils/functions/common";
-import { selectTalent, clearArray, removeTalent } from "~/root/utils/slice/talents";
-import { useSpring, animated, config } from '@react-spring/web';
-import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
-
-import ProfileCard from "~/app/components/mainComponents/MyProfile/ProfileCard";
 import Button from "../components/Button";
-
+import { useState, useEffect } from "react";
+import { IProfileBasic } from "~/root/utils/types";
+import { exampleData } from "~/root/utils/example";
+import { reveal } from "~/root/utils/functions/mint";
+import { chainId } from "~/root/utils/functions/chain";
+import getAddress from "~/root/utils/functions/common";
+import getTotalFee from "~/root/utils/functions/getTotalFee";
+import { useSpring, animated, config } from '@react-spring/web';
+import getIndentifier from "~/root/utils/functions/getIndentifier";
+import { useEnsName, useAccount, useProvider, useSigner } from 'wagmi'
+import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
+import ProfileCard from "~/app/components/mainComponents/MyProfile/ProfileCard";
+import { selectTalent, clearArray, removeTalent } from "~/root/utils/slice/talents";
+import getEncode, { IApplicantInformation } from "~/root/utils/functions/getEncode";
 
 const Talents = () => {
 
-    const talent = useAppSelector(selectTalent);
-    const [isButtonSelected, setIsButtonSelected] = useState(false);
     const dispatch = useAppDispatch();
-
     const { address } = useAccount();
+    const provider = useProvider(chainId);
+    const { data: signer } = useSigner(chainId);
+    const talent = useAppSelector(selectTalent);
     const { data: ens } = useEnsName({ address });
+    const [isButtonSelected, setIsButtonSelected] = useState(false);
     const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
 
 
@@ -29,9 +33,33 @@ const Talents = () => {
         setIsButtonSelected(!isButtonSelected);
     };
 
-    const handlePay = () => {
-        console.log('pay');
-    }
+    const handlePay = async () => {
+        try {
+            const totalFeeWithFee = getTotalFee(talent);
+            let identifier: string = '';
+            const talentsEncoded: Array<string> = [];
+            talent.forEach((item: IProfileBasic) => {
+                identifier = getIndentifier(address, {
+                    id: item?.id,
+                    address: item?.detail?.personalInformation?.address,
+                    name: item?.detail?.personalInformation?.name,
+                    email: item?.detail?.personalInformation?.email,
+                    phone: item?.detail?.personalInformation?.phone,
+                    dateOfBirth: item?.detail?.personalInformation?.dateOfBirth,
+                    nationality: item?.detail?.personalInformation?.nationality,
+                });
+                const encoded = getEncode({
+                    amount: item?.fee,
+                    address: item?.address,
+                    identifier
+                });
+                talentsEncoded.push(encoded);
+            });
+            await reveal(provider, signer, identifier, talentsEncoded, totalFeeWithFee);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     // React Spring animation config
     const columnAnimation = useSpring({
