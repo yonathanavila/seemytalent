@@ -15,7 +15,7 @@ import { useEnsName, useAccount, useProvider, useSigner } from 'wagmi'
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 import ProfileCard from "~/app/components/mainComponents/MyProfile/ProfileCard";
 import { selectTalent, clearArray, removeTalent } from "~/root/utils/slice/talents";
-import getEncode, { IApplicantInformation } from "~/root/utils/functions/getEncode";
+import getEncode from "~/root/utils/functions/getEncode";
 
 const Talents = () => {
 
@@ -48,7 +48,7 @@ const Talents = () => {
                     dateOfBirth: item?.detail?.personalInformation?.dateOfBirth,
                     nationality: item?.detail?.personalInformation?.nationality,
                 });
-                console.log(identifier);
+                console.log(identifier?.root);
                 const encoded = getEncode({
                     amount: item?.fee,
                     address: item?.address,
@@ -57,7 +57,7 @@ const Talents = () => {
                 console.log(encoded);
                 talentsEncoded.push(encoded);
             });
-            await reveal(provider, signer, identifier, talentsEncoded, totalFeeWithFee);
+            await reveal(provider, signer, identifier?.root, talentsEncoded, totalFeeWithFee);
         } catch (error) {
             console.error(error);
         }

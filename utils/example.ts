@@ -16,6 +16,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -24,6 +25,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -32,6 +34,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -40,16 +43,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: [""]
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -72,6 +79,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -80,6 +88,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -88,6 +97,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -96,16 +106,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -128,6 +142,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -136,6 +151,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -144,6 +160,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -152,16 +169,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -184,6 +205,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -192,6 +214,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -200,6 +223,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -208,16 +232,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -240,6 +268,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -248,6 +277,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -256,6 +286,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -264,16 +295,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -296,6 +331,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -304,6 +340,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -312,6 +349,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -320,16 +358,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -352,6 +394,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -360,6 +403,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -368,6 +412,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -376,16 +421,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -408,6 +457,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -416,6 +466,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -424,6 +475,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -432,16 +484,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]
@@ -464,6 +520,7 @@ export const exampleData: Array<IProfileBasic> = [{
     fee: 0.1,
     detail: {
         personalInformation: {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'Yonathan Cruz',
             email: 'yonathancruz2015@gmail.com',
             phone: '+55 11 99999-9999',
@@ -472,6 +529,7 @@ export const exampleData: Array<IProfileBasic> = [{
             nationality: 'Brazilian',
         },
         education: [{
+            id: '0x1234567890123456789012345678901234567890',
             degree: 'Bachelor of Computer Science',
             university: 'University of São Paulo',
             gpa: '3.5',
@@ -480,6 +538,7 @@ export const exampleData: Array<IProfileBasic> = [{
 
         }],
         workExperience: [{
+            id: '0x1234567890123456789012345678901234567890',
             title: 'Senior Software Engineer',
             company: 'Google',
             startDate: '2014-01-01',
@@ -488,16 +547,20 @@ export const exampleData: Array<IProfileBasic> = [{
             responsabilities: ['I am a senior software engineer with 10 years of experience.']
         }],
         skills: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'JavaScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'TypeScript',
             level: 'Expert',
         }, {
+            id: '0x1234567890123456789012345678901234567890',
             name: 'React',
             level: 'Expert',
         }],
         projects: [{
+            id: '0x1234567890123456789012345678901234567890',
             name: 'SIGMEPE',
             description: 'SIGMEPE is a project that aims to improve the management of the Brazilian public health system.'
         }]

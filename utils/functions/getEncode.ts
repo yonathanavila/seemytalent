@@ -17,7 +17,7 @@ export default function getEncode(
         // Encode the function call data
         const encodedData = ethers.utils.defaultAbiCoder.encode(
             ["uint256", "address", "bytes32"],
-            [amountInWei, applicantInformation.address, ('0x' + applicantInformation.identifier)]
+            [amountInWei, applicantInformation.address, applicantInformation.identifier]
         );
 
         return encodedData;

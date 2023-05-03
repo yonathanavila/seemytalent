@@ -3,8 +3,8 @@ import { keccak256 } from "ethereum-cryptography/keccak";
 import { utf8ToBytes } from "ethereum-cryptography/utils";
 import { IPersonalInformation } from '../types';
 
-export default function GenerateMerkleTree(
-    wallet: any,
+export default function generateMerkleTree(
+    wallet: `0x${string}` | undefined,
     {
         id,
         address,
@@ -14,46 +14,49 @@ export default function GenerateMerkleTree(
         dateOfBirth,
         nationality
     }: IPersonalInformation
-): any {
+): {
+    proofNew: string[],
+    leaf: string,
+    root: string
+} {
     try {
-
-        const leaves = [
+        const leafValues: string[] = [
             id,
-            wallet,
             address,
             name,
             email,
             phone,
             dateOfBirth,
             nationality
-        ].map((leaf) => {
+        ];
+
+        const leaves: any[] = leafValues.map((leaf) => {
             const bytes = utf8ToBytes(leaf);
             const hash = keccak256(bytes);
             return hash;
         });
 
         // Generate Merkle tree
-        const tree: any = new MerkleTree(leaves, keccak256, { sort: true });
+        const tree = new MerkleTree(leaves, keccak256, { sort: true });
         // Get Merkle root
         const root = tree.getRoot().toString('hex');
-        console.log('Merkle root:', root);
-        const leaves_ = tree.leaves.map((l: any) => `0x${l.toString('hex')}`);
+        const leavesHex = tree.getHexLeaves();
 
         // delete last position of tree.leaves
-        const proofNew = leaves_.slice(0, -1);
+        const proofNew = leavesHex.slice(0, -1);
 
-        const leaf = leaves_[7];
-        console.log('Leaf:', leaf);
+        const leaf = leavesHex[6];
 
-        return ({
+        return {
             proofNew,
             leaf,
-            root
-        });
+            root: `0x${root}`
+        };
     } catch (error: any) {
         throw new Error(`[Error] GenerateMerkleTree: ${error.message}`);
     }
 }
+
 
 // Get proof
 // Function to calculate the hash of a leaf node
