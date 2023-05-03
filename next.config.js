@@ -4,9 +4,6 @@ const nextConfig = {
     appDir: true,
 
   },
-  compiler: {
-    removeConsole: true,
-  },
   images: {
     domains: ['metadata.ens.domains'],
   }

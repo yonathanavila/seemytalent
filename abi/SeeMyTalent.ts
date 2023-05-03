@@ -1,4 +1,4 @@
-export const contractABI = [
+export const ABI = [
     {
         "inputs": [
             {
@@ -7,32 +7,23 @@ export const contractABI = [
                 "type": "address"
             },
             {
+                "internalType": "contract IERC721ACustom",
+                "name": "_earliestToken",
+                "type": "address"
+            },
+            {
                 "internalType": "uint256",
                 "name": "_claimPeriodEnd",
                 "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_transferContract",
+                "type": "address"
             }
         ],
         "stateMutability": "nonpayable",
         "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "recipient",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "bool",
-                "name": "claim",
-                "type": "bool"
-            }
-        ],
-        "name": "CanClaim",
-        "type": "event"
     },
     {
         "anonymous": false,
@@ -50,7 +41,26 @@ export const contractABI = [
                 "type": "uint256"
             }
         ],
-        "name": "HasClaimed",
+        "name": "ApplicantRegistered",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "EarliestApplicantRegistered",
         "type": "event"
     },
     {
@@ -80,9 +90,47 @@ export const contractABI = [
                 "internalType": "address",
                 "name": "recipient",
                 "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "claim",
+                "type": "uint256"
             }
         ],
-        "name": "RecruiterClaimed",
+        "name": "RecipientSet",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+            }
+        ],
+        "name": "RecruiterRegistered",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "bytes32",
+                "name": "identifier",
+                "type": "bytes32"
+            }
+        ],
+        "name": "Revealed",
         "type": "event"
     },
     {
@@ -118,11 +166,6 @@ export const contractABI = [
                 "internalType": "bytes32",
                 "name": "identifyer",
                 "type": "bytes32"
-            },
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
             }
         ],
         "stateMutability": "view",
@@ -155,8 +198,14 @@ export const contractABI = [
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "claimProfileFee",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "claimableEarliestProfile",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -168,19 +217,13 @@ export const contractABI = [
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "claimableProfile",
+        "inputs": [],
+        "name": "earliestProfileToken",
         "outputs": [
             {
-                "internalType": "bool",
+                "internalType": "contract IERC721ACustom",
                 "name": "",
-                "type": "bool"
+                "type": "address"
             }
         ],
         "stateMutability": "view",
@@ -226,11 +269,6 @@ export const contractABI = [
                 "internalType": "bytes32",
                 "name": "identifyer",
                 "type": "bytes32"
-            },
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
             }
         ],
         "stateMutability": "view",
@@ -240,20 +278,20 @@ export const contractABI = [
         "inputs": [
             {
                 "internalType": "bytes32",
-                "name": "_identifyer",
+                "name": "_identifier",
                 "type": "bytes32"
             }
         ],
         "name": "registerApplicant",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
         "inputs": [
             {
                 "internalType": "bytes32",
-                "name": "_identifyer",
+                "name": "_identifier",
                 "type": "bytes32"
             }
         ],
@@ -266,13 +304,13 @@ export const contractABI = [
         "inputs": [
             {
                 "internalType": "bytes32",
-                "name": "_identifyer",
+                "name": "_identifier",
                 "type": "bytes32"
             }
         ],
         "name": "registerRecruiter",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -280,6 +318,24 @@ export const contractABI = [
         "name": "renounceOwnership",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "bytes32",
+                "name": "_identifier",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "bytes[]",
+                "name": "_encodedApplicants",
+                "type": "bytes[]"
+            }
+        ],
+        "name": "reveal",
+        "outputs": [],
+        "stateMutability": "payable",
         "type": "function"
     },
     {
@@ -295,6 +351,11 @@ export const contractABI = [
                 "internalType": "address[]",
                 "name": "_recipients",
                 "type": "address[]"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_claimableTokens",
+                "type": "uint256[]"
             }
         ],
         "name": "setRecipients",
@@ -329,6 +390,19 @@ export const contractABI = [
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "transferAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -347,11 +421,20 @@ export const contractABI = [
                 "internalType": "uint256",
                 "name": "amount",
                 "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "to",
+                "type": "address"
             }
         ],
         "name": "withdraw",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
     }
 ]
