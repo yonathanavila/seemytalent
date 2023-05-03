@@ -52,9 +52,9 @@ pnpm dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You need to add the enviaronment variables to run the project, you can see the example in the file .env.example
-## Learn More
+## See our journey
 
-To learn more about SeeMyTalent, take a look at the following documentation:
+To read more about SeeMyTalent, take a look at the following documentation:
 
 - [SeeMyTalent Documentation](https://docs.seemytalent.xyz/) - learn about SeeMyTalent features and Website.
 
