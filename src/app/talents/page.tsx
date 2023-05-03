@@ -105,7 +105,7 @@ const Talents = () => {
 
     return (
         <>
-            <div className="flex h-screen">
+            <div className="flex">
                 <animated.div className="w-full md:w-70 lg:w-full md:w-1/2 drop-shadow-lg" style={columnAnimation}>
 
                     <div className={`grid ${gridCols} sm:grid-cols-1 gap-2 m-2`}>
