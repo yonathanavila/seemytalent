@@ -1,6 +1,6 @@
-import Provider from '~/app/Provider';
 import Footer from '~/app/components/Footer';
 import Navbar from '~/app/components/Navbar';
+import Provider from '~/app/Provider';
 import './globals.css'
 
 export const metadata = {
@@ -26,7 +26,6 @@ export default function RootLayout({
             {children}
           </div>
           <Footer />
-
         </Provider>
       </body>
     </html>

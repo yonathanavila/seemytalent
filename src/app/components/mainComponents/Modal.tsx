@@ -9,7 +9,7 @@ const Modal: React.FC<{
     return (
 
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-white dark:bg-black bg-opacity-50">
-            <div className="w-auto p-6 rounded-lg border border-[1px] border-[#D2D9EE] dark:border-[#2E3443] ">
+            <div className="w-auto p-6 rounded-lg shadow-md bg-white border border-[1px] border-[#D2D9EE] dark:border-[#2E3443] ">
                 <div className="flex justify-between mb-4">
                     <p className="dark:text-[#79829E] font-semibold">{title}</p>
                     <div onClick={onClick} className="cursor-pointer text-black dark:text-white">

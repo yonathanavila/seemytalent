@@ -1,8 +1,14 @@
+import toast from 'react-hot-toast';
+
 const CopyToClipboardButton = ({ children, text }: any) => {
 
     const handleCopyClick = async () => {
         try {
             await navigator.clipboard.writeText(children);
+            toast('Copy!', {
+                duration: 2000,
+                icon: '👏',
+            });
         } catch (error) {
             console.error(`Error copying to clipboard: ${error}`);
         }

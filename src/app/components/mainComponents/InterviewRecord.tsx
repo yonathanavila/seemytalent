@@ -68,7 +68,7 @@ function InterviewRecord() {
     const [displayNameText, setDisplayNameText] = useState<string>("");
 
     useEffect(() => {
-        if (initialize.isCallable && projectId) {
+        if (initialize?.isCallable && projectId) {
             initialize(projectId);
         }
 
@@ -84,7 +84,7 @@ function InterviewRecord() {
         }
 
         getRoomId()
-    }, []);
+    }, [initialize]);
 
 
     useEventListener("room:joined", () => {

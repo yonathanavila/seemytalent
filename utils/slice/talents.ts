@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from '~/root/utils/store';
-
 export interface ITalent {
     talent: Array<any>
 };
@@ -17,12 +16,10 @@ export const talentSlice = createSlice({
             state.talent.push(action.payload);
         },
         removeTalent: (state, action) => {
-            let store = state?.talent;
-            let { id } = action.payload;
-            // @dev Devuelve el estado actual sin el nft enviado
-            let array = store.filter((item) => item.id !== parseInt(id));
-            // @dev Guardo el nuevo estado sin el nft que envio para eliminar el carrito
-            state.talent = array;
+            const index = state.talent.findIndex((talent) => talent.id === action.payload.id);
+            if (index !== -1) {
+                state.talent.splice(index, 1);
+            }
         },
         clearArray: (state) => {
             state.talent = [];

@@ -4,20 +4,18 @@ import { useRouter } from "next/navigation";
 import { useEnsName, useAccount } from 'wagmi'
 import React, { useRef, useState, useEffect } from 'react';
 
+import ProfileModal from "./ProfileModal";
 import Button from "~/app/components/Button";
 import CustomCard from '~/app/components/Card';
+import { IProfileBasic } from "~/root/utils/types";
 import getAddress from "~/root/utils/functions/common";
 import Modal from "~/app/components/mainComponents/Modal";
-import { selectTalent, addTalent } from "~/root/utils/slice/talents";
 import CopyToClipboardButton from "~/app/components/CopyToClipboardButton";
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 import ProfileInput from "~/app/components/mainComponents/MyProfile/ProfileInput";
 import OptionsProfile from '~/app/components/mainComponents/MyProfile/ProfileOptions';
 import ProfileSubtitles from "~/app/components/mainComponents/MyProfile/ProfileSubtitles";
-import ProfileModal from "./ProfileModal";
-
-export interface IExperience { id: string; title: string; description: string; years: string; startDate: string; }
-export interface IProfileBasic { id: string; image: string; ens: string; address: string; experience: IExperience; isVerified: boolean; detail: any }
+import { selectTalent, addTalent, removeTalent, clearArray } from "~/root/utils/slice/talents";
 
 const ProfileCard: React.FC<{
     data: IProfileBasic;
@@ -52,33 +50,36 @@ const ProfileCard: React.FC<{
 
     useEffect(() => {
         if (talent.length > 0) {
-            const found = talent.find((element: any) => element.id == data?.id);
-            if (found) {
-                setIsSelected(found);
-            } else {
-                setIsSelected(found);
-            }
+            const found = talent.find((element: any) => element.id === data?.id);
+            setIsSelected(found?.id ? found : undefined);
         }
-
+        if (talent.length === 0) setIsSelected(undefined);
     }, [talent, data?.id]);
 
-    const handleAddTalent = async (id_: any) => {
-        const found = await talent.find((element: any) => element == id_);
+    const handlePool = (data: any) => {
+        const foundIndex = talent.findIndex((element: any) => element.id === data?.id);
 
-        if (found == id_) {
-            // element found
+        if (foundIndex !== -1) {
+            // Talent is already selected, remove it
+            dispatch(removeTalent(data));
+
+            if (talent.length === 1) {
+                setIsSelected(undefined);
+                // If the last talent is being removed, clear the talent array
+                dispatch(clearArray());
+            }
         } else {
-            // element added
-            dispatch(addTalent({ id: data?.id, selected: true }));
+            // Talent is not selected, add it
+            dispatch(addTalent(data));
         }
-    }
+    };
 
     return (
-        <div className={`${className} relative group`} onClick={() => handleAddTalent(data?.id)}>
-            <div className={`${onlyRead && ((isSelected?.selected ? 'transition-opacity duration-300 ease-in-out opacity-75 hover:cursor-pointer' : 'transition-opacity duration-300 ease-in-out hover:opacity-75 hover:cursor-pointer'))}`}>
+        <div className={`${className} relative group`} onClick={() => handlePool(data)}>
+            <div className={`${onlyRead && ((isSelected?.id ? 'transition-opacity duration-300 ease-in-out opacity-75 hover:cursor-pointer' : 'transition-opacity duration-300 ease-in-out hover:opacity-75 hover:cursor-pointer'))}`}>
                 {!onlyRead && (<OptionsProfile Arrayfunction={[showMessageModal]} />)}
                 {isMessageOpen && (
-                    <div className="fixed inset-0 flex items-center justify-center z-50 dark:bg-black bg-opacity-50 shadow-md" ref={modalRef}>
+                    <div className="fixed inset-0 flex items-center justify-center z-50 bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 shadow-md" ref={modalRef}>
                         <div className="w-[322px] h-[310px] shadow-md bg-white dark:bg-[#0D111C] rounded-lg border border-[1px] border-[#D2D9EE] dark:border-[#2E3443] relative ">
                             <div className="flex justify-between m-4">
                                 <p className="text-black dark:text-[#79829E] font-semibold">Room</p>
@@ -104,7 +105,7 @@ const ProfileCard: React.FC<{
                     </div>
                 )}
 
-                <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} `}>
+                <CustomCard className={`${ens && 'bg-gradient-to-b from-[#9BB5FE] to-[#49B8F1]'} ${(isSelected?.id && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
                     <div className="group flex items-center">
                         <Image
                             className="shrink-0 h-12 w-12 m-2 rounded-full"
@@ -117,9 +118,8 @@ const ProfileCard: React.FC<{
                             <p className="text-sm font-medium dark:text-slate-300 dark:group-hover:text-white">{(ens || getAddress(address) || "Custom text") as string}</p>
                         </div>
                     </div>
-
                 </CustomCard>
-                <CustomCard className="dark:bg-[#131A2A]">
+                <CustomCard className={`dark:bg-[#131A2A] ${(isSelected?.id && onlyRead) && 'rounded-lg border border-[1px] border-red-500'}`}>
 
                     <ProfileSubtitles>
                         Address
@@ -157,25 +157,30 @@ const ProfileCard: React.FC<{
                             </div>
                         </div>
                     )}
-
                     <div
-                        className={`${isSelected ? 'animate-pulse' : 'group-hover:animate-pulse'
-                            } absolute bottom-0 left-0 w-full lg:py-2 mt-[35px] bg-[#CDA28A] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]`}
-                    />
-
-                    {onlyRead && (
-                        <div className={
-                            (isSelected?.selected ? ' animate-pulse absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 dark:bg-gray-800 dark:text-white text-center rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px]' :
-                                'group-hover:animate-pulse absolute bottom-0 left-0 w-full lg:py-2 sm:mt-4 dark:bg-gray-800 dark:text-white text-center rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px')} />
-                    )}
-
+                        className={`${isSelected?.id ? 'animate-pulse' : 'group-hover:animate-pulse'
+                            } absolute bottom-0 left-0 w-full lg:py-2 mt-[35px] bg-[#CDA28A] dark:bg-gray-800 rounded-lg opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 h-[20px] ${isSelected?.selected ? 'border border-red-500' : ''
+                            } flex items-center justify-center`}
+                    >
+                        {onlyRead && (
+                            <div
+                                className={`${isSelected?.id ? 'opacity-0' : 'opacity-100'
+                                    } group-hover:opacity-100 transition-opacity duration-300 ease-in-out`}
+                            >
+                                {isSelected?.id && (
+                                    <p className="text-sm text-black font-semibold dark:text-white">Remove from pool</p>
+                                )}
+                                {!isSelected?.id && (
+                                    <p className="text-sm text-black font-semibold dark:text-white">Add to the pool</p>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </CustomCard>
                 {isModalOpen && (
-
                     <Modal onClick={toggleModal} >
                         <ProfileModal detail={data?.detail} ens={ens || getAddress(address)} />
                     </Modal>
-
                 )}
             </div>
         </div>

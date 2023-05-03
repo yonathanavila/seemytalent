@@ -2,9 +2,10 @@ import { ethers } from 'ethers';
 import ethToWei from './ethToWei';
 import { ABI } from '~/root/abi/SeeMyTalent';
 import { getMaxPriorityFeePerGas } from './getFee';
+import { FetchSignerResult } from '@wagmi/core';
 
-const seeMyTalentAddress = process.env.NEXT_PUBLIC_MAIN as string;
-const gasLimit = (process.env.NEXT_PUBLIC_GAS_LIMIT || 1864222) as Number;
+const seeMyTalentAddress = process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS as string;
+const gasLimit = (process.env.NEXT_PUBLIC_GAS_LIMIT || 11805182) as Number;
 
 /// @notice Register Early Applicant
 export const mintResume = async (
@@ -18,7 +19,6 @@ export const mintResume = async (
 
     args.push({
         gasLimit: gasLimit,
-        maxPriorityFeePerGas: maxPriorityFee?.toString(),
         value: ethToWei(String(fee))
     });
 
@@ -73,24 +73,33 @@ export const registerRecruiter = async (
 };
 
 /// @notice Reveal Resume
-export const reveal = async (
-    provider: any,
-    signer: any,
-    identifyer: string, // in ETH
-    encodedApplicants: Array<string>,
-    fee: number,
-) => {
-    const maxPriorityFee = await getMaxPriorityFeePerGas(provider);
-    let args: Array<any> = [
-        identifyer,
-        encodedApplicants
-    ];
+interface RevealResponse {
+    data: ethers.providers.TransactionReceipt;
+    hasError: boolean;
+}
 
-    args.push({
-        gasLimit: gasLimit,
-        maxPriorityFeePerGas: maxPriorityFee?.toString(),
-        value: ethToWei(String(fee))
-    });
+export const reveal = async (
+    provider: ethers.providers.Provider,
+    signer: FetchSignerResult<ethers.Signer> | undefined,
+    _identifier: string,
+    _encodedApplicants: string[],
+    fee: number
+): Promise<RevealResponse> => {
+    // Input parameter validation
+    console.log('reveal', _identifier, _encodedApplicants, fee);
+    if (!provider || !signer || !_identifier || !_encodedApplicants || fee === undefined) {
+        throw new Error('Invalid input parameters');
+    }
+
+    const maxPriorityFee = await getMaxPriorityFeePerGas(provider);
+    const args: any[] = [
+        _identifier,
+        _encodedApplicants,
+        {
+            gasLimit: gasLimit,
+            maxPriorityFeePerGas: maxPriorityFee?.toString()
+        }
+    ];
 
     try {
         const contract = new ethers.Contract(seeMyTalentAddress, ABI, signer);
@@ -98,13 +107,15 @@ export const reveal = async (
         const receipt = await tx.wait();
         console.log(receipt);
         if (!receipt) {
-            throw new Error('Tx failed');
+            throw new Error('Transaction failed');
         }
         return {
             data: receipt,
             hasError: false
         };
     } catch (error: any) {
-        throw new Error(error);
+        console.error(error);
+        throw new Error('Failed to reveal applicants');
     }
 };
+
