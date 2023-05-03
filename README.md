@@ -78,6 +78,15 @@ a new modal appear you can click on enter to the room to start the meeting
 
 [![IMAGE ALT TEXT HERE](/docs/modal_meeting.png)](/docs/modal_meeting.png)
 
+## Simple and easy to use
+Now we let'ts start with the interview, both participants can share their screens, talk through the platform, we are using Huddle01 for this
+
+[![IMAGE ALT TEXT HERE](/docs/meeting_main.png)](/docs/meeting_main.png)
+
+When each other already connected you can see the screen of the other participant and start the interview
+
+[![IMAGE ALT TEXT HERE](/docs/Meeting.png)](/docs/Meeting.png)
+
 ## Demo
 
 You can see the website online in [https://seemytalent.xyz](https://seemytalent.xyz)
