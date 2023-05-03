@@ -4,9 +4,10 @@ import dynamic from 'next/dynamic';
 import { SWRConfig } from 'swr';
 import { WagmiConfig } from 'wagmi';
 import { Provider } from 'react-redux';
-import { ThemeProvider, useTheme } from 'next-themes'
 import { ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 import { Analytics } from '@vercel/analytics/react';
+import { ThemeProvider, useTheme } from 'next-themes'
 import { RainbowKitProvider, darkTheme, lightTheme, midnightTheme } from '@rainbow-me/rainbowkit';
 
 import store from '~/root/utils/store';
@@ -84,6 +85,8 @@ function Providers({ children }: any) {
                             >
                                 {children}
                                 <ToastContainer />
+                                <Toaster />
+
                             </RainbowKitProvider>
                         </WagmiConfig>
                     </SWRConfig>

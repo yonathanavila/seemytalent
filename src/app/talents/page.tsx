@@ -3,6 +3,7 @@ import useSWR from "swr";
 import Image from "next/image";
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
+import toast from 'react-hot-toast';
 import { IProfileBasic } from "~/root/utils/types";
 import { exampleData } from "~/root/utils/example";
 import { reveal } from "~/root/utils/functions/mint";
@@ -35,8 +36,9 @@ const Talents = () => {
 
     const handlePay = async () => {
         try {
+            // toast loading
+            toast.loading('Loading...');
             const totalFeeWithFee = getTotalFee(talent);
-            console.log(totalFeeWithFee);
             let identifier: any = '';
             const talentsEncoded: Array<string> = [];
             talent.forEach((item: IProfileBasic) => {
@@ -49,18 +51,21 @@ const Talents = () => {
                     dateOfBirth: item?.detail?.personalInformation?.dateOfBirth,
                     nationality: item?.detail?.personalInformation?.nationality,
                 });
-                console.log(identifier?.root);
                 const encoded = getEncode({
                     amount: item?.fee,
                     address: item?.address,
                     identifier: identifier?.root
                 });
-                console.log(encoded);
                 talentsEncoded.push(encoded);
             });
-            await reveal(provider, signer, identifier?.root, talentsEncoded, totalFeeWithFee);
+            const { data } = await reveal(provider, signer, identifier?.root, talentsEncoded, totalFeeWithFee);
+            toast.remove();
+            if (data) {
+                toast.success('👏 Good Job!!')
+                dispatch(clearArray());
+            }
         } catch (error) {
-
+            toast.error("This didn't work.")
             throw Error(error);
         }
     };
