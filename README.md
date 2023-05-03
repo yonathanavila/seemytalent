@@ -33,10 +33,51 @@ The payment system integration was a significant challenge during the developmen
 
 Overall, the recruitment platform offers an efficient and effective solution for recruiters to connect with blockchain experts. By streamlining the hiring process and providing essential features, we aim to simplify the recruitment journey and foster meaningful connections between recruiters and experts.
 
+## 🎉🎉First Huddle01 meeting
+[![IMAGE ALT TEXT HERE](/docs/Picture2.png)](/docs/Picture2.png)
+
+## Sign in button
+First you need to have a desktop wallet like Metamask or Coinbase wallet to enter to the most userfriendly web3 platform for recruitment process then click on the `Sign in button` to interact with the web3 space
+[![IMAGE ALT TEXT HERE](/docs/signin.png)](/docs/signin.png)
+If you don't have the Filecoin network configured, don't worries about that, the extension do the work for you only you need to confirm adding the network and switch to it
+
+
+## Enter to the app
+Then you need to click `Go to App` button to enter to the talents list
+[![IMAGE ALT TEXT HERE](/docs/landing.png)](/docs/landing.png)
+
+## Talents list
+You can see the talents list and information of each one, years of experience skills and start date of their journey (This is some mock data, we are working in the real data)
+[![IMAGE ALT TEXT HERE](/docs/talents.png)](/docs/talents.png)
+
+## Choose your talents
+You can select the talents and pay the applicants to see their resume
+[![IMAGE ALT TEXT HERE](/docs/pay_button.png)](/docs/pay_button.png)
+
+## Pay the applicants
+Metamask window will appear to confirm the Onchain payment
+[![IMAGE ALT TEXT HERE](/docs/metamask_tx.png)](/docs/metamask_tx.png)
+The system is in charge of sending the payments to the applicants, they will receive a notification when this happens, which will allow them to generate a Huddle01 conference to continue with the process.
+
+## Collection of talents
+You can see the talents you have selected already, in the `Collection` button.
+[![IMAGE ALT TEXT HERE](/docs/talent_collection.png)](/docs/talent_collection.png)
+
+## Your talent discovery
+and you can see your entire journey, personal and contact information, also we provide you a handler to export easily the resume to share with your teammates
+[![IMAGE ALT TEXT HERE](/docs/discovery_talents.png)](/docs/discovery_talents.png)
+
+[![IMAGE ALT TEXT HERE](/docs/detail_talent.png)](/docs/detail_talent.png)
+
+## Huddle01 conference
+You can see the Huddle01 conference between the recruiter and the applicant
+[![IMAGE ALT TEXT HERE](/docs/huddle01.png)](/docs/huddle01.png)
 ## Demo
 
 You can see the website online in [https://seemytalent.xyz](https://seemytalent.xyz)
 Also we provide a [demo](https://seemytalent.xyz) link how they works
+
+
 ## Getting Started
 
 First, run the development server:
@@ -61,3 +102,4 @@ To read more about SeeMyTalent, take a look at the following documentation:
 ## License
 
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
+

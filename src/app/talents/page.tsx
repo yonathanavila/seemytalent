@@ -66,6 +66,7 @@ const Talents = () => {
             }
         } catch (error) {
             toast.error("This didn't work.")
+            toast.remove();
             throw Error(error);
         }
     };
