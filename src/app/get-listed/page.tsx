@@ -71,7 +71,6 @@ const Page = () => {
         }
 
         if (isConnected && address) {
-            console.log("address", address);
 
             const response = await fetch(`${baseURI}/save-list`, {
                 method: 'POST',
@@ -81,7 +80,6 @@ const Page = () => {
                 body: JSON.stringify({ C1: address, ...formInfo }),
             });
             const data = await response.json();
-            console.log("data", data);
             if (data.error) {
 
                 setError(data.error);
@@ -121,7 +119,6 @@ const Page = () => {
         if (currentLength < 5) {
             setResult(apiCall);
         } else {
-            console.log(pageStart, endPageToShow);
             setResult(apiCall.slice(pageStart, endPageToShow));
         }
         setPageStart(endPageToShow);

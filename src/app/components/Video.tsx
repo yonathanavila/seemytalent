@@ -16,7 +16,6 @@ const VideoComponent: React.FC<{
         const videoRef = useRef<HTMLVideoElement>(null);
         // Event Listner
         useEventListener("lobby:cam-on", () => {
-            console.log("cam-on");
             if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
         });
 

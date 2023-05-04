@@ -28,7 +28,6 @@ export const mintResume = async (
         const contract = new ethers.Contract(seeMyTalentAddress, ABI, signer);
         const tx = await contract.registerEarliestApplicant(root, ...args);
         const receipt = await tx.wait();
-        console.log(receipt);
         if (!receipt) {
             throw new Error('Tx failed');
         }
@@ -61,7 +60,7 @@ export const registerRecruiter = async (
         const contract = new ethers.Contract(seeMyTalentAddress, ABI, signer);
         const tx = await contract.registerRecruiter(root, ...args);
         const receipt = await tx.wait();
-        console.log(receipt);
+
         if (!receipt) {
             throw new Error('Tx failed');
         }
@@ -88,7 +87,7 @@ export const reveal = async (
     fee: number
 ): Promise<RevealResponse> => {
     // Input parameter validation
-    console.log('reveal', _identifier, _encodedApplicants, fee);
+
     if (!provider || !signer || !_identifier || !_encodedApplicants || fee === undefined) {
         throw new Error('Invalid input parameters');
     }
@@ -107,7 +106,7 @@ export const reveal = async (
         const contract = new ethers.Contract(seeMyTalentAddress, ABI, signer);
         const tx = await contract.reveal(...args);
         const receipt = await tx.wait();
-        console.log(receipt);
+
         if (!receipt) {
             throw new Error('Transaction failed');
         }

@@ -11,11 +11,6 @@ function Interview() {
     const routerNavi = useRouter();
     const router = usePathname();
     const roomId = router?.split("/")[2].toString();
-
-    useEffect(() => {
-        console.log(router)
-    }, [])
-
     const { address, isConnected } = useAccount();
     const { data: ens } = useEnsName({ address });
 

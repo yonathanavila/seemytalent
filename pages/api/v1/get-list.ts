@@ -13,7 +13,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(201).send(data);
         }
     } catch (error) {
-        console.log(error);
+        res.status(500).send(error);
     }
 };
 

@@ -106,19 +106,16 @@ function InterviewRecord({ roomId }: any) {
 
 
     useEventListener("room:joined", () => {
-        console.log("room:joined");
         if (produceAudio.isCallable && produceVideo.isCallable) {
             fetchParticipants()
         }
     });
     useEventListener("lobby:joined", () => {
-        console.log("lobby:joined");
         InitializeMeeting();
     });
 
     // Event Listner
     useEventListener("lobby:cam-on", () => {
-        console.log("cam-on");
         if (camStream && videoRef.current) videoRef.current.srcObject = camStream;
         if (joinRoom.isCallable) {
 

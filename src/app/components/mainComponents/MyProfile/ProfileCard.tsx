@@ -33,7 +33,6 @@ const ProfileCard: React.FC<{
     const [isMessageOpen, setMessageOpen] = useState(false);
     const [isSelected, setIsSelected] = useState<any>(undefined);
     const toggleModal = () => {
-        console.log("toggleModal");
         setIsModalOpen(!isModalOpen);
     };
 
