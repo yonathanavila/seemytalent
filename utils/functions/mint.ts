@@ -3,6 +3,7 @@ import ethToWei from './ethToWei';
 import { ABI } from '~/root/abi/SeeMyTalent';
 import { getMaxPriorityFeePerGas } from './getFee';
 import { FetchSignerResult } from '@wagmi/core';
+import getGasPrice from './getFILPrice';
 
 const seeMyTalentAddress = process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS as string;
 const gasLimit = (process.env.NEXT_PUBLIC_GAS_LIMIT || 11805182) as Number;
@@ -15,6 +16,7 @@ export const mintResume = async (
     root?: string
 ) => {
     const maxPriorityFee = await getMaxPriorityFeePerGas(provider);
+
     let args: Array<any> = [];
 
     args.push({

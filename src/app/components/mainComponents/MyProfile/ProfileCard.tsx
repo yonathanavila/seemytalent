@@ -38,7 +38,7 @@ const ProfileCard: React.FC<{
     };
 
     // wagmi hooks
-    const { address } = useAccount();
+    const { address, isConnected } = useAccount();
     const { data: ens } = useEnsName({ address });
     const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
 

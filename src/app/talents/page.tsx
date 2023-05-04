@@ -1,14 +1,17 @@
 "use client";
 import useSWR from "swr";
 import Image from "next/image";
+import toast from 'react-hot-toast';
+import confetti from 'canvas-confetti'
 import Button from "../components/Button";
 import { useState, useEffect } from "react";
-import toast from 'react-hot-toast';
 import { IProfileBasic } from "~/root/utils/types";
 import { exampleData } from "~/root/utils/example";
 import { reveal } from "~/root/utils/functions/mint";
 import { chainId } from "~/root/utils/functions/chain";
 import getAddress from "~/root/utils/functions/common";
+import getEncode from "~/root/utils/functions/getEncode";
+import getFILPrice from "~/root/utils/functions/getFILPrice";
 import getTotalFee from "~/root/utils/functions/getTotalFee";
 import { useSpring, animated, config } from '@react-spring/web';
 import getIndentifier from "~/root/utils/functions/getIndentifier";
@@ -16,7 +19,7 @@ import { useEnsName, useAccount, useProvider, useSigner } from 'wagmi'
 import { useAppDispatch, useAppSelector } from "~/root/hooks/useAppDispatch";
 import ProfileCard from "~/app/components/mainComponents/MyProfile/ProfileCard";
 import { selectTalent, clearArray, removeTalent } from "~/root/utils/slice/talents";
-import getEncode from "~/root/utils/functions/getEncode";
+import SavePayment from "~/root/utils/functions/savePayment";
 
 const Talents = () => {
 
@@ -29,7 +32,6 @@ const Talents = () => {
     const [isButtonSelected, setIsButtonSelected] = useState(false);
     const { data: ensAvatar } = useSWR(`https://metadata.ens.domains/mainnet/avatar/${ens}`)
 
-
     const handleClick = () => {
         setIsButtonSelected(!isButtonSelected);
     };
@@ -38,7 +40,7 @@ const Talents = () => {
         try {
             // toast loading
             toast.loading('Loading...');
-            const totalFeeWithFee = getTotalFee(talent);
+            const amountCalculated: any = getTotalFee(talent);
             let identifier: any = '';
             const talentsEncoded: Array<string> = [];
             talent.forEach((item: IProfileBasic) => {
@@ -58,11 +60,17 @@ const Talents = () => {
                 });
                 talentsEncoded.push(encoded);
             });
-            const { data } = await reveal(provider, signer, identifier?.root, talentsEncoded, totalFeeWithFee);
+            const { data } = await reveal(provider, signer, identifier?.root, talentsEncoded, amountCalculated.total);
             toast.remove();
             if (data) {
+                await SavePayment({
+                    C1: identifier?.root,
+                    C2: talentsEncoded,
+                    C3: amountCalculated.fee
+                })
                 toast.success('👏 Good Job!!')
-                dispatch(clearArray());
+                confetti()
+                handleClearAll()
             }
         } catch (error) {
             toast.error("This didn't work.")
@@ -99,7 +107,6 @@ const Talents = () => {
             dispatch(removeTalent(data));
         }
     };
-
 
     const gridCols = isButtonSelected ? 'lg:grid-cols-3' : 'grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5';
 
@@ -152,8 +159,8 @@ const Talents = () => {
                                                     </Button>
                                                 </div>
                                                 <div className="ml-auto text-right mr-2">
-                                                    <div className="text-md text-black dark:text-white">{item?.fee} ETH</div>
-                                                    <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
+                                                    <div className="text-md text-black dark:text-white">{item?.fee} FIL</div>
+                                                    <div className="text-sm text-slate-500 dark:text-slate-500">${getFILPrice(item?.fee)}</div>
                                                 </div>
                                             </li>
                                         )
@@ -161,9 +168,9 @@ const Talents = () => {
                                 </div>
                                 <div className="text-right mt-4 text-black dark:text-slate-500 font-medium">
                                     <div className="ml-auto text-right mt-4">
-                                        <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
-                                        <div className="text-md text-black dark:text-white">{getTotalFee(talent)} ETH</div>
-                                        <div className="text-sm text-slate-500 dark:text-slate-500">$63,000</div>
+                                        <div className="text-sm text-slate-500 dark:text-slate-500">Total</div>
+                                        <div className="text-md text-black dark:text-white">{getTotalFee(talent).total} FIL</div>
+                                        <div className="text-sm text-slate-500 dark:text-slate-500">${getFILPrice(getTotalFee(talent).total)}</div>
                                     </div>
                                 </div>
 
@@ -176,7 +183,6 @@ const Talents = () => {
                                 </div>
                             </ul>
                         </animated.div>
-
                     </div>
                 )}
                 {talent.length > 0 && (

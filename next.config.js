@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+    removeConsole: process.env.NODE_ENV === "production"
 
   },
   images: {
