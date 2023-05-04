@@ -18,20 +18,16 @@ const SavePayment = async (payment: any) => {
         const data = await response.json();
 
         if (data.error) {
-            toast.error("Error saving");
             throw new Error(data.error);
         }
 
         if (data.length > 0) {
-            toast.success("Saved successfully");
             return data;
         } else {
-            toast.error("Error saving");
             throw new Error("Error saving");
         }
 
     } catch (error) {
-        toast.error("Error saving");
         throw new Error(error);
     }
 }
