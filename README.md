@@ -90,7 +90,7 @@ When each other already connected you can see the screen of the other participan
 ## Demo
 
 You can see the website online in [https://seemytalent.xyz](https://seemytalent.xyz)
-Also we provide a [demo](https://seemytalent.xyz) link how they works
+Also we provide a [demo](https://www.loom.com/share/2175e318e1ba48a6a87041265098ee5e) link how they works
 
 
 ## Getting Started
