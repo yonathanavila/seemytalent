@@ -23,7 +23,7 @@ export default function RootLayout({
       <Head>
         <title>{metadata.title}</title>
         <meta property="og:title" content={metadata.description} key="title" />
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-NQCKV6Y0TB" />
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-NQCKV6Y0TB" />
         <Script
           id='google-analytics'
           strategy="afterInteractive"
