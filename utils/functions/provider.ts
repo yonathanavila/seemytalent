@@ -9,7 +9,7 @@ export const { chains, provider } = configureChains(chainSelected, [
 	publicProvider(),
 	jsonRpcProvider({
 		rpc: (chain): any => ({
-			http: "https://rpc.mevblocker.io/"
+			http: chain.rpcUrls
 		})
 	})
 ]);
