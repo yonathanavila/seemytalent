@@ -90,7 +90,9 @@ When each other already connected you can see the screen of the other participan
 ## Demo
 
 You can see the website online in [https://seemytalent.xyz](https://seemytalent.xyz)
-Also we provide a [demo](https://seemytalent.xyz) link how they works
+Also we provide a [demo](https://www.loom.com/share/08a73d027c934398905b7643fb2ef6d5) link how they works
+
+The smartcontract repository is allocate here: [FEVMxFoundry](https://github.com/yonathanavila/seemytalent-sc)
 
 
 ## Getting Started
